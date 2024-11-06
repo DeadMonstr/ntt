@@ -1,0 +1,62 @@
+*
+  padding: 0
+  margin: 0
+  box-sizing: border-box
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Risque&family=Space+Grotesk:wght@300..700&display=swap')
+.dashboard
+  display: flex
+  flex-direction: column
+  gap: 1rem
+  h1
+    color: rgba(45, 45, 45, 1)
+    font-family: "Inter" , serif
+    font-weight: 500
+  .wrapper
+    //display: flex
+    //flex-wrap: wrap
+    //align-self: center
+    gap: 2rem
+    display: grid
+    grid-template-columns: repeat(3 , 400px)
+    .box
+      background-color: rgba(255, 255, 255, 1)
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+
+      justify-content: space-around
+      width: 400px
+      //width: fit-content
+      border-radius: 8px
+      padding:  20px
+      display: flex
+      height: 300px
+      //height: fit-content
+      flex-direction: column
+      cursor: pointer
+
+      h2
+
+        //margin-bottom: 10px
+        margin: 0
+        font-family: "Inter", serif
+        font-optical-sizing: auto
+        font-weight: 500
+        //font-style: normal
+        font-size: 35px
+        width: 17rem
+        color: #2D2D2D
+      span
+        display: block
+        font-size: 25px
+        width: 15rem
+        color: rgba(200, 200, 200, 1)
+        //text-transform: capitalize
+
+      .div
+        font-size: 90px
+        //color: rgba(97, 136, 236, 1)
+        align-self: flex-end
+        font-family: "Risque", serif
+        font-weight: 400
+        font-style: normal
