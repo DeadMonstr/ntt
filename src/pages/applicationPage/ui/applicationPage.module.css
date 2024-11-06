@@ -1,0 +1,19 @@
+.applicationPage {
+  width: 100%;
+  height: 100%;
+  background: #E7F3FF;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.applicationPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.applicationPage__title {
+  font-size: 2.4rem;
+}
+
+/*# sourceMappingURL=applicationPage.module.css.map */
