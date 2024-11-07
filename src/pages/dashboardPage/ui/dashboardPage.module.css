@@ -1,6 +1,8 @@
-.dashboard {
+.dashboard_main {
   padding: 2rem;
   background-color: #E7F3FF;
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=dashboardPage.module.css.map */

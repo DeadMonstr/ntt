@@ -14,8 +14,18 @@
   color: #D6D6D6;
   font-size: 1.8rem;
 }
+.filter__select {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
 .filter__input {
-  color: #D6D6D6;
+  border: none;
+  font-size: 1.6rem;
+  outline: none;
+}
+.filter__input::placeholder {
+  color: rgb(214, 214, 214);
 }
 .filter__settings {
   background: white;

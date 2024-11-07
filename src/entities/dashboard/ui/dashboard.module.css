@@ -17,19 +17,20 @@
   font-weight: 500;
 }
 .dashboard .wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
   gap: 2rem;
-  display: grid;
-  grid-template-columns: repeat(3, 400px);
 }
 .dashboard .wrapper .box {
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   justify-content: space-around;
-  width: 400px;
+  width: 40rem;
   border-radius: 8px;
-  padding: 20px;
+  padding: 2rem;
   display: flex;
-  height: 300px;
+  height: 30rem;
   flex-direction: column;
   cursor: pointer;
 }
@@ -38,18 +39,18 @@
   font-family: "Inter", serif;
   font-optical-sizing: auto;
   font-weight: 500;
-  font-size: 35px;
-  width: 17rem;
+  font-size: 3.5rem;
+  width: 20rem;
   color: #2D2D2D;
 }
 .dashboard .wrapper .box span {
   display: block;
-  font-size: 25px;
-  width: 15rem;
+  font-size: 2.5rem;
+  width: 25rem;
   color: rgb(200, 200, 200);
 }
 .dashboard .wrapper .box .div {
-  font-size: 90px;
+  font-size: 8rem;
   align-self: flex-end;
   font-family: "Risque", serif;
   font-weight: 400;

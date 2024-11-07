@@ -12,7 +12,7 @@ const data = [
 
 export const DashboardPage = () => {
     return (
-        <div className={cls.dashboard}>
+        <div className={cls.dashboard_main}>
 
             <Dashboard data={data}/>
         </div>
