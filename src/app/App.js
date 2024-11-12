@@ -11,8 +11,8 @@ function App() {
                 background: "rgba(231, 243, 255, 1)"
             }}
         >
-            <ApplicationProfile/>
-            <ApplicationPage/>
+            {/*<ApplicationProfile/>*/}
+            {/*<ApplicationPage/>*/}
           <DashboardPage/>
         </div>
     );

@@ -59,7 +59,6 @@
 .application__info_infos_images {
   display: flex;
   flex-wrap: wrap;
-  width: 64rem;
   padding: 1rem 0;
   gap: 2rem;
   overflow: auto;
