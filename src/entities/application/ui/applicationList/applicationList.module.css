@@ -15,4 +15,10 @@
   background-color: #FFB0B0 !important;
 }
 
+@media (max-width: 1268px) {
+  .applicationList__td-hidden {
+    display: none;
+  }
+}
+
 /*# sourceMappingURL=applicationList.module.css.map */

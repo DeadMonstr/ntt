@@ -19,17 +19,19 @@
 .dashboard .wrapper {
   display: flex;
   flex-wrap: wrap;
+  height: 60vh;
+  overflow-y: scroll;
   gap: 2rem;
 }
 .dashboard .wrapper .box {
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   justify-content: space-around;
-  width: 40rem;
+  width: 38rem;
   border-radius: 8px;
   padding: 2rem;
   display: flex;
-  height: 30rem;
+  height: 25rem;
   flex-direction: column;
   cursor: pointer;
 }
@@ -38,73 +40,112 @@
   font-family: "Inter", serif;
   font-optical-sizing: auto;
   font-weight: 500;
-  font-size: 3.5rem;
+  font-size: 3rem;
   width: 20rem;
   color: #2D2D2D;
 }
 .dashboard .wrapper .box span {
   display: block;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   width: 25rem;
   color: rgb(200, 200, 200);
 }
 .dashboard .wrapper .box .div {
-  font-size: 6rem;
+  font-size: 5rem;
   align-self: flex-end;
   font-family: "Risque", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-@media (max-width: 1280px) {
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .dashboard h1 {
-    color: rgb(45, 45, 45);
-    font-family: "Inter", serif;
-    font-weight: 500;
-  }
-  .dashboard .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
+@media (max-width: 1285px) {
   .dashboard .wrapper .box {
-    background-color: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    justify-content: space-around;
     width: 30rem;
-    border-radius: 8px;
-    padding: 2rem;
-    display: flex;
-    height: 25rem;
-    flex-direction: column;
-    cursor: pointer;
   }
   .dashboard .wrapper .box h2 {
-    margin: 0;
-    font-family: "Inter", serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-size: 3rem;
-    width: 20rem;
-    color: #2D2D2D;
+    font-size: 2.5rem;
+  }
+}
+@media (max-width: 1100px) {
+  .dashboard .wrapper .box {
+    width: 25rem;
+    height: 20rem;
+  }
+  .dashboard .wrapper .box h2 {
+    font-size: 2rem;
   }
   .dashboard .wrapper .box span {
-    display: block;
-    font-size: 2.2rem;
-    width: 25rem;
-    color: rgb(200, 200, 200);
+    font-size: 2rem;
   }
   .dashboard .wrapper .box .div {
-    font-size: 6rem;
-    align-self: flex-end;
-    font-family: "Risque", serif;
-    font-weight: 400;
-    font-style: normal;
+    font-size: 4.5rem;
+  }
+}
+@media (max-width: 998px) {
+  .dashboard .wrapper .box {
+    width: 20rem;
+    height: 18rem;
+  }
+  .dashboard .wrapper .box h2 {
+    font-size: 1.5rem;
+    width: 15rem;
+  }
+  .dashboard .wrapper .box span {
+    font-size: 1.7rem;
+    width: 15rem;
+  }
+  .dashboard .wrapper .box .div {
+    font-size: 3.5rem;
+  }
+}
+@media (max-width: 875px) {
+  .dashboard .wrapper .box {
+    width: 27rem;
+  }
+  .dashboard .wrapper .box h2 {
+    font-size: 2rem;
+    width: 25rem;
+  }
+  .dashboard .wrapper .box span {
+    font-size: 2rem;
+    width: 20rem;
+  }
+  .dashboard .wrapper .box .div {
+    font-size: 4.5rem;
+  }
+}
+@media (max-width: 715px) {
+  .dashboard .wrapper .box {
+    width: 20rem;
+    height: 15rem;
+  }
+  .dashboard .wrapper .box h2 {
+    font-size: 1.6rem;
+    width: 17rem;
+  }
+  .dashboard .wrapper .box span {
+    font-size: 1.8rem;
+    width: 20rem;
+  }
+  .dashboard .wrapper .box .div {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 635px) {
+  .dashboard .wrapper .box {
+    width: 15rem;
+    height: 15rem;
+  }
+  .dashboard .wrapper .box h2 {
+    font-size: 1.3rem;
+    width: 10rem;
+  }
+  .dashboard .wrapper .box span {
+    font-size: 1.4rem;
+    width: 12rem;
+  }
+  .dashboard .wrapper .box .div {
+    font-size: 2.5rem;
   }
 }
 

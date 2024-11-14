@@ -1,4 +1,8 @@
-import {getRouteMain} from "shared/const/routers";
+import {getRouteApplications, getRouteApplicationsProfile, getRouteDashboard, getRouteMain} from "shared/const/routers";
+import {DashboardPage} from "pages/dashboardPage";
+
+import {ApplicationPage} from "../../../pages/applicationPage";
+import {ApplicationProfile} from "../../../pages/applicationProfilePage";
 
 
 export const routersConfig = [
@@ -9,5 +13,18 @@ export const routersConfig = [
         element: null,
     },
 
+    {
+        path: getRouteDashboard(),
+        element: <DashboardPage/>,
+    },
+    {
+        path: getRouteApplications(),
+        element: <ApplicationPage/>,
+    },
+
+    {
+        path: getRouteApplicationsProfile(),
+        element: <ApplicationProfile/>
+    }
 
 ]
