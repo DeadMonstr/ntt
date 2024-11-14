@@ -1,6 +1,6 @@
 import {ApplicationPage} from "pages/applicationPage";
-import {DashboardPage} from "../pages/dashboardPage";
-import {ApplicationProfile} from "../pages/applicationProfilePage";
+import {DashboardPage} from "pages/dashboardPage";
+import {ApplicationProfile} from "pages/applicationProfilePage";
 
 function App() {
     return (
