@@ -1,9 +1,11 @@
 import cls from "../applicationProfile.module.sass"
+import {useNavigate} from "react-router";
 
 export const ApplicationProfileHeader = () => {
+    const navigate = useNavigate()
     return (
         <div className={`${cls.application__header} ${cls.application__box}`}>
-            <div>
+            <div onClick={() => navigate(-1)}>
                 <i className="fas fa-arrow-left"/>
             </div>
             <div>

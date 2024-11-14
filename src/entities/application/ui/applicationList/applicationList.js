@@ -1,11 +1,23 @@
+
+
+
+
 import classNames from "classnames";
-import {memo} from "react";
+import {memo, useEffect, useState} from "react";
 
 import {Table} from "shared/ui/table";
 
 import cls from "./applicationList.module.sass";
 
 export const ApplicationList = memo(() => {
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 1268);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 1268);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
     return (
         <div className={cls.applicationList}>
             <Table>
