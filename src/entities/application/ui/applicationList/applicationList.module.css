@@ -1,7 +1,3 @@
-.applicationList {
-  height: 95%;
-  overflow-y: scroll;
-}
 .applicationList__list td:last-child {
   border-right: 0.8rem solid #4DEC7C;
 }

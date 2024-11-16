@@ -11,9 +11,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 .applicationPage__title {
   font-size: 2.4rem;
+}
+
+@media (max-width: 1040px) {
+  .applicationPage__header {
+    justify-content: flex-end;
+  }
 }
 
 /*# sourceMappingURL=applicationPage.module.css.map */
