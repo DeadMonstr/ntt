@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
+import {useSelector} from "react-redux";
 
 import cls from "./Header.module.sass"
 import Logo from "shared/assets/logo/Layer_1.svg"
 
 
-import {SeasonSwitcher} from "features/seasonSwitcher";
+import {getSeasonSwitcherData, SeasonSwitcher} from "features/seasonSwitcher";
 import {LanguageSwitcher} from "features/languageSwitcher";
 import {ProfileSwitcher} from "features/profileSwitcher";
 
 export const Header = () => {
 
+    const currentSeason = useSelector(getSeasonSwitcherData)
     const [active, setActive] = useState("")
 
     return (
@@ -18,7 +20,7 @@ export const Header = () => {
             <div className={cls.container}>
 
                 <img className={cls.container__img} src={Logo} alt="Logo"/>
-                <h1>Qabul 2024-2025</h1>
+                <h1>{currentSeason ?? "Qabul 2024-2025"}</h1>
 
             </div>
 
