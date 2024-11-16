@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import cls from "app/layout/ui/Layout.module.sass"
+import cls from "./Layout.module.sass"
 import {Header} from "widgets/header";
 import {MenuBar} from "widgets/menuBar/ui/MenuBar";
 import {Outlet} from "react-router";

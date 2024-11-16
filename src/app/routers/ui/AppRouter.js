@@ -1,10 +1,11 @@
 import React, {Suspense} from 'react';
 import {createRoutesFromElements, Navigate, Route, RouterProvider} from "react-router";
 import {createBrowserRouter} from "react-router-dom";
-import "app/styles/index.sass"
+
 import {Layout} from "app/layout";
 import {routersConfig} from "../config/routersConfig";
 
+import "app/styles/index.sass"
 
 export const AppRouter = () => {
 
@@ -13,15 +14,16 @@ export const AppRouter = () => {
         createRoutesFromElements(
             <>
                 <Route
-                    path={"admin/"}
+                    path={"admin/*"}
                     element={<Layout/>}
                 >
                     {
                         routersConfig.map(item =>
-                        <Route
-                            path={item.path}
-                            element={item.element}
-                        />
+                            <Route
+                                key={item.path}
+                                path={item.path}
+                                element={item.element}
+                            />
                         )
 
                     }

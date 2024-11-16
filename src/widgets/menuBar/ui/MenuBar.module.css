@@ -3,6 +3,27 @@
   height: 70rem;
   background-color: white;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  gap: 2rem;
+}
+.menubar__item {
+  color: #BEBEBE;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: 0.3s;
+}
+.menubar__item i {
+  font-size: 4rem;
+}
+.menubar .active {
+  color: #2D2D2D;
+}
+.menubar .active i {
+  color: #001C79;
 }
 
 /*# sourceMappingURL=MenuBar.module.css.map */
