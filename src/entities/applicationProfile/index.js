@@ -7,3 +7,11 @@ export {ApplicationProfileInfoDocument} from "./ui/applicationProfileInfoDocumen
 export {ApplicationProfileUserDocument} from "./ui/applicationProfileUserDocument/applicationProfileUserDocument"
 
 export {ApplicationProfileInfoEducation} from "./ui/applicationProfileInfoEducation/applicationProfileInfoEducation"
+
+
+
+export {default as applicationProfileSlice} from "./model/slice/applicationProfileSlice"
+
+export {fetchApplicationProfileData} from "./model/thunk/applicationProfileThunk"
+export {applicationProfileSelectors} from "./model/selectors/applicationProfileSelectors"
+
