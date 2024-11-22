@@ -1,14 +1,10 @@
-
-
-
-
-import classNames from "classnames";
 import {memo, useEffect, useState} from "react";
+import {useNavigate} from "react-router";
+import classNames from "classnames";
 
 import {Table} from "shared/ui/table";
 
 import cls from "./applicationList.module.sass";
-import {useNavigate} from "react-router";
 
 export const ApplicationList = memo(() => {
 
@@ -41,16 +37,28 @@ export const ApplicationList = memo(() => {
                 </thead>
                 <tbody>
                 <tr
-                    onClick={() => navigate("profile")}
+                    onClick={() => navigate("../profile")}
                     className={classNames(cls.applicationList__list, {
                         [cls.debt]: true
                     })}
                 >
                     <td/>
-                    <td>Quddusbek Azzamov Aminjonovich</td>
-                    <td>+998 911234567</td>
-                    <td>Bakalavr</td>
+                    {
+                        !isMobile ? <>
+                            <td>Quddusbek Azzamov Aminjonovich</td>
+                            <td>+998 911234567</td>
+                        </> : <>
+                            <td>
+                                <div style={{display: "flex", flexDirection: "column"}}>
+                                    <div>Quddusbek Azzamov Aminjonovich</div>
+                                    <div>+998 911234567</div>
+                                </div>
+                            </td>
+                            {/*<td/>*/}
+                        </>
+                    }
                     {!isMobile ? <>
+                        <td>Bakalavr</td>
                         <td>Matematika</td>
                         <td>Sirtqi</td>
                         <td>O'zbek tili</td>
@@ -58,15 +66,14 @@ export const ApplicationList = memo(() => {
                     </> : null}
                 </tr>
                 <tr
-                    onClick={() => navigate("profile")}
+                    onClick={() => navigate("../profile")}
                     className={cls.applicationList__list}
                 >
                     <td/>
                     <td>Quddusbek Azzamov Aminjonovich</td>
                     <td>+998 911234567</td>
-                    <td>Bakalavr</td>
                     {!isMobile ? <>
-
+                        <td>Bakalavr</td>
                         <td>Matematika</td>
                         <td>Sirtqi</td>
                         <td>O'zbek tili</td>
