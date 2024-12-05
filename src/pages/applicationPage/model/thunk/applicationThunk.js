@@ -9,9 +9,10 @@ export const fetchApplicationData = createAsyncThunk(
 
         const params = ParamUrl(data);
 
-        return request(`${API_URL}students/student_requests/list/?${params}`,"GET", null )
+        return request(`${API_URL}students/student_request_list`,"GET", null )
     }
 )
+
 
 export const fetchApplicationFiltersData = createAsyncThunk(
     "applicationSlice/fetchApplicationFiltersData",

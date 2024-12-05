@@ -6,12 +6,20 @@ export const Dashboard = ({data}) => {
         return Number(number).toLocaleString();
     };
     const renderTable = () => {
-        return data.map(item => (
+        const mappedData = data.map(item => {
+            const key = Object.keys(item)[0];
+            return {
+                text: item[key].text,
+                count: item[key].count,
+                color: item[key].color
+            };
+        });
+        return mappedData.map(item => (
             <div className={cls.box}>
-                <h2>{item.title}</h2>
-                <span>{item.span}</span>
+                <h2>{item.text}</h2>
+                <span>Barcha yo’nalishlar bo’yichar</span>
                 <div style={{color: item.color}} className={cls.div}>
-                    {formatNumber(item.number)}
+                    {formatNumber(item.count)}
                 </div>
             </div>
         ))

@@ -12,6 +12,7 @@ export const ApplicationList = memo(({list = []}) => {
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1268);
 
+
     const navigate = useNavigate()
 
 
@@ -20,6 +21,7 @@ export const ApplicationList = memo(({list = []}) => {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
 
 
     console.log(list)
@@ -48,7 +50,10 @@ export const ApplicationList = memo(({list = []}) => {
                     list?.map(item => {
                         return (
                             <tr
-                                onClick={() => navigate("profile")}
+                                onClick={() => {
+                                    navigate(`profile/${item.id}`)
+                                }
+                            }
                                 className={classNames(cls.applicationList__list, {
                                     [cls.debt]: !item?.accepted
                                 })}
@@ -86,6 +91,7 @@ export const ApplicationList = memo(({list = []}) => {
                 {/*</tr>*/}
                 </tbody>
             </Table>
+
         </div>
     )
 })

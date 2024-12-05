@@ -23,7 +23,7 @@ export const routersConfig = [
     },
 
     {
-        path: getRouteApplicationsProfile(),
+        path: getRouteApplicationsProfile(":id"),
         element: <ApplicationProfile/>
     }
 
