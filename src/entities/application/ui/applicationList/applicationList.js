@@ -50,11 +50,11 @@ export const ApplicationList = memo(() => {
                         </> : <>
                             <td>
                                 <div style={{display: "flex", flexDirection: "column"}}>
-                                    <div>Quddusbek Azzamov Aminjonovich</div>
-                                    <div>+998 911234567</div>
+                                    <div className={cls.applicationList__name}>Quddusbek Azzamov Aminjonovich</div>
+                                    <div className={cls.applicationList__number}>+998 911234567</div>
                                 </div>
                             </td>
-                            {/*<td/>*/}
+                            <td/>
                         </>
                     }
                     {!isMobile ? <>
