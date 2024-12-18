@@ -22,9 +22,9 @@ export const routersConfig = [
         element: <ApplicationPage/>,
     },
 
-    {
-        path: getRouteApplicationsProfile(),
-        element: <ApplicationProfile/>
-    }
+    // {
+    //     path: getRouteApplicationsProfile(),
+    //     element: <ApplicationProfile/>
+    // }
 
 ]

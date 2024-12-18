@@ -20,7 +20,7 @@ const Popup = ({type = "auto", options, children, extraClass, defaultActive, onC
                 })}
                 onClick={() => {
                     setActiveItem(item.title)
-                    onChange && onChange(item.title.toLowerCase())
+                    onChange && onChange(item.title)
                 }}
             >
                 {!!item.img && <img src={item.img} alt={item.title}/>}

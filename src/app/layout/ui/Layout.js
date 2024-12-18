@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {isMobile} from "react-device-detect";
 
 import cls from "./Layout.module.sass"
 import {Header} from "widgets/header";
@@ -12,22 +13,25 @@ export const Layout = () => {
 
 
     return (
-        <div className={cls.layout}>
+        <>
+            <div className={cls.layout}>
 
-            <Header/>
+                <Header/>
 
-            <main>
-                <MenuBar/>
-
-
-                <div className={cls.page}>
-                    <Outlet/>
-                </div>
-
-            </main>
+                <main>
+                    {!isMobile && <MenuBar/>}
 
 
-        </div>
+                    <div className={cls.page}>
+                        <Outlet/>
+                    </div>
+
+                </main>
+
+
+            </div>
+            {isMobile && <MenuBar/>}
+        </>
     );
 };
 
