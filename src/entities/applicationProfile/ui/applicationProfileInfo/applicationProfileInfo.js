@@ -3,10 +3,6 @@ import defImage from "../../../../shared/assets/images/Mask group.svg"
 import {useSelector} from "react-redux";
 import {applicationProfileSelectors} from "entities/applicationProfile/model/selectors/applicationProfileSelectors";
 
-const data = {
-    name: "sardor", surname: "ikromov", father_name: "Elmutrod o'g'li" ,
-    phone: 99121232 , extra_phone: 3123213232 , email: "isardor859@gmail.com"
-}
 export const ApplicationProfileInfo = () => {
     const data = useSelector(applicationProfileSelectors)
 
