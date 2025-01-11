@@ -19,7 +19,6 @@ export const fetchApplicationFiltersData = createAsyncThunk(
     async ({id}) => {
         const {request} = useHttp()
 
-        console.log(id)
 
         return request(`${API_URL}students/student_requests/filter_items/?${id ? `type_id=${id}` : ``}`,"GET", null )
     }

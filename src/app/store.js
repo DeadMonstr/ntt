@@ -4,7 +4,9 @@ import {languageSwitcherSlice} from "features/languageSwitcher";
 import {seasonSwitcherSlice} from "features/seasonSwitcher";
 import {applicationProfileSlice} from "entities/applicationProfile";
 import {applicationSlice} from "pages/applicationPage";
-import {dashboardSlice} from "../pages/dashboardPage";
+import {organizationsSlice} from "features/organizations";
+import {settingsSlice} from "../entities/settings";
+import {organizationProfileItemSlice, organizationSlice} from "../entities/organizationProfileItem";
 
 
 const stringMiddleware = () => (next) => (action) => {
@@ -23,7 +25,9 @@ export const store = configureStore({
         seasonSwitcherSlice,
         applicationProfileSlice,
         applicationSlice,
-        dashboardSlice
+        organizationsSlice,
+        settingsSlice,
+        organizationProfileItemSlice
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(

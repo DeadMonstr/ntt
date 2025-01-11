@@ -1,3 +1,5 @@
+import {ApplicationProfile} from "pages/applicationProfilePage";
+import {Navigate, Outlet, Route, Routes} from "react-router";
 
 import {ApplicationList} from "entities/application";
 import {Filter} from "features/filter";

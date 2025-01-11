@@ -1,0 +1,66 @@
+import {memo, useCallback, useMemo, useState} from 'react';
+import classNames from "classnames";
+
+import cls from "./organizationProfileHeader.module.sass";
+import readMore from "shared/assets/images/Paper.png";
+import applications from "shared/assets/images/8275507 1.png";
+import announcements from "shared/assets/images/3d-rendering-two-pictures-isolated-png 1.png";
+import gallery from "shared/assets/images/8275507 2.png";
+
+export const OrganizationProfileHeader = memo(({setActive}) => {
+
+    const [activeLink, setActiveLink] = useState(null)
+
+    const linksList = useMemo(() => [
+        {
+            name: "Batafsil",
+            image: readMore,
+            bgColor: "#FFF6E4"
+        },
+        {
+            name: "Arizalar",
+            image: applications,
+            bgColor: "#E7EFFF"
+        },
+        {
+            name: "E’lonlar",
+            image: announcements,
+            bgColor: "#C5D1DC80"
+        },
+        {
+            name: "Gallereya",
+            image: gallery,
+            bgColor: "#E7EFFF"
+        },
+    ], [])
+
+    const renderLinks = useCallback(() => {
+        return linksList.map(item => {
+            return (
+                <div
+                    className={classNames(cls.item, {
+                        [cls.active]: activeLink === item.name
+                    })}
+                    onClick={() => {
+                        setActiveLink(item.name)
+                        setActive(item.name)
+                    }}
+                >
+                    <div
+                        style={{background: item.bgColor}}
+                        className={cls.item__image}
+                    >
+                        <img src={item.image} alt=""/>
+                    </div>
+                    <h2>{item.name}</h2>
+                </div>
+            )
+        })
+    }, [linksList, activeLink, setActive])
+
+    return (
+        <div className={cls.header}>
+            {renderLinks()}
+        </div>
+    );
+})

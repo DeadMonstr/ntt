@@ -69,10 +69,6 @@ export const ParamUrl = (params) => {
 
             res += `${paramsList[i]}=${params[paramsList[i]]}&`
 
-
-
-
-
         }
 
     }

@@ -1,8 +1,9 @@
 import {memo, useEffect, useState} from "react";
+import {useNavigate} from "react-router";
 import classNames from "classnames";
+
 import {Table} from "shared/ui/table";
 import cls from "./applicationList.module.sass";
-import {useNavigate} from "react-router";
 
 
 export const ApplicationList = memo(({list = []}) => {
