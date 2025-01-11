@@ -4,3 +4,4 @@ export const getRouteDashboard = () => "dashboard"
 export const getRouteApplications = () => "applications/*"
 export const getRouteApplicationsProfile = () => "applications/profile"
 
+export const getRouteOrganizations = () => "organizations"

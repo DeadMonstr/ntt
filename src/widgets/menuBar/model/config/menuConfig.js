@@ -1,3 +1,5 @@
+
+import organization from "shared/assets/icons/organizations.svg"
 export const menuConfig = [
     {
         to: "dashboard",
@@ -12,34 +14,34 @@ export const menuConfig = [
             {
                 label: "Barcha arizalar",
                 to: "all"
-            },{
+            }, {
                 label: "Yangi arizalar",
                 to: "new"
-            },{
+            }, {
                 label: "Qabul qilinganlar",
                 to: "accepted"
-            },{
+            }, {
                 label: "Rad etilganlar",
                 to: "canceled"
-            },{
+            }, {
                 label: "Tahrirlashga qaytarilganlar",
                 to: "returned"
-            },{
+            }, {
                 label: "Imtihonga chaqirilganlar",
                 to: "examInvited"
-            },{
+            }, {
                 label: "Imtihonga kelganlar",
                 to: "examCame"
-            },{
+            }, {
                 label: "Baholanganlar",
                 to: "rated"
-            },{
+            }, {
                 label: "Shartnoma berilganlar",
                 to: "contracted"
-            },{
+            }, {
                 label: "To'lov qilganlar",
                 to: "paid"
-            },{
+            }, {
                 label: "Talabalikka tavsiya\n qilinganlar",
                 to: "recommended"
             },
@@ -51,6 +53,13 @@ export const menuConfig = [
     }, {
         to: "settings",
         label: "Sozlamalar",
-        icon: "fas fa-cog"
+        icon: "fas fa-cog",
+        back: true
+    },
+    {
+        to: "organizations",
+        label: "Organizations",
+        img: {organization},
+        back: true
     },
 ]

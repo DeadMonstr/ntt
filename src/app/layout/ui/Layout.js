@@ -4,13 +4,14 @@ import {isMobile} from "react-device-detect";
 import cls from "./Layout.module.sass"
 import {Header} from "widgets/header";
 import {MenuBar} from "widgets/menuBar/ui/MenuBar";
-import {Outlet} from "react-router";
-
-
-export const Layout = () => {
+import {Outlet, useNavigate} from "react-router";
+import {Button} from "../../../shared/ui/button/button";
 
 
 
+export const Layout = ({back}) => {
+
+    const navigate = useNavigate()
 
     return (
         <>
@@ -22,7 +23,18 @@ export const Layout = () => {
                     {!isMobile && <MenuBar/>}
 
 
+
+
                     <div className={cls.page}>
+
+
+
+                        <Button onClick={() => navigate(-1)}>
+                            <i className={"fa fa-arrow-left"}/>
+                            Back
+                        </Button>
+
+
                         <Outlet/>
                     </div>
 
