@@ -1,0 +1,14 @@
+.organization {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  height: 74vh;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+.organization__container {
+  display: flex;
+  gap: 2.8rem;
+}
+
+/*# sourceMappingURL=organizationProfilePage.module.css.map */

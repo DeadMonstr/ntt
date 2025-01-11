@@ -3,16 +3,14 @@ import {
     getRouteApplicationsProfile,
     getRouteDashboard,
     getRouteMain,
-    getRouteOrganizationProfile
+    getRouteOrganizationProfile, getRouteOrganizations
 } from "shared/const/routers";
-import {getRouteApplications, getRouteDashboard, getRouteMain , getRouteOrganizations} from "shared/const/routers";
 import {DashboardPage} from "pages/dashboardPage";
 
-import {ApplicationPage} from "pages/applicationPage";
+
 import {ApplicationProfile} from "pages/applicationProfilePage";
 import {OrganizationProfilePage} from "pages/organizationProfilePage";
 import {ApplicationPage} from "pages/applicationPage";
-import {ApplicationProfile} from "../../../pages/applicationProfilePage";
 import {OrganizationsPage} from "pages/organizations/ui/organizationsPage";
 import {SettingsPage} from "pages/settings";
 import {
@@ -59,7 +57,7 @@ export const routersConfig = [
         path: getRouteOrganizationProfile(),
         element: <OrganizationProfilePage/>
     }
-
+,
     {
         path: "organizations/organizationProfile/:id/organizationAbout/:id",
         element: <OrganizationAbout/>
