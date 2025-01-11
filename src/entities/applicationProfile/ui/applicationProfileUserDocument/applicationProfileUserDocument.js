@@ -1,22 +1,27 @@
 import cls from "../applicationProfile.module.sass";
 
 import defImage from "../../../../shared/assets/images/Rectangle 89.svg"
+import {useSelector} from "react-redux";
+import {applicationProfileSelectors} from "entities/applicationProfile/model/selectors/applicationProfileSelectors";
 export const ApplicationProfileUserDocument = () => {
+
+    const data = useSelector(applicationProfileSelectors)
+
+
+
+
     return (
         <div className={`${cls.application__info} ${cls.application__box}`}>
             <h1>Pasport ma'lumotlari</h1>
             <div className={cls.application__info_wrapper}>
                 <ul className={cls.application__info_infos}>
-                    <li>Passport seriya raqami <span>AA 9480972</span></li>
-                    <li>Tug'ilgan joyi <span>To'ldirilmagan</span></li>
-                    <li>Tug'ilgan sanasi <span>22.22.2222</span></li>
-                    <li>Jinsi <span>Erkak</span></li>
-                    <li>Identifikatsiya pin (️JSHSHIR) <span>To'ldirilmagan</span></li>
-
-
+                    <li>Passport seriya raqami <span>{data?.passport?.seria}</span></li>
+                    <li>Tug'ilgan joyi <span>{data?.passport?.born_address}</span></li>
+                    <li>Tug'ilgan sanasi <span>{data?.passport?.born_date}</span></li>
+                    <li>Jinsi <span>{data?.passport?.sex}</span></li>
+                    <li>Identifikatsiya pin (️JSHSHIR) <span>{data?.passport?.identification_pin}</span></li>
                 </ul>
                 <ul className={cls.application__info_infos}>
-
                     <li>Passport nusxasi
                         <div className={cls.application__info_infos_images}>
 

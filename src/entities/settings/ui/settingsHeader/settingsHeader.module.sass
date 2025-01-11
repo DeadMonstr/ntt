@@ -1,0 +1,26 @@
+.settings
+  &__header
+    display: flex
+    list-style: none
+    justify-content: space-around
+    border-bottom: 2px solid rgba(199, 199, 204, 1)
+    padding-bottom: 10px
+    li
+      font-size: 2.4rem
+      color: rgba(199, 199, 204, 1)
+      cursor: pointer
+      transition: .2s all
+      &:hover
+        transform: scale(1.05)
+    .active_list
+      color: rgba(45, 96, 255, 1)
+      position: relative
+      &:before
+        content: ''
+        display: block
+        position: absolute
+        background-color: rgba(45, 96, 255, 1)
+        width: 100%
+        height: 3px
+        border-radius: 10px
+        bottom: -1.1rem

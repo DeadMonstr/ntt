@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React, {Suspense, useState} from 'react';
 import {createRoutesFromElements, Navigate, Route, RouterProvider} from "react-router";
 import {createBrowserRouter} from "react-router-dom";
 
@@ -7,9 +7,13 @@ import {routersConfig} from "../config/routersConfig";
 
 import "app/styles/index.sass"
 
+
 export const AppRouter = () => {
 
 
+    const [backBtn, setBackBtn] = useState(false)
+
+    console.log(backBtn, "back")
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
@@ -18,17 +22,25 @@ export const AppRouter = () => {
                     element={<Layout/>}
                 >
                     {
-                        routersConfig.map(item =>
-                            <Route
-                                key={item.path}
-                                path={item.path}
-                                element={item.element}
-                            />
+                        routersConfig.map(item => {
+
+                                return (
+                                    <>
+                                        <Route
+                                            key={item.path}
+                                            path={item.path}
+                                            element={item.element}
+
+                                        />
+                                        {/*{item.back ? setBackBtn(true) : setBackBtn(false)}*/}
+                                    </>
+                                )
+                            }
                         )
 
                     }
-
                 </Route>
+
                 <Route
                     index
                     element={<Navigate to={"admin"}/>}

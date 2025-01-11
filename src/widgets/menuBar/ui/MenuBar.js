@@ -5,12 +5,14 @@ import {NavLink} from "react-router-dom";
 
 import {menuConfig} from "../model/config/menuConfig";
 
+
 import cls from "./MenuBar.module.sass"
 
 export const MenuBar = () => {
 
     const [activeMultiLink, setActiveMultiLink] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
+
 
     const renderMenuList = useCallback(() => {
         return menuConfig.map(item => {
@@ -71,7 +73,7 @@ export const MenuBar = () => {
                     }
                     to={item.to}
                 >
-                    <i className={classNames(item.icon)}/>
+                    {item.icon ? <i className={classNames(item.icon)}/> : <img src={item.img.organization} alt=""/>}
                     {item.label}
                 </NavLink>
             )

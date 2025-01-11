@@ -5,3 +5,4 @@ export const getRouteApplications = () => "applications/*"
 export const getRouteApplicationsProfile = () => "applications/profile"
 export const getRouteOrganizationProfile = () => "organizationProfile"
 
+export const getRouteOrganizations = () => "organizations"
