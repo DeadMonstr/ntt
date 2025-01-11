@@ -4,11 +4,11 @@ import classNames from "classnames";
 import cls from "./organizationProfileApplications.module.sass";
 import image from "shared/assets/images/Group 26085539.png";
 
-export const OrganizationProfileApplications = memo(() => {
+export const OrganizationProfileApplications = memo(({setActive}) => {
     return (
         <div className={cls.applications}>
             <div
-
+                onClick={setActive}
                 className={cls.applications__edit}
             >
                 <i className={classNames("fas fa-pen", cls.applications__icon)}/>
