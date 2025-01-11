@@ -1,4 +1,5 @@
 .filter
+  align-self: flex-end
   display: flex
   gap: 1rem
   &__search
@@ -29,3 +30,10 @@
     padding: 1rem 2rem
     i
       font-size: 2.4rem
+
+@media (max-width: 430px)
+  .filter
+    &__search
+      i
+    &__input
+      width: 100%
