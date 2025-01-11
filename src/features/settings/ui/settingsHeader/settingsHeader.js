@@ -1,5 +1,5 @@
 import cls from "./settingsHeader.module.sass"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Modal} from "../../../../shared/ui/modal";
 import {Form} from "../../../../shared/ui/form";
 import {Input} from "../../../../shared/ui/input";
@@ -7,14 +7,15 @@ import {Textarea} from "../../../../shared/ui/textArea";
 import {Button} from "../../../../shared/ui/button/button";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
-import {onAddHeaderItem, onEditHeaderItem} from "../../../../entities/settings";
+import {onAddHeaderItem, onDeleteHeaderItem, onEditHeaderItem} from "../../../../entities/settings";
+import {ConfirmModal} from "../../../../shared/ui/confirmModal";
 
 export const SettingsHeader = ({settingsHeader, setActive, active}) => {
 
 
     const [activeAdd, setActiveAdd] = useState(false)
     const [activeEdit, setActiveEdit] = useState(false)
-    const {setValue, register, handleSubmit} = useForm()
+
     const [activeItem, setActiveItem] = useState(null)
 
     const renderTable = () => {
@@ -22,8 +23,7 @@ export const SettingsHeader = ({settingsHeader, setActive, active}) => {
             <li
                 onClick={() => {
                     setActive(item.id)
-                    setValue("name", item.name)
-                    setActiveItem(item.id)
+                    setActiveItem(item)
 
                 }}
 
@@ -43,11 +43,16 @@ export const SettingsHeader = ({settingsHeader, setActive, active}) => {
             <div className={cls.settings}>
                 <h2>Organizations</h2>
                 <div className={cls.filter__buttons}>
-                    <div onClick={() => setActiveAdd(true)} className={cls.filter__add}>
+                    <div
+                        onClick={() => setActiveAdd(true)}
+                        className={cls.filter__add}
+                    >
                         <i className={"fa fa-plus"}/>
                     </div>
 
-                    <div onClick={() => setActiveEdit(true)} className={cls.filter__edit}>
+                    <div onClick={() => setActiveEdit(true)}
+                         className={cls.filter__edit}
+                    >
                         <i className={"fa fa-pen"}/>
                     </div>
                 </div>
@@ -57,17 +62,23 @@ export const SettingsHeader = ({settingsHeader, setActive, active}) => {
             </ul>
 
 
-            <Add setValue={setValue} handleSubmit={handleSubmit} register={register} setActive={setActiveAdd} active={activeAdd}/>
-            <Edit setValue={setValue} activeItem={activeItem} register={register} handleSubmit={handleSubmit} setActive={setActiveEdit}
-                  active={activeEdit}/>
+            <Add
+
+                setActive={setActiveAdd}
+                active={activeAdd}
+            />
+            <Edit
+                activeItem={activeItem}
+                setActive={setActiveEdit}
+                active={activeEdit}
+            />
         </div>
     );
 };
 
 
-export const Add = ({active, setActive, handleSubmit, register , setValue}) => {
-
-
+export const Add = ({active, setActive}) => {
+    const {setValue, register, handleSubmit} = useForm()
     const dispatch = useDispatch()
 
     const onClick = (data) => {
@@ -76,6 +87,8 @@ export const Add = ({active, setActive, handleSubmit, register , setValue}) => {
             name: data.name
         }
         setValue("name", "")
+        setActive(false)
+
 
         dispatch(onAddHeaderItem(res))
     }
@@ -86,38 +99,79 @@ export const Add = ({active, setActive, handleSubmit, register , setValue}) => {
 
 
             <Form>
-                <Input name={"name"} register={register} extraClass={cls.filter__input}/>
+                <Input
+                    name={"name"}
+                    register={register}
+                    extraClass={cls.filter__input}
+                />
                 {/*<Textarea/>*/}
-                <Button onClick={handleSubmit(onClick)} extraClass={cls.filter__btn}>Add</Button>
+                <Button
+                    onClick={handleSubmit(onClick)}
+                    extraClass={cls.filter__btn}
+                >
+                    Add
+                </Button>
 
             </Form>
         </Modal>
     );
 }
 
-export const Edit = ({active, setActive, register, handleSubmit, activeItem , setValue }) => {
+export const Edit = ({active, setActive, activeItem}) => {
+
+    const {setValue, register, handleSubmit} = useForm()
 
     const dispatch = useDispatch()
-    const onClick = (data) => {
-        setValue("name", "")
+    useEffect(() => {
+        setValue("name", activeItem?.name)
+    }, [active, activeItem])
 
-        dispatch(onEditHeaderItem({id: activeItem, data: data.name}))
+    const [activeConfirm, setActiveConfirm] = useState(false)
+    const onClick = (data) => {
+        dispatch(onEditHeaderItem({id: activeItem.id, data: data.name}))
+        setActive(false)
+    }
+    const onDelete = () => {
+        dispatch(onDeleteHeaderItem(activeItem.id))
+        setActive(false)
+        setActiveConfirm(false)
     }
 
     return (
         <Modal setActive={setActive} active={active}>
-            <h1>Add</h1>
+            <h1>Edit</h1>
 
 
             <Form>
-                <Input extraClass={cls.filter__input} name={"name"} register={register}/>
+                <Input
+                    extraClass={cls.filter__input}
+                    name={"name"}
+                    register={register}
+                    value={activeItem?.name}
+                />
                 {/*<Textarea/>*/}
                 <div className={cls.settings__button}>
-                    <Button onClick={handleSubmit(onClick)} extraClass={cls.filter__btn}>Edit</Button>
-                    <Button onClick={handleSubmit(onClick)} type={"danger"} extraClass={cls.filter__btn}>Delete</Button>
+                    <Button
+                        onClick={handleSubmit(onClick)}
+                        extraClass={cls.filter__btn}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        onClick={handleSubmit(() => setActiveConfirm(true))}
+                        type={"danger"}
+                        extraClass={cls.filter__btn}
+                    >
+                        Delete
+                    </Button>
                 </div>
             </Form>
 
+            <ConfirmModal
+                onClick={handleSubmit(onDelete)}
+                active={activeConfirm}
+                setActive={setActiveConfirm}
+            />
         </Modal>
     );
 }

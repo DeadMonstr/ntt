@@ -87,7 +87,7 @@
   gap: 10px
 
 .deleteButton
-  background: red
+  background: $error-color
 
 .cancelButton
   background: #ECD0D7

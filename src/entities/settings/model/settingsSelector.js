@@ -1,3 +1,4 @@
 
 export const getSettingsHeader = (state) => state.settingsSlice.list
-export const getSettingsData = (state) => state.settingsSlice.data
+export const getSettingsDirection = (state) => state.settingsSlice.direction
+export const getSettingsDegree = (state) => state.settingsSlice.degree

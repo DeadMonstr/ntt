@@ -1,9 +1,13 @@
 import cls from "./settings.module.sass"
 import {useSelector} from "react-redux";
-import {getSettingsData, getSettingsHeader} from "../../../entities/settings/model/settingsSelector";
+import {
+    getSettingsData, getSettingsDegree,
+    getSettingsDirection,
+    getSettingsHeader
+} from "../../../entities/settings/model/settingsSelector";
 
 import {useState} from "react";
-import {SettingsFilter, SettingsHeader} from "../../../features/settings";
+import {SettingsFilter, SettingsHeader, SettingsLists} from "../../../features/settings";
 
 const filter = [
     {name: "Yo’nalishlar", id: 1},
@@ -11,14 +15,13 @@ const filter = [
 ]
 
 export const SettingsPage = () => {
-    const settingsData = useSelector(getSettingsData)
+    const settingsDirection = useSelector(getSettingsDirection)
+    const settingsDegree = useSelector(getSettingsDegree)
     const settingsHeader = useSelector(getSettingsHeader)
     const [active, setActive] = useState(settingsHeader[0].id)
 
-    console.log(settingsHeader , "log")
 
     const [activeFilter, setActiveFilter] = useState(filter[0].id)
-
 
     return (
         <div className={cls.settings}>
@@ -29,6 +32,7 @@ export const SettingsPage = () => {
             <SettingsFilter activeFilter={activeFilter} setActiveFilter={setActiveFilter} filterItem={filter}/>
 
 
+            <SettingsLists activeFilter={activeFilter} data={activeFilter === 1 ? settingsDirection : settingsDegree}/>
         </div>
     );
 };
