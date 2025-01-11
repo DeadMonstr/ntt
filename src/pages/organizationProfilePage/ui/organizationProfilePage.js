@@ -18,7 +18,7 @@ export const OrganizationProfilePage = () => {
             <OrganizationProfileHeader setActive={setActiveLink}/>
             <div className={cls.organization__container}>
                 <OrganizationProfileInfo/>
-                {activeLink === "Arizalar" && <OrganizationApplicationModal/>}
+                {activeLink === "Batafsil" && <OrganizationApplicationModal/>}
                 {activeLink === "E’lonlar" && <OrganizationProfileAnnouncements/>}
             </div>
         </div>

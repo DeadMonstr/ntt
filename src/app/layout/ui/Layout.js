@@ -5,7 +5,7 @@ import cls from "./Layout.module.sass"
 import {Header} from "widgets/header";
 import {MenuBar} from "widgets/menuBar/ui/MenuBar";
 import {Outlet, useNavigate} from "react-router";
-import {Button} from "../../../shared/ui/button/button";
+import {Button} from "shared/ui/button/button";
 
 
 
@@ -29,10 +29,10 @@ export const Layout = ({back}) => {
 
 
 
-                        <Button onClick={() => navigate(-1)}>
-                            <i className={"fa fa-arrow-left"}/>
-                            Back
-                        </Button>
+                        {/*<Button onClick={() => navigate(-1)}>*/}
+                        {/*    <i className={"fa fa-arrow-left"}/>*/}
+                        {/*    Back*/}
+                        {/*</Button>*/}
 
 
                         <Outlet/>

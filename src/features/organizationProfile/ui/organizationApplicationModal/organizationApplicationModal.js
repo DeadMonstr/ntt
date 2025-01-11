@@ -5,6 +5,7 @@ import {OrganizationProfileApplications} from "entities/organizationProfile";
 import {Modal} from "shared/ui/modal";
 import {Form} from "shared/ui/form";
 import {Input} from "shared/ui/input";
+import {Textarea} from "shared/ui/textArea";
 
 import cls from "./organizationApplicationModal.module.sass";
 
@@ -28,7 +29,11 @@ export const OrganizationApplicationModal = memo(() => {
                         <i className={classNames("far fa-image", cls.imageEdit__icon)}/>
                     </div>
                     <Form extraClassname={cls.editModal__form}>
-                        <Input/>
+                        <Input
+                            placeholder={"Name"}
+                            extraClass={cls.editModal__input}
+                        />
+                        <Textarea placeholder={"Text"}/>
                     </Form>
                 </div>
             </Modal>
