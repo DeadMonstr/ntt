@@ -62,4 +62,10 @@ export const menuConfig = [
         img: {organization},
         back: true
     },
+    {
+        to: "organizationTypes",
+        label: "Organizations Types",
+        icon: "fas fa-home",
+        back: true
+    }
 ]

@@ -3,7 +3,9 @@ import {
     getRouteApplicationsProfile,
     getRouteDashboard,
     getRouteMain,
-    getRouteOrganizationProfile, getRouteOrganizations
+    getRouteOrganizationProfile,
+    getRouteOrganizations,
+    getRouteOrganizationTypes
 } from "shared/const/routers";
 import {DashboardPage} from "pages/dashboardPage";
 
@@ -22,6 +24,7 @@ import {
 } from "features/organizationProfile";
 import {DirectionProfile} from "../../../features/organizationProfile/ui/directionProfile/directionProfile";
 import {Gallery} from "../../../features/organizationProfile/ui/basicOrganization/basicOrganization";
+import {OrganizationTypesPage} from "../../../pages/organizationTypesPage";
 
 
 export const routersConfig = [
@@ -86,6 +89,10 @@ export const routersConfig = [
     {
         path: "gallery/:id",
         element: <Gallery/>
+    },
+    {
+        path: getRouteOrganizationTypes(),
+        element: <OrganizationTypesPage/>
     }
     // {
     //     path: getRouteApplicationsProfile(),

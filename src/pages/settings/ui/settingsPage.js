@@ -1,9 +1,9 @@
 import cls from "./settings.module.sass"
 import {useSelector} from "react-redux";
-import {getSettingsData, getSettingsHeader} from "../../../entities/settings/model/settingsSelector";
+import {getSettingsData, getSettingsHeader} from "entities/settings/model/settingsSelector";
 
 import {useState} from "react";
-import {SettingsFilter, SettingsHeader} from "../../../features/settings";
+import {SettingsFilter, SettingsHeader} from "features/settings";
 
 const filter = [
     {name: "Yo’nalishlar", id: 1},

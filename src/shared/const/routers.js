@@ -6,3 +6,4 @@ export const getRouteApplicationsProfile = (id) => `applications/profile/${id}`
 export const getRouteOrganizationProfile = () => "organizationProfile"
 
 export const getRouteOrganizations = () => "organizations"
+export const getRouteOrganizationTypes = () => "organizationTypes"

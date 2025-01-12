@@ -6,7 +6,7 @@ export const Dashboard = ({data}) => {
         return Number(number).toLocaleString();
     };
     const renderTable = () => {
-        const mappedData = data.map(item => {
+        const mappedData = data?.map(item => {
             const key = Object.keys(item)[0];
             return {
                 text: item[key].text,
@@ -14,7 +14,7 @@ export const Dashboard = ({data}) => {
                 color: item[key].color
             };
         });
-        return mappedData.map(item => (
+        return mappedData?.map(item => (
             <div className={cls.box}>
                 <h2>{item.text}</h2>
                 <span>Barcha yo’nalishlar bo’yichar</span>
