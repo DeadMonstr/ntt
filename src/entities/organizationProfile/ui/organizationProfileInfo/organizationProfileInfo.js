@@ -1,13 +1,21 @@
 import React, {memo} from 'react';
+import classNames from "classnames";
 
 import {Input} from "shared/ui/input";
 
 import cls from "./organizationProfileInfo.module.sass";
 import image from "shared/assets/images/photo_2024-02-08_12-55-08_hATlV6P_pdyLCyK 1.png";
 
-export const OrganizationProfileInfo = memo(() => {
+export const OrganizationProfileInfo = memo(({setActive}) => {
     return (
         <div className={cls.info}>
+            <i
+                className={classNames(
+                    "fas fa-pen",
+                    cls.info__icon
+                )}
+                onClick={setActive}
+            />
             <div className={cls.info__header}>
                 <img className={cls.info__ava} src={image} alt=""/>
                 <div className={cls.info__user}>

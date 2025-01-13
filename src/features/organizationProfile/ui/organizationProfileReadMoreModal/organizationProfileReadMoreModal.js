@@ -1,15 +1,15 @@
 import {memo, useCallback, useState} from 'react';
 import classNames from "classnames";
 
-import {OrganizationProfileApplications} from "entities/organizationProfile";
+import {OrganizationProfileReadMore} from "entities/organizationProfile";
 import {Modal} from "shared/ui/modal";
 import {Form} from "shared/ui/form";
 import {Input} from "shared/ui/input";
 import {Textarea} from "shared/ui/textArea";
 
-import cls from "./organizationApplicationModal.module.sass";
+import cls from "./organizationProfileReadMoreModal.module.sass";
 
-export const OrganizationApplicationModal = memo(() => {
+export const OrganizationProfileReadMoreModal = memo(() => {
 
     const [activeModal, setActiveModal] = useState(false)
 
@@ -17,7 +17,7 @@ export const OrganizationApplicationModal = memo(() => {
 
     return (
         <>
-            <OrganizationProfileApplications setActive={onToggle}/>
+            <OrganizationProfileReadMore setActive={onToggle}/>
             <Modal
                 active={activeModal}
                 setActive={setActiveModal}

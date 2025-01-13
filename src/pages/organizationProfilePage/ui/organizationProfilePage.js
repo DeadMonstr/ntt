@@ -1,11 +1,15 @@
 import {useState} from 'react';
 
 import {
-    OrganizationProfileAnnouncements,
+    OrganizationProfileApplications,
     OrganizationProfileHeader,
-    OrganizationProfileInfo
 } from "entities/organizationProfile";
-import {OrganizationApplicationModal} from "features/organizationProfile";
+import {
+    OrganizationProfileAnnouncementsModal,
+    OrganizationProfileGalleryModal,
+    OrganizationProfileInfoModal,
+    OrganizationProfileReadMoreModal
+} from "features/organizationProfile";
 
 import cls from "./organizationProfilePage.module.sass";
 
@@ -17,9 +21,11 @@ export const OrganizationProfilePage = () => {
         <div className={cls.organization}>
             <OrganizationProfileHeader setActive={setActiveLink}/>
             <div className={cls.organization__container}>
-                <OrganizationProfileInfo/>
-                {activeLink === "Batafsil" && <OrganizationApplicationModal/>}
-                {activeLink === "E’lonlar" && <OrganizationProfileAnnouncements/>}
+                <OrganizationProfileInfoModal/>
+                {activeLink === "Batafsil" && <OrganizationProfileReadMoreModal/>}
+                {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal/>}
+                {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
+                {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
             </div>
         </div>
     );
