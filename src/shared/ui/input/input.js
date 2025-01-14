@@ -20,6 +20,7 @@ export const Input = memo((
         checked
     }
 ) => {
+    console.log(defaultValue, "defaultValue")
     return (
         <label style={style} className={cls.inputLabel} htmlFor={name}>
             {

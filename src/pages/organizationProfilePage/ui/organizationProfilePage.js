@@ -1,6 +1,8 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useDispatch} from "react-redux";
 
 import {
+    fetchOrganizationProfileData,
     OrganizationProfileApplications,
     OrganizationProfileHeader,
 } from "entities/organizationProfile";
@@ -15,7 +17,13 @@ import cls from "./organizationProfilePage.module.sass";
 
 export const OrganizationProfilePage = () => {
 
+    const dispatch = useDispatch()
+
     const [activeLink, setActiveLink] = useState("")
+
+    useEffect(() => {
+        dispatch(fetchOrganizationProfileData())
+    }, [])
 
     return (
         <div className={cls.organization}>
