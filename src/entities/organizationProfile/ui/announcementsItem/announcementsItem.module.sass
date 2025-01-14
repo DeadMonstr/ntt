@@ -1,3 +1,24 @@
+@import "app/styles/abstracts/mixins"
+
+.wrapper
+  display: flex
+  gap: .5rem
+  &__edit
+    height: fit-content
+    border-radius: 1rem
+    background: #007AFF
+    padding: 1.9rem
+  &__inner
+    height: fit-content
+    border-radius: 50%
+    background: #fff
+    padding: 1.4rem
+    transition: .1s
+    @include btn-active
+  &__icon
+    font-size: 1.6rem
+    color: #8E8E93
+
 .item
   border-radius: 2rem
   background: #007AFF

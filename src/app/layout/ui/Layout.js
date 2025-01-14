@@ -11,6 +11,8 @@ import {fetchUserProfileData} from "../../../entities/userProfile/model/userProf
 import {getUserId} from "../../../pages/login/model/loginSelector";
 
 
+
+
 export const Layout = ({back}) => {
 
     const userId = localStorage.getItem("user_id")
@@ -37,10 +39,11 @@ export const Layout = ({back}) => {
                     <div className={cls.page}>
 
 
-                        <Button onClick={() => navigate(-1)}>
-                            <i className={"fa fa-arrow-left"}/>
-                            Back
-                        </Button>
+
+                        {/*<Button onClick={() => navigate(-1)}>*/}
+                        {/*    <i className={"fa fa-arrow-left"}/>*/}
+                        {/*    Back*/}
+                        {/*</Button>*/}
 
 
                         <Outlet/>

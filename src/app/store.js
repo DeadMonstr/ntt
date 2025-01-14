@@ -5,10 +5,12 @@ import {seasonSwitcherSlice} from "features/seasonSwitcher";
 import {applicationProfileSlice} from "entities/applicationProfile";
 import {applicationSlice} from "pages/applicationPage";
 import {organizationsSlice} from "features/organizations";
-import {settingsSlice} from "../entities/settings";
+import {settingsSlice} from "entities/settings";
 import {organizationProfileItemSlice, organizationSlice} from "../entities/organizationProfileItem";
 import {loginSlice} from "../pages/login";
 import {userProfileSlice} from "../entities/userProfile";
+import {OrganizationProfileSlice} from "entities/organizationProfile";
+import {oftenUsedSlice} from "entities/oftenUsed";
 
 
 const stringMiddleware = () => (next) => (action) => {
@@ -31,7 +33,9 @@ export const store = configureStore({
         settingsSlice,
         organizationProfileItemSlice,
         loginSlice,
-        userProfileSlice
+        userProfileSlice,
+        OrganizationProfileSlice,
+        oftenUsedSlice
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(

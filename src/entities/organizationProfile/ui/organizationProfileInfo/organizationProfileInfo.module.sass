@@ -1,9 +1,20 @@
+@import "app/styles/abstracts/mixins"
+
 .info
   padding: 2.8rem 1.7rem 5.6rem 1.7rem
   background: #fff
   display: flex
   flex-direction: column
   gap: 3.4rem
+  position: relative
+  &__icon
+    position: absolute
+    top: 1rem
+    right: 1rem
+    font-size: 1.6rem
+    color: #8E8E93
+    cursor: pointer
+    @include btn-active
   &__header
     display: flex
     align-items: center
@@ -32,7 +43,7 @@
     flex-direction: column
     gap: 2rem
   &__input
-    width: 100%
+    width: 100% !important
     border-top: none
     border-left: none
     border-right: none

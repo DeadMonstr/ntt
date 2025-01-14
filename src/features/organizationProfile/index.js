@@ -10,4 +10,7 @@ export {BasicOrganization , AboutOtm , Grants} from "./ui/basicOrganization/basi
 
 
 
-export {OrganizationApplicationModal} from "./ui/organizationApplicationModal/organizationApplicationModal"
+export {OrganizationProfileReadMoreModal} from "./ui/organizationProfileReadMoreModal/organizationProfileReadMoreModal";
+export {OrganizationProfileInfoModal} from "./ui/organizationProfileInfoModal/organizationProfileInfoModal";
+export {OrganizationProfileGalleryModal} from "./ui/organizationProfileGalleryModal/organizationProfileGalleryModal";
+export {OrganizationProfileAnnouncementsModal} from "./ui/organizationProfileAnnouncementsModal/organizationProfileAnnouncementsModal";

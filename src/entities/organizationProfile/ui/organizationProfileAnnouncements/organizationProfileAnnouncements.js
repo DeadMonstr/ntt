@@ -8,7 +8,7 @@ import cls from "./organizationProfileAnnouncements.module.sass";
 
 const list = [1, 2, 3]
 
-export const OrganizationProfileAnnouncements = memo(() => {
+export const OrganizationProfileAnnouncements = memo(({setActive}) => {
 
     const announcementsRef = useRef()
     const scholarshipsRef = useRef()
@@ -26,18 +26,18 @@ export const OrganizationProfileAnnouncements = memo(() => {
     const renderAnnouncementsItem = useCallback(() => {
         return list.map((item, index) => {
             return (
-                <AnnouncementsItem key={index}/>
+                <AnnouncementsItem setActive={setActive} key={index}/>
             )
         })
-    }, [])
+    }, [setActive])
 
     const renderScholarshipsItem = useCallback(() => {
         return list.map((item, index) => {
             return (
-                <ScholarshipsItem key={index}/>
+                <ScholarshipsItem setActive={setActive} key={index}/>
             )
         })
-    }, [])
+    }, [setActive])
 
     return (
         <div className={cls.announcements}>
