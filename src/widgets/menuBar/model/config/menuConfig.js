@@ -69,7 +69,7 @@ export const menuConfig = [
         label: "Organizations",
         img: {organization},
         back: true,
-        roles: [ROLES.organization_admin]
+        roles: [ROLES.organization_admin  , ROLES.admin]
 
     },
 ]
