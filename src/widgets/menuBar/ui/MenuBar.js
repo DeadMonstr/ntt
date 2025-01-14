@@ -13,72 +13,81 @@ export const MenuBar = () => {
     const [activeMultiLink, setActiveMultiLink] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
 
+    const userRole = localStorage.getItem("role")
+
+    console.log(userRole, "userRole")
 
     const renderMenuList = useCallback(() => {
         return menuConfig.map(item => {
-            if (item?.isMultiLink) {
-                return (
-                    <details
-                        open={activeMultiLink}
-                        className={classNames(cls.menubar__multiItem)}
-                    >
-                        <summary
-                            className={cls.menubar__title}
-                            onClick={() => setActiveMultiLink(!activeMultiLink)}
+            console.log(item.roles, item.roles?.includes(userRole), "item.roles")
+            if (item.roles?.includes(userRole)) {
+
+
+                if (item?.isMultiLink) {
+                    return (
+                        <details
+                            open={activeMultiLink}
+                            className={classNames(cls.menubar__multiItem)}
                         >
-                            <NavLink
-                                key={item.to}
-                                className={
-                                    ({isActive}) =>
-                                        isActive ? classNames(cls.menubar__item, cls.active) : cls.menubar__item
-                                }
-                                to={item.to}
+                            <summary
+                                className={cls.menubar__title}
+                                onClick={() => setActiveMultiLink(!activeMultiLink)}
                             >
-                                <i className={classNames(item.icon)}/>
-                                {item.label}
-                            </NavLink>
-                            <i className="fas fa-chevron-down"/>
-                        </summary>
-                        <div
-                            className={classNames(cls.menubar__wrapper)}
-                        >
-                            {
-                                item?.types?.map(link => {
-                                    return (
-                                        <NavLink
-                                            key={link.to}
-                                            className={
-                                                ({isActive}) =>
-                                                    isActive ? classNames(cls.menubar__fork, cls.active) : cls.menubar__fork
-                                            }
-                                            to={`${item.to}/${link.to}`}
-                                        >
-                                            {/*<i className={classNames(item.icon)}/>*/}
-                                            {link.label}
-                                        </NavLink>
-                                    )
-                                })
-                            }
-                        </div>
-                    </details>
+                                <NavLink
+                                    key={item.to}
+                                    className={
+                                        ({isActive}) =>
+                                            isActive ? classNames(cls.menubar__item, cls.active) : cls.menubar__item
+                                    }
+                                    to={item.to}
+                                >
+                                    <i className={classNames(item.icon)}/>
+                                    {item.label}
+                                </NavLink>
+                                <i className="fas fa-chevron-down"/>
+                            </summary>
+                            <div
+                                className={classNames(cls.menubar__wrapper)}
+                            >
+                                {
+                                    item?.types?.map(link => {
+                                        return (
+                                            <NavLink
+                                                key={link.to}
+                                                className={
+                                                    ({isActive}) =>
+                                                        isActive ? classNames(cls.menubar__fork, cls.active) : cls.menubar__fork
+                                                }
+                                                to={`${item.to}/${link.to}`}
+                                            >
+                                                {/*<i className={classNames(item.icon)}/>*/}
+                                                {link.label}
+                                            </NavLink>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </details>
+                    )
+                }
+
+                return (
+                    <NavLink
+                        onClick={() => setActiveMultiLink(false)}
+                        key={item.to}
+                        className={
+                            ({isActive}) =>
+                                isActive ? classNames(cls.menubar__item, cls.active) : cls.menubar__item
+                        }
+                        to={item.to}
+                    >
+                        {item.icon ? <i className={classNames(item.icon)}/> : <img src={item.img.organization} alt=""/>}
+                        {item.label}
+                    </NavLink>
                 )
             }
-            return (
-                <NavLink
-                    onClick={() => setActiveMultiLink(false)}
-                    key={item.to}
-                    className={
-                        ({isActive}) =>
-                            isActive ? classNames(cls.menubar__item, cls.active) : cls.menubar__item
-                    }
-                    to={item.to}
-                >
-                    {item.icon ? <i className={classNames(item.icon)}/> : <img src={item.img.organization} alt=""/>}
-                    {item.label}
-                </NavLink>
-            )
         })
-    }, [activeMultiLink])
+    }, [activeMultiLink, userRole])
 
     return (
         <>

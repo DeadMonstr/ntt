@@ -9,6 +9,7 @@ import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {onAddHeaderItem, onDeleteHeaderItem, onEditHeaderItem} from "../../../../entities/settings";
 import {ConfirmModal} from "../../../../shared/ui/confirmModal";
+import {API_URL, headers, useHttp} from "../../../../shared/api/base";
 
 export const SettingsHeader = ({settingsHeader, setActive, active}) => {
 
@@ -81,16 +82,18 @@ export const Add = ({active, setActive}) => {
     const {setValue, register, handleSubmit} = useForm()
     const dispatch = useDispatch()
 
+    const {request} = useHttp()
+
     const onClick = (data) => {
-        const res = {
-            id: Date.now(),
-            name: data.name
-        }
         setValue("name", "")
         setActive(false)
 
+        request(`${API_URL}organizations/organization_type/crud/create/`, "POST", JSON.stringify(data), headers())
+            .then(res => {
+                dispatch(onAddHeaderItem(res))
 
-        dispatch(onAddHeaderItem(res))
+            })
+
     }
 
     return (
@@ -118,7 +121,7 @@ export const Add = ({active, setActive}) => {
 }
 
 export const Edit = ({active, setActive, activeItem}) => {
-
+    const {request} = useHttp()
     const {setValue, register, handleSubmit} = useForm()
 
     const dispatch = useDispatch()
@@ -126,15 +129,24 @@ export const Edit = ({active, setActive, activeItem}) => {
         setValue("name", activeItem?.name)
     }, [active, activeItem])
 
+
     const [activeConfirm, setActiveConfirm] = useState(false)
     const onClick = (data) => {
-        dispatch(onEditHeaderItem({id: activeItem.id, data: data.name}))
-        setActive(false)
+        request(`${API_URL}organizations/organization_type/crud/update/${activeItem.id}/`, "PUT", JSON.stringify(data), headers())
+            .then(res => {
+                dispatch(onEditHeaderItem({id: activeItem.id, data: data.name}))
+                setActive(false)
+            })
+
+
     }
     const onDelete = () => {
-        dispatch(onDeleteHeaderItem(activeItem.id))
-        setActive(false)
-        setActiveConfirm(false)
+        request(`${API_URL}organizations/organization_type/crud/delete/${activeItem.id}/`, "DELETE", null, headers())
+            .then(res => {
+                dispatch(onDeleteHeaderItem(activeItem.id))
+                setActive(false)
+                setActiveConfirm(false)
+            })
     }
 
     return (

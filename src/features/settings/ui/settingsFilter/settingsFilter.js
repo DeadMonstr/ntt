@@ -8,10 +8,12 @@ import {Button} from "../../../../shared/ui/button/button";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {onAddDegree, onAddDirection} from "../../../../entities/settings";
+import {API_URL, headers, useHttp} from "../../../../shared/api/base";
 
-export const SettingsFilter = ({activeFilter, filterItem, setActiveFilter}) => {
+export const SettingsFilter = ({activeFilter, filterItem, setActiveFilter, active}) => {
 
     const [activeAdd, setActiveAdd] = useState(false)
+
 
     const renderItem = () => {
         return filterItem.map(item => (
@@ -33,36 +35,49 @@ export const SettingsFilter = ({activeFilter, filterItem, setActiveFilter}) => {
                 </div>
             </div>
 
-            <AddDirection activeFilter={activeFilter} active={activeAdd} setActive={setActiveAdd}/>
+            <AddDirection active={active} activeFilter={activeFilter} activeAdd={activeAdd} setActive={setActiveAdd}/>
         </div>
 
     );
 };
 
 
-export const AddDirection = ({active, setActive , activeFilter}) => {
+export const AddDirection = ({active, setActive, activeFilter, activeAdd}) => {
 
     const {register, setValue, handleSubmit} = useForm()
 
+    const {request} = useHttp()
     const dispatch = useDispatch()
     const onClick = (data) => {
-       if (activeFilter === 1) {
-           dispatch(onAddDirection(data))
-       }else {
-           dispatch(onAddDegree(data))
-       }
+        const res = {
+            ...data,
+            organization_type: active
+        }
+        if (activeFilter === 1) {
+            request(`${API_URL}organization_fields/crud/create/`, "POST", JSON.stringify(res), headers())
+                .then(res => {
+                    dispatch(onAddDirection(res))
+
+                })
+        } else {
+            request(`${API_URL}organization-degrees/organization-degree/crud/create/`, "POST", JSON.stringify(res), headers())
+                .then(res => {
+                    dispatch(onAddDegree(res))
+
+                })
+        }
         setValue("name", "")
-        setValue("description", "")
+        setValue("desc", "")
         setActive(false)
     }
     return (
-        <Modal setActive={setActive} active={active}>
-            <h1>Add Direction</h1>
+        <Modal setActive={setActive} active={activeAdd}>
+            <h1>Add {activeFilter === 1 ? "direction" : "degree"}</h1>
 
 
             <Form>
                 <Input extraClass={cls.filter__input} name={"name"} register={register}/>
-                <Textarea maxLength={140} name={"description"} register={register}/>
+                <Textarea maxLength={140} name={"desc"} register={register}/>
                 <Button onClick={handleSubmit(onClick)} extraClass={cls.filter__btn}>Add</Button>
 
             </Form>
