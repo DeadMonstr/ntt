@@ -10,15 +10,15 @@ import cls from "./application.module.sass"
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {applicationProfileSelectors} from "entities/applicationProfile";
+import {useParams} from "react-router";
 
-export const ApplicationProfile = () => {
-
-
-
+export const ApplicationProfile = ({getId}) => {
+    const {id} = useParams()
+    console.log(id, 'dsdds')
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchApplicationProfileData({id: 2}))
+        dispatch(fetchApplicationProfileData({id}))
     },[dispatch])
 
 

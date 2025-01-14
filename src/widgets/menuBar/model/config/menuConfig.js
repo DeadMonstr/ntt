@@ -72,4 +72,10 @@ export const menuConfig = [
         roles: [ROLES.organization_admin  , ROLES.admin]
 
     },
+    {
+        to: "organizationTypes",
+        label: "Organizations Types",
+        icon: "fas fa-home",
+        back: true
+    }
 ]
