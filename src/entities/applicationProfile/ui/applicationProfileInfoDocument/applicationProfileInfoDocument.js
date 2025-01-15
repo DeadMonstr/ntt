@@ -15,9 +15,9 @@ export const ApplicationProfileInfoDocument = () => {
             <div className={cls.application__info_wrapper}>
                 <ul className={cls.application__info_infos}>
                     <li>Yo'nalish nomi <span>Matematika</span></li>
-                    <li>Daraja <span>{data?.request?.degree}</span></li>
-                    <li>Ta'lim turi  <span>{data?.request?.shift}</span></li>
-                    <li>Ta'lim tili  <span>{data?.request?.language}</span></li>
+                    <li>Daraja <span>{data?.degree}</span></li>
+                    <li>Ta'lim turi  <span>{data?.shift}</span></li>
+                    <li>Ta'lim tili  <span>{data?.language}</span></li>
                 </ul>
             </div>
         </div>

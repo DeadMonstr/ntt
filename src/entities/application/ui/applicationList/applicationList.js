@@ -3,12 +3,17 @@ import {useNavigate} from "react-router";
 import classNames from "classnames";
 
 import {Table} from "shared/ui/table";
-
 import cls from "./applicationList.module.sass";
 
-export const ApplicationList = memo(() => {
+
+export const ApplicationList = memo(({list = []}) => {
+        
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1268);
+
+
+    const navigate = useNavigate()
+
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 1268);
@@ -16,7 +21,10 @@ export const ApplicationList = memo(() => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const navigate = useNavigate()
+
+
+    console.log(list)
+
     return (
         <div className={cls.applicationList}>
             <Table>
@@ -36,52 +44,53 @@ export const ApplicationList = memo(() => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr
-                    onClick={() => navigate("../profile")}
-                    className={classNames(cls.applicationList__list, {
-                        [cls.debt]: true
-                    })}
-                >
-                    <td/>
-                    {
-                        !isMobile ? <>
-                            <td>Quddusbek Azzamov Aminjonovich</td>
-                            <td>+998 911234567</td>
-                        </> : <>
-                            <td>
-                                <div style={{display: "flex", flexDirection: "column"}}>
-                                    <div className={cls.applicationList__name}>Quddusbek Azzamov Aminjonovich</div>
-                                    <div className={cls.applicationList__number}>+998 911234567</div>
-                                </div>
-                            </td>
-                            <td/>
-                        </>
-                    }
-                    {!isMobile ? <>
-                        <td>Bakalavr</td>
-                        <td>Matematika</td>
-                        <td>Sirtqi</td>
-                        <td>O'zbek tili</td>
-                        <td>13.07.2024</td>
-                    </> : null}
-                </tr>
-                <tr
-                    onClick={() => navigate("../profile")}
-                    className={cls.applicationList__list}
-                >
-                    <td/>
-                    <td>Quddusbek Azzamov Aminjonovich</td>
-                    <td>+998 911234567</td>
-                    {!isMobile ? <>
-                        <td>Bakalavr</td>
-                        <td>Matematika</td>
-                        <td>Sirtqi</td>
-                        <td>O'zbek tili</td>
-                        <td>13.07.2024</td>
-                    </> : null}
-                </tr>
+
+                {
+                    list?.map(item => {
+                        return (
+                            <tr
+                                onClick={() => {
+                                    navigate(`profile/${item.id}`)
+                                }
+                            }
+                                className={classNames(cls.applicationList__list, {
+                                    [cls.debt]: !item?.accepted
+                                })}
+                            >
+                                <td/>
+                                <td>{item?.name}</td>
+                                <td>{item?.phone}</td>
+                                <td>{item?.degree}</td>
+                                {!isMobile ? <>
+                                    <td>{item?.field}</td>
+                                    <td>{item?.shift}</td>
+                                    <td>{item?.language}</td>
+                                    <td>{item?.date}</td>
+                                </> : null}
+                            </tr>
+                        )
+                    })
+                }
+
+
+                {/*<tr*/}
+                {/*    onClick={() => navigate("profile")}*/}
+                {/*    className={cls.applicationList__list}*/}
+                {/*>*/}
+                {/*    <td/>*/}
+                {/*    <td>Quddusbek Azzamov Aminjonovich</td>*/}
+                {/*    <td>+998 911234567</td>*/}
+                {/*    <td>Bakalavr</td>*/}
+                {/*    {!isMobile ? <>*/}
+                {/*        <td>Matematika</td>*/}
+                {/*        <td>Sirtqi</td>*/}
+                {/*        <td>O'zbek tili</td>*/}
+                {/*        <td>13.07.2024</td>*/}
+                {/*    </> : null}*/}
+                {/*</tr>*/}
                 </tbody>
             </Table>
+
         </div>
     )
 })

@@ -1,3 +1,3 @@
 export {default as settingsSlice} from "./model/settingsSlice"
 
-export {SettingsHeader} from "./ui/settingsHeader/settingsHeader"
+export {onEditHeaderItem , onAddHeaderItem} from "./model/settingsSlice"

@@ -6,7 +6,7 @@ export const fetchApplicationProfileData = createAsyncThunk(
     "applicationProfileSlice/fetchApplicationProfileData",
     async ({id}) => {
         const {request} = useHttp()
-        return request(`${API_URL}students/student_requests/profile/${id}`,"GET", null )
+        return request(`${API_URL}students/student_request/${id}`,"GET", null )
     }
 )
 

@@ -14,15 +14,15 @@ export const ApplicationProfileInfoEducation = () => {
             <h1>Ta'lim dargohi ma’lumotlari</h1>
             <div className={cls.application__info_wrapper}>
                 <ul className={cls.application__info_infos}>
-                    <li>Ta’lim turi<span>{data?.organization?.organization_type}</span></li>
-                    <li>Ta’lim dargohi joylashgan viloyat <span>{data?.organization?.region}</span></li>
+                    <li>Ta’lim turi<span>{data?.degree}</span></li>
+                    <li>Ta’lim dargohi joylashgan viloyat <span>{data?.organization_region}</span></li>
                     {/*<li>Ta’lim dargohi joylashgan viloyat <span>Andijon viloyati</span></li>*/}
                 </ul>
                 <ul className={cls.application__info_infos}>
                     <li>
                         Ta’lim dargohi nomi
                         <span>
-                            {data?.organization?.name}
+                            {data?.organization_name}
                         </span>
                     </li>
                     <li>Diplom, shahodatnoma yoki ma’lumotnoma nusxasi

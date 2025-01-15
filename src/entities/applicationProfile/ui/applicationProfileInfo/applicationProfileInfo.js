@@ -15,13 +15,13 @@ export const ApplicationProfileInfo = () => {
 
                     <img src={defImage} alt=""/>
                     <div>
-                        {data?.user?.name}
+                        {data?.name}
                     </div>
                 </div>
                 <ul className={cls.application__info_infos}>
-                   <li>Telefon  <span>{data?.user?.phone}</span></li>
-                   <li>Qo’shimcha telefon  <span>{data?.user?.phone_extra}</span></li>
-                   <li>Pochta  <span>{data?.user?.email}</span></li>
+                   <li>Telefon  <span>{data?.phone}</span></li>
+                   <li>Qo’shimcha telefon  <span>{data?.phone_extra}</span></li>
+                   <li>Pochta  <span>{data?.email}</span></li>
                 </ul>
             </div>
         </div>

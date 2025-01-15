@@ -1,0 +1,160 @@
+.box
+  display: flex
+  flex-direction: column
+  gap: 2rem
+  &__btnBox
+    display: flex
+    width: 100%
+    gap: 3rem
+  &__buttonPanel
+    width: 140rem
+    display: flex
+
+    flex-direction: column
+    &__container
+      width: 30%
+      height: 12rem
+      display: flex
+      align-items: end
+      justify-content: end
+      gap: 1rem
+      align-self: end
+      &__btn
+        padding: 2.5rem
+        background: #E7EDFF
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+  &__spinnerContainer
+    width: 142rem
+    height: 25rem
+    align-items: center
+    display: flex
+    cursor: grab
+    overflow: hidden
+    &__spinBox
+      display: flex
+      gap: 1.4rem
+      &__spinner
+        width: 45rem
+        border-radius: 2rem
+        background: #FEF7FF
+        padding: 2rem
+        display: flex
+        gap: 2rem
+        height: 18rem
+        flex-grow: 0
+        flex-shrink: 0
+        align-items: center
+        border: 1px solid #CAC4D0
+
+        img
+          width: 16rem
+          height: 12rem
+          user-select: none
+        &__innerBox
+          display: flex
+          flex-direction: column
+          gap: 1rem
+          h1
+            font-size: 1.9rem
+          h2
+            font-size: 1.5rem
+            color: #1814F3
+          h3
+            font-size: 1.5rem
+            color: #49454F
+          span
+            padding: 1rem
+            width: fit-content
+            background: #2D60FF
+            border-radius: 3rem
+            align-items: center
+            justify-content: center
+            h4
+              color: white
+              font-size: 1.3rem
+  &__portal
+    display: flex
+    flex-direction: column
+    gap: 3rem
+    &__form
+      padding: 1rem
+      display: flex
+      flex-direction: column
+      gap: 2rem
+      &__btn
+        width: 100%
+        background: #2561FA
+        color: white
+        transition: .5s
+        &:hover
+          background: #3757b9
+          color: white
+
+.mainBox__extraBox__typeBox__handlerBox
+
+  width: 60%
+  height: 12rem
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: start
+  padding-left: 4rem
+  gap: 2rem
+
+  box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0
+
+  &__iconBox
+    width: 1rem
+    height: 1rem
+    padding: 3rem
+    display: flex
+    align-items: center
+    justify-content: center
+    background: #F2F2F7
+    border-radius: 50%
+
+    i
+      font-size: 2.5rem
+      color: #C7C7CC
+
+  &__contentBox
+    width: 4rem
+    display: flex
+    flex-direction: column
+    gap: 1rem
+
+    h1
+      font-family: Inter
+      font-weight: bold
+      color: #8E8E93
+
+    h3
+      font-family: Inter
+      font-weight: bolder
+      color: #8E8E93
+      font-size: 1.4rem
+
+.active
+  width: 60%
+  height: 12rem
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: start
+  padding-left: 4rem
+  gap: 2rem
+  border-radius: 20px
+  box-shadow: rgba(0, 0, 0, 0.15) 0 5px 15px 0
+  border: 1px solid #2D60FF
+  h1
+    color: black
+    font-family: Inter
+  h3
+    color: #718EBF
+  i
+    color: #2561FA
+  .mainBox__extraBox__typeBox__handlerBox__iconBox
+    background: #E7EDFF
