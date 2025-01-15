@@ -1,4 +1,3 @@
-
 export const getOrganizationProfileData = (state) =>
     state.OrganizationProfileSlice.data
 export const getOrganizationProfileGallery = (state) =>
