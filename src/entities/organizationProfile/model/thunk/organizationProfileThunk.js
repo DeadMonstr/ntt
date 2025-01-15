@@ -16,3 +16,11 @@ export const fetchOrganizationProfileGallery = createAsyncThunk(
         return request(`${API_URL}organizations/organization_gallery/get/?organization_id=1`)
     }
 )
+
+export const fetchOrganizationProfileApplications = createAsyncThunk(
+    "OrganizationProfileSlice/fetchOrganizationProfileApplications",
+    () =>{
+        const {request} = useHttp()
+        return request(`${API_URL}organizations/organization_landing_page/get/`)
+    }
+)

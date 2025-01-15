@@ -12,6 +12,7 @@ export {
 } from "./model/thunk/organizationProfileThunk";
 export {
     getOrganizationProfileData,
+    getOrganizationProfileGallery,
     getOrganizationProfileLoading,
     getOrganizationProfileError
 } from "./model/selector/organizationProfileSelector";
