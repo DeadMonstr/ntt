@@ -17,10 +17,26 @@ export const fetchOrganizationProfileGallery = createAsyncThunk(
     }
 )
 
+export const fetchOrganizationProfileAnnouncements = createAsyncThunk(
+    "OrganizationProfileSlice/fetchOrganizationProfileAnnouncements",
+    () =>{
+        const {request} = useHttp()
+        return request(`${API_URL}organizations/organization_landing_page/get/?organization_id=1`)
+    }
+)
+
 export const fetchOrganizationProfileApplications = createAsyncThunk(
     "OrganizationProfileSlice/fetchOrganizationProfileApplications",
     () =>{
         const {request} = useHttp()
-        return request(`${API_URL}organizations/organization_landing_page/get/`)
+        return request(`${API_URL}students/student_request_list/?organization_id=1`)
+    }
+)
+
+export const fetchOrganizationProfileReadMore = createAsyncThunk(
+    "OrganizationProfileSlice/fetchOrganizationProfileApplications",
+    () =>{
+        const {request} = useHttp()
+        return request(`${API_URL}organizations/organization_advantage/get/1/`)
     }
 )

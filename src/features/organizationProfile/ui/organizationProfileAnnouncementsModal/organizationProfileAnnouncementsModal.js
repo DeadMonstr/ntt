@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 
 import {OrganizationProfileAnnouncements} from "entities/organizationProfile";
 import {Modal} from "shared/ui/modal";
@@ -8,11 +8,20 @@ import {Textarea} from "shared/ui/textArea";
 import {Select} from "shared/ui/select";
 
 import cls from "./organizationProfileAnnouncementsModal.module.sass";
+import {useDispatch} from "react-redux";
+import {
+    fetchOrganizationProfileAnnouncements
+} from "../../../../entities/organizationProfile/model/thunk/organizationProfileThunk";
 
 
 export const OrganizationProfileAnnouncementsModal = memo(() => {
 
+    const dispatch = useDispatch()
     const [activeModal, setActiveModal] = useState(false)
+
+    useEffect(() => {
+        dispatch(fetchOrganizationProfileAnnouncements())
+    }, [])
 
     const onActiveModal = useCallback(() => setActiveModal(true), [activeModal])
 

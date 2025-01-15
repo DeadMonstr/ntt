@@ -1,4 +1,4 @@
-import {memo, useCallback, useState} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import classNames from "classnames";
 import {useDropzone} from "react-dropzone";
 
@@ -9,8 +9,18 @@ import {Input} from "shared/ui/input";
 import {Textarea} from "shared/ui/textArea";
 
 import cls from "./organizationProfileReadMoreModal.module.sass";
+import {useDispatch} from "react-redux";
+import {
+    fetchOrganizationProfileReadMore
+} from "../../../../entities/organizationProfile/model/thunk/organizationProfileThunk";
 
 export const OrganizationProfileReadMoreModal = memo(() => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchOrganizationProfileReadMore())
+    }, [])
 
     const [activeModal, setActiveModal] = useState(false)
     const [newImageFile, setNewImageFile] = useState(null)
