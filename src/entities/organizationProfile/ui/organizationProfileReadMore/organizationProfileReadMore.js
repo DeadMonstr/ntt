@@ -1,10 +1,16 @@
 import React, {memo} from 'react';
 import classNames from "classnames";
+import {useSelector} from "react-redux";
+
+import {getOrganizationProfileReadMore} from "../../model/selector/organizationProfileSelector";
 
 import cls from "./organizationProfileReadMore.module.sass";
 import image from "shared/assets/images/Group 26085539.png";
 
 export const OrganizationProfileReadMore = memo(({setActive}) => {
+
+    const data = useSelector(getOrganizationProfileReadMore)
+
     return (
         <div className={cls.applications}>
             <div
@@ -16,13 +22,12 @@ export const OrganizationProfileReadMore = memo(({setActive}) => {
             <h1 className={cls.applications__title}>Afzalliklar</h1>
             <div className={cls.applications__container}>
                 <div className={cls.images}>
-                    <img className={cls.images__main} src={image} alt=""/>
+                    <img className={cls.images__main} src={data?.file?.url} alt=""/>
                     <img className={cls.images__sub} src={image} alt=""/>
                 </div>
                 <div className={cls.text}>
                     <h2 className={cls.text__title}>
-                        Strategic, Operationl, Programme  &
-                        Financial Planning
+                        {data?.name_optional}
                     </h2>
                     <p>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.

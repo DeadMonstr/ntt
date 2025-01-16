@@ -29,7 +29,7 @@ export const OrganizationProfileInfo = memo(({setActive}) => {
                     </div>
                 </div>
                 <div className={cls.info__container}>
-                    <img className={cls.info__image} src={image} alt=""/>
+                    <img className={cls.info__image} src={data?.img} alt=""/>
                     <div className={cls.info__form}>
                         <Input
                             value={data?.name}

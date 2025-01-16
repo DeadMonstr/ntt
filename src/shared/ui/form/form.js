@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import cls from "./form.module.sass"
 
-export const Form = memo(({id, extraClassname, onSubmit, children, isChange = true}) => {
+export const Form = memo(({id, extraClassname, onSubmit, children, isChange = true, disabled}) => {
     return (
         <form
             id={id}
@@ -14,7 +14,14 @@ export const Form = memo(({id, extraClassname, onSubmit, children, isChange = tr
 
             {
                 isChange &&
-                <input  value={"Tasdiqlash"} className={cls.form__submit} type="submit"/>
+                <input
+                    disabled={disabled}
+                    value={"Tasdiqlash"}
+                    className={classNames(cls.form__submit, {
+                        [cls.active]: !disabled
+                    })}
+                    type="submit"
+                />
             }
 
         </form>

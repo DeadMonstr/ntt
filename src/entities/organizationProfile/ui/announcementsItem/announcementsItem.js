@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 import cls from "./announcementsItem.module.sass";
 import classNames from "classnames";
 
-export const AnnouncementsItem = memo(({setActive}) => {
+export const AnnouncementsItem = memo(({setActive, item}) => {
     return (
         <motion.div
             transition={{duration: 1}}
@@ -22,11 +22,8 @@ export const AnnouncementsItem = memo(({setActive}) => {
                 </div>
                 <div className={cls.item__text}>
                     <div className={cls.item__wrapper}>
-                        <h2 className={cls.item__user}>Sevinch</h2>
-                        <p className={cls.item__info}>
-                            It is a long established fact that a reader will be distracted by
-                            the readable content of a page when looking at its layout.
-                        </p>
+                        <h2 className={cls.item__user}>{item?.name_optional}</h2>
+                        <p className={cls.item__info}>{item?.desc}</p>
                     </div>
                     <div className={cls.item__footer}>
                         <h3>Year: <span>2023-2024</span></h3>
@@ -45,7 +42,7 @@ export const AnnouncementsItem = memo(({setActive}) => {
                             "fas fa-pen",
                             cls.wrapper__icon
                         )}
-                        onClick={() => setActive(true)}
+                        onClick={setActive}
                     />
                 </div>
             </div>

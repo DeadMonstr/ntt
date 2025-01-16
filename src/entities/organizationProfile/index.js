@@ -5,7 +5,12 @@ export {OrganizationProfileAnnouncements} from "./ui/organizationProfileAnnounce
 export {OrganizationProfileGallery} from "./ui/organizationProfileGallery/organizationProfileGallery";
 export {OrganizationProfileApplications} from "./ui/organizationProfileApplications/organizationProfileApplications";
 
-export {default as OrganizationProfileSlice} from "./model/slice/organizationProfileSlice";
+export {
+    default as OrganizationProfileSlice,
+    updateData,
+    updateReadMore,
+    addGallery
+} from "./model/slice/organizationProfileSlice";
 export {
     fetchOrganizationProfileData,
     fetchOrganizationProfileGallery
@@ -13,6 +18,9 @@ export {
 export {
     getOrganizationProfileData,
     getOrganizationProfileGallery,
+    getOrganizationProfileReadMore,
+    getOrganizationProfileApplications,
+    getOrganizationProfileAnnouncements,
     getOrganizationProfileLoading,
     getOrganizationProfileError
 } from "./model/selector/organizationProfileSelector";

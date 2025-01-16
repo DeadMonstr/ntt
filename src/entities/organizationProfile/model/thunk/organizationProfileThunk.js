@@ -34,7 +34,7 @@ export const fetchOrganizationProfileApplications = createAsyncThunk(
 )
 
 export const fetchOrganizationProfileReadMore = createAsyncThunk(
-    "OrganizationProfileSlice/fetchOrganizationProfileApplications",
+    "OrganizationProfileSlice/fetchOrganizationProfileReadMore",
     () =>{
         const {request} = useHttp()
         return request(`${API_URL}organizations/organization_advantage/get/1/`)

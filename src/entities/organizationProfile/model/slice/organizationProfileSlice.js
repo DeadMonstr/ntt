@@ -1,14 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+    fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileApplications,
     fetchOrganizationProfileData,
-    fetchOrganizationProfileGallery
+    fetchOrganizationProfileGallery, fetchOrganizationProfileReadMore
 } from "../thunk/organizationProfileThunk";
 
 const initialState = {
     data: null,
     gallery: null,
     applications: null,
+    announcements: null,
+    readMore: null,
     loading: false,
     error: null
 }
@@ -19,6 +22,19 @@ const OrganizationProfileSlice = createSlice({
     reducers: {
         updateData: (state, action) => {
             state.data = action.payload
+        },
+        updateReadMore: (state, action) => {
+            state.readMore = action.payload
+        },
+        addGallery: (state, action) => {
+            state.gallery = [...state.gallery, action.payload]
+        },
+        updateGallery: (state, action) => {
+            state.gallery = state.gallery.map(
+                item => item.id === action.payload.id
+                    ? action.payload
+                    : item
+            )
         }
     },
     extraReducers: builder =>
@@ -62,8 +78,39 @@ const OrganizationProfileSlice = createSlice({
                 state.loading = false
                 state.error = "error"
             })
+            .addCase(fetchOrganizationProfileReadMore.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileReadMore.fulfilled, (state, action) => {
+                state.readMore = action.payload
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileReadMore.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
+            .addCase(fetchOrganizationProfileAnnouncements.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileAnnouncements.fulfilled, (state, action) => {
+                state.announcements = action.payload
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileAnnouncements.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
 })
 
 
-export const {updateData} = OrganizationProfileSlice.actions
+export const {
+    updateData,
+    updateReadMore,
+    addGallery,
+    updateGallery
+} = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer
