@@ -7,8 +7,11 @@ import {applicationSlice} from "pages/applicationPage";
 import {organizationsSlice} from "features/organizations";
 import {settingsSlice} from "entities/settings";
 import {organizationProfileItemSlice, organizationSlice} from "../entities/organizationProfileItem";
+import {loginSlice} from "../pages/login";
+import {userProfileSlice} from "../entities/userProfile";
 import {OrganizationProfileSlice} from "entities/organizationProfile";
 import {oftenUsedSlice} from "entities/oftenUsed";
+import {organizationTypesSlice} from "../features/organizationTypes";
 
 
 const stringMiddleware = () => (next) => (action) => {
@@ -30,8 +33,11 @@ export const store = configureStore({
         organizationsSlice,
         settingsSlice,
         organizationProfileItemSlice,
+        loginSlice,
+        userProfileSlice,
         OrganizationProfileSlice,
-        oftenUsedSlice
+        oftenUsedSlice,
+        organizationTypesSlice
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(

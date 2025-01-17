@@ -6,17 +6,21 @@ import {Layout} from "app/layout";
 import {routersConfig} from "../config/routersConfig";
 
 import "app/styles/index.sass"
+import {Login} from "../../../pages/login";
 
 
 export const AppRouter = () => {
 
 
-    const [backBtn, setBackBtn] = useState(false)
 
-    console.log(backBtn, "back")
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
+                <Route
+                    path={"/login"}
+                    element={<Login/>}
+                />
+
                 <Route
                     path={"admin/*"}
                     element={<Layout/>}

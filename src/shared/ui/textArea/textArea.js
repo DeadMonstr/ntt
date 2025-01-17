@@ -16,7 +16,8 @@ export const Textarea = React.memo((
         onChange,
         style,
         extraClassName,
-        value
+        value,
+        maxLength
     }) => {
 
     const [silk, setSilk] = useState("")
@@ -38,6 +39,7 @@ export const Textarea = React.memo((
                     [`${cls?.error}`] : errors?.[name]
                 })}
                 required={required}
+                maxLength={maxLength}
                 placeholder={placeholder}
                 {...register(name,{
                     value:value,

@@ -1,11 +1,14 @@
-
 import organization from "shared/assets/icons/organizations.svg"
+import {ROLES} from "../../../../shared/const/roles";
+
 export const menuConfig = [
     {
         to: "dashboard",
         label: "Dashboard",
-        icon: "fas fa-th"
-    }, {
+        icon: "fas fa-th",
+        roles: [ROLES.admin , ROLES.organization_admin]
+    },
+    {
         to: "applications",
         label: "Arizalar",
         icon: "fas fa-book-open",
@@ -45,22 +48,29 @@ export const menuConfig = [
                 label: "Talabalikka tavsiya\n qilinganlar",
                 to: "recommended"
             },
-        ]
-    }, {
+        ],
+        roles: [ROLES.admin , ROLES.organization_admin]
+    },
+    {
         to: "courseApplications",
         label: "Kurs arizalari",
-        icon: "far fa-file-alt"
-    }, {
+        icon: "far fa-file-alt",
+        roles: [ROLES.admin , ROLES.organization_admin]
+    },
+    {
         to: "settings",
         label: "Sozlamalar",
         icon: "fas fa-cog",
-        back: true
+        back: true,
+        roles: [ROLES.admin , ROLES.organization_admin]
     },
     {
         to: "organizations",
         label: "Organizations",
         img: {organization},
-        back: true
+        back: true,
+        roles: [ROLES.organization_admin  , ROLES.admin]
+
     },
     {
         to: "organizationTypes",
