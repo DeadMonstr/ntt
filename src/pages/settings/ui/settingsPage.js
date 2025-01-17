@@ -5,11 +5,9 @@ import {
     getSettingsDirection,
     getSettingsHeader
 } from "../../../entities/settings/model/settingsSelector";
-import {useSelector} from "react-redux";
-import {getSettingsData, getSettingsHeader} from "entities/settings/model/settingsSelector";
 
-import {useState} from "react";
-import {SettingsFilter, SettingsHeader} from "features/settings";
+
+
 import {useEffect, useMemo, useState} from "react";
 import {SettingsFilter, SettingsHeader, SettingsLists} from "../../../features/settings";
 import {

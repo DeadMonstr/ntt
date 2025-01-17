@@ -18,7 +18,7 @@ const oftenUsedSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchRegionsData.fulfilled, (state, action) => {
-                state.regions = action.payload
+                state.regions = action.payload.results
                 state.loading = "regionSuccess"
                 state.error = null
             })

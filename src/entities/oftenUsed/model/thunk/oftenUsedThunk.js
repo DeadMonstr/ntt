@@ -1,11 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {API_URL, useHttp} from "shared/api/base";
+import {API_URL, headers, useHttp} from "shared/api/base";
 
 export const fetchRegionsData = createAsyncThunk(
     "oftenUsedSlice/fetchRegionsData",
     () => {
         const {request} = useHttp()
-        return request(`${API_URL}region/get/`)
+        return request(`${API_URL}region/get/`, "GET", null, headers())
     }
 )
 

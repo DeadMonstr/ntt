@@ -98,7 +98,7 @@ export const SettingsListEdit = ({active, setActive, activeItem, activeFilter}) 
             <h1>Edit {activeFilter === 1 ? "Direction" : "Degree"}</h1>
 
 
-            <Form>
+            <Form isChange={false}>
                 <Input extraClass={cls.filter__input} name={"name"} register={register}/>
                 <Textarea maxLength={140} name={"desc"} register={register}/>
                 <div className={cls.filter__buttons}>

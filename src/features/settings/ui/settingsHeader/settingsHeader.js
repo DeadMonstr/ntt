@@ -101,7 +101,7 @@ export const Add = ({active, setActive}) => {
             <h1>Add</h1>
 
 
-            <Form>
+            <Form isChange={false}>
                 <Input
                     name={"name"}
                     register={register}

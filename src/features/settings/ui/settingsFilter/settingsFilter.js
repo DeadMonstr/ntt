@@ -75,7 +75,7 @@ export const AddDirection = ({active, setActive, activeFilter, activeAdd}) => {
             <h1>Add {activeFilter === 1 ? "direction" : "degree"}</h1>
 
 
-            <Form>
+            <Form isChange={false}>
                 <Input extraClass={cls.filter__input} name={"name"} register={register}/>
                 <Textarea maxLength={140} name={"desc"} register={register}/>
                 <Button onClick={handleSubmit(onClick)} extraClass={cls.filter__btn}>Add</Button>
