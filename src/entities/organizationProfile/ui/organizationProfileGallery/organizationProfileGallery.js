@@ -31,7 +31,13 @@ export const OrganizationProfileGallery = memo(({setActive, isAdd}) => {
     }, [setActive, data])
 
     return (
-        <div className={cls.images}>
+        <div
+            className={classNames(
+                cls.images, {
+                    [cls.notActive]: !data?.length
+                }
+            )}
+        >
             {renderImages()}
             <div
                 onClick={() => isAdd(true)}

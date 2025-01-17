@@ -32,7 +32,11 @@ const OrganizationProfileSlice = createSlice({
         updateGallery: (state, action) => {
             state.gallery = state.gallery.map(
                 item => item.id === action.payload.id
-                    ? action.payload
+                    ? {
+                        id: item.id,
+                        file: action.payload,
+                        organization: item.organization
+                    }
                     : item
             )
         }

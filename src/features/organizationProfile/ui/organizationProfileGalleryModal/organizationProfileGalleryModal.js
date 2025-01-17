@@ -31,6 +31,10 @@ export const OrganizationProfileGalleryModal = memo(() => {
         }
     })
 
+    useEffect(() => {
+        if (!addActiveModal) setNewImageFile(null)
+    }, [addActiveModal])
+
     const onActiveModal = useCallback((data) => setActiveModal(data), [])
 
     const onSubmit = (e) => {
@@ -71,17 +75,40 @@ export const OrganizationProfileGalleryModal = memo(() => {
 
     return (
         <>
-            <OrganizationProfileGallery setActive={onActiveModal} isAdd={setAddActiveModal}/>
+            <OrganizationProfileGallery setActive={setActiveModal} isAdd={setAddActiveModal}/>
             <Modal
-                active={activeModal || addActiveModal}
-                setActive={addActiveModal ? setAddActiveModal : setActiveModal}
+                active={activeModal}
+                setActive={setActiveModal}
             >
                 <Form
                     disabled={!newImageFile}
                     extraClassname={cls.gallery}
-                    onSubmit={addActiveModal ? onCreate : onSubmit}
+                    onSubmit={onSubmit}
                 >
-                    <h1 className={cls.gallery__title}>Ma’lumotni o’zgartirish</h1>
+                    <h1 className={cls.gallery__title}>Rasmni o’zgartirish</h1>
+                    <div
+                        {...getRootProps()}
+                        className={cls.gallery__image}
+                    >
+                        <input {...getInputProps()}/>
+                        {
+                            newImageFile
+                                ? <img className={cls.gallery__inner} src={URL.createObjectURL(newImageFile)} alt=""/>
+                                : <img className={cls.gallery__inner} src={activeModal?.file?.url} alt=""/>
+                        }
+                    </div>
+                </Form>
+            </Modal>
+            <Modal
+                active={addActiveModal}
+                setActive={setAddActiveModal}
+            >
+                <Form
+                    disabled={!newImageFile}
+                    extraClassname={cls.gallery}
+                    onSubmit={onCreate}
+                >
+                    <h1 className={cls.gallery__title}>Rasm qo'shish</h1>
                     <div
                         {...getRootProps()}
                         className={cls.gallery__image}
