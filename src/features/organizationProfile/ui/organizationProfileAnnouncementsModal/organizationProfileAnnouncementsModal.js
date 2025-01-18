@@ -69,6 +69,7 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
                     <Input extraClass={cls.announcements__input} placeholder={"Year"}/>
                     <Input extraClass={cls.announcements__input} placeholder={"Day"}/>
                     <Select extraClass={cls.announcements__input} titleOption={"Daraja"}/>
+                    {!isChecked && <Input extraClass={cls.announcements__input} placeholder={"Price"}/>}
                     <Input
                         onChange={() => setIsChecked(!isChecked)}
                         checked={isChecked}
@@ -80,11 +81,9 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
                         isChecked
                             ? <>
                                 <Select extraClass={cls.announcements__input} titleOption={"Shift"}/>
-                                <Input extraClass={cls.announcements__input} placeholder={"Price"}/>
                                 <Select extraClass={cls.announcements__input} titleOption={"Fan"}/>
                                 <Input extraClass={cls.announcements__input} placeholder={"Study year"}/>
                                 <Input extraClass={cls.announcements__input} placeholder={"Ball"}/>
-                                <Textarea extraClass={cls.announcements__input} placeholder={"Desc"}/>
                             </>
                             : null
                     }

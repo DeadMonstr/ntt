@@ -52,6 +52,9 @@ export const Input = memo((
                                 )}
                             </div>
                         )}
+                        {type === "checkbox" && (
+                            <p>{placeholder}</p>
+                        )}
                     </div>
                 ) : (
                     <div className={cls.field}>
@@ -76,6 +79,9 @@ export const Input = memo((
                                     <i className="fa fa-eye-slash" />
                                 )}
                             </div>
+                        )}
+                        {type === "checkbox" && (
+                            <p>{placeholder}</p>
                         )}
                     </div>
                 )

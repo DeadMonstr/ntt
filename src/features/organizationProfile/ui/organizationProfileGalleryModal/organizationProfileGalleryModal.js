@@ -58,19 +58,23 @@ export const OrganizationProfileGalleryModal = memo(() => {
     const onCreate = (e) => {
         e.preventDefault()
         console.log(true)
-        formData.append("file", newImageFile)
-        formData.append("organization", 1)
-        request(
-            `${API_URL}organizations/organization_gallery/crud/create/`,
-            "POST",
-            formData,
-            {}
-        )
+        formData.append("url", newImageFile)
+        formData.append("type", "img")
+        request(`${API_URL}organizations/organization_gallery/crud/create-file/`, "POST", formData,{})
             .then(res => {
-                console.log(res)
-                dispatch(addGallery(res))
+                request(
+                    `${API_URL}organizations/organization_gallery/crud/create/`,
+                    "POST",
+                    JSON.stringify({file: res?.id, organization: 1})
+                )
+                    .then(res => {
+                        console.log(res, "res")
+                        dispatch(addGallery(res))
+                    })
+                    .catch(err => console.log(err))
             })
-            .catch(err => console.log(err))
+        formData.delete("url")
+        formData.delete("type")
     }
 
     return (
