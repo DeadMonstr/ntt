@@ -1,8 +1,4 @@
-@import "app/styles/abstracts/variables"
 @import "app/styles/abstracts/mixins"
-@import "app/styles/themes/school"
-@import "app/styles/themes/center"
-
 
 .form
   width: 100%
@@ -18,5 +14,10 @@
     width: fit-content
     border-radius: .5rem
     align-self: flex-end
+    &.active
+      transition: .1s
+      @include btn-active
+  input[disabled]
+    background: #7F7F7F
 
 

@@ -1,14 +1,24 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 
 import {Table} from "shared/ui/table";
 
 import cls from "./organizationProfileApplications.module.sass";
 import {Select} from "../../../../shared/ui/select";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchOrganizationProfileApplications} from "../../model/thunk/organizationProfileThunk";
+import {getOrganizationProfileApplications} from "../../model/selector/organizationProfileSelector";
 
 export const OrganizationProfileApplications = memo(() => {
 
+    const dispatch = useDispatch()
+    const data = useSelector(getOrganizationProfileApplications)
+
+    useEffect(() => {
+        dispatch(fetchOrganizationProfileApplications())
+    }, [])
+
     const renderApplicationsList = useCallback(() => {
-        return [1,2,3,4,5,6,7,8,9].map(item => {
+        return data?.map(item => {
             return (
                 <tr>
                     <td>Quddusbek Azzamov Aminjonovich</td>
@@ -21,7 +31,7 @@ export const OrganizationProfileApplications = memo(() => {
                 </tr>
             )
         })
-    }, [])
+    }, [data])
 
     return (
         <div className={cls.applications}>

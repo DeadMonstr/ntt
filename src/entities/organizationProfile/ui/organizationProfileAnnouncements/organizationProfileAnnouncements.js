@@ -5,11 +5,15 @@ import {AnnouncementsItem} from "../announcementsItem/announcementsItem";
 import {ScholarshipsItem} from "../scholarshipsItem/scholarshipsItem";
 
 import cls from "./organizationProfileAnnouncements.module.sass";
+import {useSelector} from "react-redux";
+import {getOrganizationProfileAnnouncements} from "../../model/selector/organizationProfileSelector";
+import classNames from "classnames";
 
 const list = [1, 2, 3]
 
-export const OrganizationProfileAnnouncements = memo(({setActive}) => {
+export const OrganizationProfileAnnouncements = memo(({setActive,isAdd}) => {
 
+    const data = useSelector(getOrganizationProfileAnnouncements)
     const announcementsRef = useRef()
     const scholarshipsRef = useRef()
     const [announcementsWidth, setAnnouncementsWidth] = useState(NaN)
@@ -17,19 +21,19 @@ export const OrganizationProfileAnnouncements = memo(({setActive}) => {
 
     useEffect(() => {
         setAnnouncementsWidth(announcementsRef.current?.scrollWidth - announcementsRef.current?.offsetWidth)
-    }, [list?.length])
+    }, [data?.length])
 
     useEffect(() => {
         setScholarshipsWidth(scholarshipsRef.current?.scrollWidth - scholarshipsRef.current?.offsetWidth)
     }, [list?.length])
 
     const renderAnnouncementsItem = useCallback(() => {
-        return list.map((item, index) => {
+        return data?.map((item, index) => {
             return (
-                <AnnouncementsItem setActive={setActive} key={index}/>
+                <AnnouncementsItem item={item} setActive={() => setActive(item)} key={index}/>
             )
         })
-    }, [setActive])
+    }, [data, setActive])
 
     const renderScholarshipsItem = useCallback(() => {
         return list.map((item, index) => {
@@ -42,7 +46,16 @@ export const OrganizationProfileAnnouncements = memo(({setActive}) => {
     return (
         <div className={cls.announcements}>
             <div className={cls.announcements__container}>
-                <h2 className={cls.announcements__title}>E’lonlar</h2>
+                <div className={cls.announcements__wrapper}>
+                    <h2 className={cls.announcements__title}>E’lonlar</h2>
+                    <i
+                        onClick={() => isAdd(true)}
+                        className={classNames(
+                            "fas fa-plus",
+                            cls.announcements__icon
+                        )}
+                    />
+                </div>
                 <motion.div
                     ref={announcementsRef}
                     className={cls.items}

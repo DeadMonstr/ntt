@@ -1,13 +1,18 @@
 import {memo, useCallback} from 'react';
 import classNames from "classnames";
+import {useSelector} from "react-redux";
+
+import {getOrganizationProfileGallery} from "../../model/selector/organizationProfileSelector";
 
 import cls from "./organizationProfileGallery.module.sass";
 import image from "shared/assets/images/Rectangle 640.png";
 
-export const OrganizationProfileGallery = memo(({setActive}) => {
+export const OrganizationProfileGallery = memo(({setActive, isAdd}) => {
+
+    const data = useSelector(getOrganizationProfileGallery)
 
     const renderImages = useCallback(() => {
-        return [1, 2, 3, 4, 5, 6].map((item, index) => {
+        return data?.map((item, index) => {
             return (
                 <div
                     key={index}
@@ -15,19 +20,31 @@ export const OrganizationProfileGallery = memo(({setActive}) => {
                 >
                     <div
                         className={cls.images__edit}
-                        onClick={setActive}
+                        onClick={() => setActive(item)}
                     >
                         <i className={classNames("fas fa-pen", cls.images__editIcon)}/>
                     </div>
-                    <img src={image} alt=""/>
+                    <img src={item?.file?.url ?? image} alt=""/>
                 </div>
             )
         })
-    }, [setActive])
+    }, [setActive, data])
 
     return (
-        <div className={cls.images}>
+        <div
+            className={classNames(
+                cls.images, {
+                    [cls.notActive]: !data?.length
+                }
+            )}
+        >
             {renderImages()}
+            <div
+                onClick={() => isAdd(true)}
+                className={cls.images__add}
+            >
+                <i className={classNames("fas fa-plus", cls.images__editIcon)}/>
+            </div>
         </div>
     );
 })

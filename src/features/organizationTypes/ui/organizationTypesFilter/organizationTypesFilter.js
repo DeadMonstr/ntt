@@ -96,7 +96,7 @@ export const OrganizationTypesFilter = () => {
     const onCreate = (data) => {
         const res = {
             ...data,
-            region: changeRegion,
+            region: +changeRegion,
             organization_type: active
         }
         request(`${API_URL}organizations/organization/crud/create/`, "POST", JSON.stringify(res), headers())

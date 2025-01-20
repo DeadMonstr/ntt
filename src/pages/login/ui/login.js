@@ -30,7 +30,7 @@ export const Login = () => {
         <div className={cls.login}>
             <div className={cls.login__box}>
                 <h1>Login</h1>
-                <Form onSubmit={handleSubmit(onPost)}>
+                <Form isChange={false} onSubmit={handleSubmit(onPost)}>
 
 
                     <Input placeholder={"Enter your username"} register={register} name={"phone"}/>

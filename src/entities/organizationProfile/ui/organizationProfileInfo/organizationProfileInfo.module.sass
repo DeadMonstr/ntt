@@ -15,12 +15,29 @@
     color: #8E8E93
     cursor: pointer
     @include btn-active
+  &__delIcon
+    color: #b00c0a
+    right: 4rem
   &__header
     display: flex
     align-items: center
     gap: 1.5rem
     padding-bottom: 1.7rem
     border-bottom: 1px solid #2D60FF
+    .isActive
+      width: 100%
+      padding: 3.22rem
+      text-align: center
+      border-radius: 1rem
+      background: #E5E5EA
+      display: flex
+      align-self: center
+      justify-content: center
+      transition: .1s
+      @include btn-active
+  &__addIcon
+    font-size: 3rem
+    color: #8E8E93
   &__ava
     width: 7.5rem
     height: 7.5rem
