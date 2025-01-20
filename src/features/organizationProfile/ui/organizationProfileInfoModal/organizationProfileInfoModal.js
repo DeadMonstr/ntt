@@ -79,7 +79,6 @@ export const OrganizationProfileInfoModal = memo(() => {
     const onCreate = (data) => {
         const res = {
             organization: 1,
-            job: 1,
             user: {
                 name: data?.name,
                 username: data?.username,

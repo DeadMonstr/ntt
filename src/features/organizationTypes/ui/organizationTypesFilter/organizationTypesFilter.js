@@ -172,8 +172,6 @@ export const OrganizationTypesFilter = () => {
                                     <h4>Arizalar soni: {card?.application_num}</h4>
                                 </span>
                             </div>
-                            {/*<h3>{card.title}</h3>*/}
-                            {/*<p>{card.content}</p>*/}
                         </motion.div>
                     ))}
                 </motion.div>
