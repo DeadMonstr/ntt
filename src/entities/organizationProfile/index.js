@@ -12,7 +12,10 @@ export {
     addGallery,
     updateGallery,
     deleteUserData,
-    createUserData
+    createUserData,
+    updateTrueAnnouncements,
+    updateFalseAnnouncements,
+    deleteAnnouncements
 } from "./model/slice/organizationProfileSlice";
 export {
     fetchOrganizationProfileData,
@@ -28,7 +31,8 @@ export {
     getOrganizationProfileGallery,
     getOrganizationProfileReadMore,
     getOrganizationProfileApplications,
-    getOrganizationProfileAnnouncements,
+    getOrganizationProfileAnnouncementsTrue,
+    getOrganizationProfileAnnouncementsFalse,
     getOrganizationProfileUserData,
     getOrganizationProfileDegrees,
     getOrganizationProfileLoading,

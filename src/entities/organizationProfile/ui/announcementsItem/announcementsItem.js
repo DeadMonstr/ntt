@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 import cls from "./announcementsItem.module.sass";
 import classNames from "classnames";
 
-export const AnnouncementsItem = memo(({setActive, item}) => {
+export const AnnouncementsItem = memo(({onDelete, setActive, item}) => {
     return (
         <motion.div
             transition={{duration: 1}}
@@ -35,15 +35,28 @@ export const AnnouncementsItem = memo(({setActive, item}) => {
                     </div>
                 </div>
             </div>
-            <div className={cls.wrapper__edit}>
-                <div className={cls.wrapper__inner}>
-                    <i
-                        className={classNames(
-                            "fas fa-pen",
-                            cls.wrapper__icon
-                        )}
-                        onClick={setActive}
-                    />
+            <div className={cls.wrapper__container}>
+                <div className={cls.wrapper__edit}>
+                    <div className={cls.wrapper__inner}>
+                        <i
+                            className={classNames(
+                                "fas fa-pen",
+                                cls.wrapper__icon
+                            )}
+                            onClick={setActive}
+                        />
+                    </div>
+                </div>
+                <div className={cls.wrapper__edit}>
+                    <div className={cls.wrapper__inner}>
+                        <i
+                            className={classNames(
+                                "fas fa-trash",
+                                cls.wrapper__icon
+                            )}
+                            onClick={onDelete}
+                        />
+                    </div>
                 </div>
             </div>
         </motion.div>

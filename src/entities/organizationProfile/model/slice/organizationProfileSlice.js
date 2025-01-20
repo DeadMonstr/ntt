@@ -3,15 +3,18 @@ import {
     fetchOrganizationProfileAdmin,
     fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileApplications,
-    fetchOrganizationProfileData, fetchOrganizationProfileDegrees,
-    fetchOrganizationProfileGallery, fetchOrganizationProfileReadMore
+    fetchOrganizationProfileData,
+    fetchOrganizationProfileDegrees,
+    fetchOrganizationProfileGallery,
+    fetchOrganizationProfileReadMore, trueAnnouncementsDelete
 } from "../thunk/organizationProfileThunk";
 
 const initialState = {
     data: null,
     gallery: null,
     applications: null,
-    announcements: null,
+    announcementsTrue: null,
+    announcementsFalse: null,
     readMore: null,
     userData: null,
     degrees: [],
@@ -48,6 +51,37 @@ const OrganizationProfileSlice = createSlice({
         },
         createUserData: (state, action) => {
             state.userData = action.payload
+        },
+        updateTrueAnnouncements: (state, action) => {
+            state.announcementsTrue =
+                state.announcementsTrue.map(item =>
+                    item.id === action.payload.id ?
+                        action.payload : item
+                )
+        },
+        updateFalseAnnouncements: (state, action) => {
+            state.announcementsFalse =
+                state.announcementsFalse.map(item =>
+                    item.id === action.payload.id ?
+                        action.payload : item
+                )
+        },
+        createAnnouncementsTrue: (state, action) => {
+            state.announcementsTrue =
+                [...state.announcementsTrue, action.payload]
+        },
+        createAnnouncementsFalse: (state, action) => {
+            state.announcementsFalse =
+                [...state.announcementsFalse, action.payload]
+        },
+        deleteAnnouncements: (state, action) => {
+            if (action.payload.type) {
+                state.announcementsTrue =
+                    state.announcementsTrue.filter(item => item.id !== action.payload.id)
+            } else {
+                state.announcementsFalse =
+                    state.announcementsFalse.filter(item => item.id !== action.payload.id)
+            }
         }
     },
     extraReducers: builder =>
@@ -109,7 +143,8 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileAnnouncements.fulfilled, (state, action) => {
-                state.announcements = action.payload?.results
+                state.announcementsTrue = action.payload?.grant_true
+                state.announcementsFalse = action.payload?.grant_false
                 state.loading = false
                 state.error = null
             })
@@ -152,6 +187,11 @@ export const {
     addGallery,
     updateGallery,
     deleteUserData,
-    createUserData
+    createUserData,
+    updateTrueAnnouncements,
+    updateFalseAnnouncements,
+    createAnnouncementsTrue,
+    createAnnouncementsFalse,
+    deleteAnnouncements
 } = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer

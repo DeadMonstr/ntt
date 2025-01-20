@@ -1,21 +1,30 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
+import {useForm} from "react-hook-form";
+import {useDispatch, useSelector} from "react-redux";
 
 import {
     OrganizationProfileAnnouncements,
     fetchOrganizationProfileAnnouncements,
-    fetchOrganizationProfileDegrees, getOrganizationProfileDegrees
+    fetchOrganizationProfileDegrees,
+    getOrganizationProfileDegrees, deleteAnnouncements,
 } from "entities/organizationProfile";
+import {
+    fetchEducationLanguage,
+    getEducationLanguages
+} from "entities/oftenUsed";
 import {Modal} from "shared/ui/modal";
 import {Form} from "shared/ui/form";
 import {Input} from "shared/ui/input";
 import {Textarea} from "shared/ui/textArea";
 import {Select} from "shared/ui/select";
+import {ConfirmModal} from "shared/ui/confirmModal";
+import {API_URL, useHttp} from "shared/api/base";
 
 import cls from "./organizationProfileAnnouncementsModal.module.sass";
-import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "react-hook-form";
-import {API_URL, useHttp} from "../../../../shared/api/base";
-import {fetchEducationLanguage, getEducationLanguages} from "../../../../entities/oftenUsed";
+import {
+    falseAnnouncementsDelete,
+    trueAnnouncementsDelete
+} from "../../../../entities/organizationProfile/model/thunk/organizationProfileThunk";
 
 
 export const OrganizationProfileAnnouncementsModal = memo(() => {
@@ -35,13 +44,16 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
     const languages = useSelector(getEducationLanguages)
     const degrees = useSelector(getOrganizationProfileDegrees)
     const [activeModal, setActiveModal] = useState(false)
+
+    const [isDeleteTrue, setIsDeleteTrue] = useState(false)
+    const [isDeleteFalse, setIsDeleteFalse] = useState(false)
+
     const [addActiveModal, setAddActiveModal] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
     const [selectedLanguage, setSelectedLanguage] = useState(false)
     const [selectedDegree, setSelectedDegree] = useState(false)
 
     const onSubmit = (data) => {
-        console.log(data, "data")
         const res = {
             ...data,
             education_language: selectedLanguage
@@ -64,10 +76,10 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
                 from_date: data?.start_year,
                 to: data?.finish_year
             },
-            expire_date: "2025-11-11",
-            degree: selectedDegree
+            // expire_date: "2025-11-11",
+            degree: selectedDegree,
+            grant: isChecked
         }
-        console.log(data, "data to create")
         request(
             `${API_URL}organizations/organization_landing_page/crud/create/?organization_id=1`,
             "POST",
@@ -77,9 +89,26 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
             .catch(err => console.log(err))
     }
 
+    const onDeleteTrue = () => {
+        dispatch(trueAnnouncementsDelete({id: isDeleteTrue}))
+        dispatch(deleteAnnouncements({type: true, id: isDeleteTrue}))
+        setIsDeleteTrue(false)
+    }
+
+    const onDeleteFalse = () => {
+        dispatch(falseAnnouncementsDelete({id: isDeleteFalse}))
+        dispatch(deleteAnnouncements({type: false, id: isDeleteFalse}))
+        setIsDeleteFalse(false)
+    }
+
     return (
         <>
-            <OrganizationProfileAnnouncements setActive={setActiveModal} isAdd={setAddActiveModal}/>
+            <OrganizationProfileAnnouncements
+                isDeleteTrue={setIsDeleteTrue}
+                isDeleteFalse={setIsDeleteFalse}
+                setActive={setActiveModal}
+                isAdd={setAddActiveModal}
+            />
             <Modal
                 active={addActiveModal}
                 setActive={setAddActiveModal}
@@ -289,6 +318,13 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
                     }
                 </Form>
             </Modal>
+            <ConfirmModal
+                title={isDeleteTrue ? "Grantni o'chirmoqchimisiz" : "o'chirmoqchimisiz"}
+                type={"danger"}
+                onClick={isDeleteTrue ? onDeleteTrue : onDeleteFalse}
+                active={isDeleteTrue ? isDeleteTrue : isDeleteFalse}
+                setActive={isDeleteTrue ? setIsDeleteTrue : setIsDeleteFalse}
+            />
         </>
     );
 })

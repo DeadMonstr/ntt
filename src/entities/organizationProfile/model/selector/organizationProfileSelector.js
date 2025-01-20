@@ -6,8 +6,10 @@ export const getOrganizationProfileApplications = (state) =>
     state.OrganizationProfileSlice.applications
 export const getOrganizationProfileReadMore = (state) =>
     state.OrganizationProfileSlice.readMore
-export const getOrganizationProfileAnnouncements = (state) =>
-    state.OrganizationProfileSlice.announcements
+export const getOrganizationProfileAnnouncementsTrue = (state) =>
+    state.OrganizationProfileSlice.announcementsTrue
+export const getOrganizationProfileAnnouncementsFalse = (state) =>
+    state.OrganizationProfileSlice.announcementsFalse
 export const getOrganizationProfileUserData = (state) =>
     state.OrganizationProfileSlice.userData
 export const getOrganizationProfileDegrees = (state) =>

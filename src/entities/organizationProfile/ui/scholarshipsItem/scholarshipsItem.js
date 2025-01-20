@@ -11,7 +11,7 @@ const text = "It is a long established fact that a reader will be distracted by 
     "delectus dolore dolorum earum, ex ipsam molestias nesciunt nulla quas quo quos ratione" +
     " repellendus reprehenderit suscipit tenetur velit?"
 
-export const ScholarshipsItem = memo(({setActive}) => {
+export const ScholarshipsItem = memo(({setActive, onDelete, item}) => {
 
     const [isMore, setIsMore] = useState(false)
 
@@ -34,12 +34,13 @@ export const ScholarshipsItem = memo(({setActive}) => {
                 </div>
                 <div className={cls.item__text}>
                     <div className={cls.item__wrapper}>
-                        <h2 className={cls.item__user}>Sevinch</h2>
-                        <p className={cls.item__info}>
-                            {
-                                isMore ? text : text.slice(0, 125) + "..."
-                            }
-                        </p>
+                        <h2 className={cls.item__user}>{item?.name_optional}</h2>
+                        <p className={cls.item__info}>{item?.desc}</p>
+                        {/*<p className={cls.item__info}>*/}
+                        {/*    {*/}
+                        {/*        isMore ? text : text.slice(0, 125) + "..."*/}
+                        {/*    }*/}
+                        {/*</p>*/}
                         <i
                             className={classNames(
                                 `fas fa-arrow-${isMore ? "up" : "down"}`,
@@ -67,15 +68,28 @@ export const ScholarshipsItem = memo(({setActive}) => {
                     </div>
                 </div>
             </div>
-            <div className={cls.wrapper__edit}>
-                <div className={cls.wrapper__inner}>
-                    <i
-                        className={classNames(
-                            "fas fa-pen",
-                            cls.wrapper__icon
-                        )}
-                        onClick={() => setActive(true)}
-                    />
+            <div className={cls.wrapper__container}>
+                <div className={cls.wrapper__edit}>
+                    <div className={cls.wrapper__inner}>
+                        <i
+                            className={classNames(
+                                "fas fa-pen",
+                                cls.wrapper__icon
+                            )}
+                            onClick={setActive}
+                        />
+                    </div>
+                </div>
+                <div className={cls.wrapper__edit}>
+                    <div className={cls.wrapper__inner}>
+                        <i
+                            className={classNames(
+                                "fas fa-trash",
+                                cls.wrapper__icon
+                            )}
+                            onClick={onDelete}
+                        />
+                    </div>
                 </div>
             </div>
         </motion.div>

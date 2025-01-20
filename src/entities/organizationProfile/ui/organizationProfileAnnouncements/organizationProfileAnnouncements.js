@@ -1,19 +1,30 @@
 import {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {motion} from "framer-motion";
+import classNames from "classnames";
+import {useSelector} from "react-redux";
 
 import {AnnouncementsItem} from "../announcementsItem/announcementsItem";
 import {ScholarshipsItem} from "../scholarshipsItem/scholarshipsItem";
+import {
+    getOrganizationProfileAnnouncementsFalse,
+    getOrganizationProfileAnnouncementsTrue
+} from "../../model/selector/organizationProfileSelector";
 
 import cls from "./organizationProfileAnnouncements.module.sass";
-import {useSelector} from "react-redux";
-import {getOrganizationProfileAnnouncements} from "../../model/selector/organizationProfileSelector";
-import classNames from "classnames";
 
 const list = [1, 2, 3]
 
-export const OrganizationProfileAnnouncements = memo(({setActive,isAdd}) => {
+export const OrganizationProfileAnnouncements = memo((props) => {
 
-    const data = useSelector(getOrganizationProfileAnnouncements)
+    const {
+        isDeleteTrue,
+        isDeleteFalse,
+        setActive,
+        isAdd
+    } = props
+
+    const trueData = useSelector(getOrganizationProfileAnnouncementsTrue)
+    const falseData = useSelector(getOrganizationProfileAnnouncementsFalse)
     const announcementsRef = useRef()
     const scholarshipsRef = useRef()
     const [announcementsWidth, setAnnouncementsWidth] = useState(NaN)
@@ -21,27 +32,37 @@ export const OrganizationProfileAnnouncements = memo(({setActive,isAdd}) => {
 
     useEffect(() => {
         setAnnouncementsWidth(announcementsRef.current?.scrollWidth - announcementsRef.current?.offsetWidth)
-    }, [data?.length])
+    }, [trueData?.length])
 
     useEffect(() => {
         setScholarshipsWidth(scholarshipsRef.current?.scrollWidth - scholarshipsRef.current?.offsetWidth)
-    }, [list?.length])
+    }, [falseData?.length])
 
     const renderAnnouncementsItem = useCallback(() => {
-        return data?.map((item, index) => {
+        return falseData?.map((item, index) => {
             return (
-                <AnnouncementsItem item={item} setActive={() => setActive(item)} key={index}/>
+                <AnnouncementsItem
+                    onDelete={() => isDeleteFalse(item?.id)}
+                    setActive={() => setActive({change: item, type: false})}
+                    item={item}
+                    key={index}
+                />
             )
         })
-    }, [data, setActive])
+    }, [falseData, setActive])
 
     const renderScholarshipsItem = useCallback(() => {
-        return list.map((item, index) => {
+        return trueData?.map((item, index) => {
             return (
-                <ScholarshipsItem setActive={setActive} key={index}/>
+                <ScholarshipsItem
+                    onDelete={() => isDeleteTrue(item?.id)}
+                    setActive={() => setActive({change: item, type: true})}
+                    item={item}
+                    key={index}
+                />
             )
         })
-    }, [setActive])
+    }, [trueData, setActive])
 
     return (
         <div className={cls.announcements}>
