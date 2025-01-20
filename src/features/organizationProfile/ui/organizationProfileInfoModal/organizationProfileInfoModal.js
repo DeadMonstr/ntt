@@ -5,8 +5,11 @@ import {useForm} from "react-hook-form";
 import {useDropzone} from "react-dropzone";
 
 import {
+    createUserData,
+    deleteUserData,
+    fetchOrganizationProfileAdmin,
     getOrganizationProfileError,
-    getOrganizationProfileLoading,
+    getOrganizationProfileLoading, getOrganizationProfileUserData,
     OrganizationProfileInfo,
     updateData
 } from "entities/organizationProfile";
@@ -20,11 +23,13 @@ import {API_URL, headersImg, useHttp} from "shared/api/base";
 
 import cls from "./organizationProfileInfoModal.module.sass";
 import {fetchRegionsData, getRegions} from "entities/oftenUsed";
+import {ConfirmModal} from "../../../../shared/ui/confirmModal";
 
 export const OrganizationProfileInfoModal = memo(() => {
 
     useEffect(() => {
         dispatch(fetchRegionsData())
+        dispatch(fetchOrganizationProfileAdmin())
     }, [])
 
     const {
@@ -35,10 +40,13 @@ export const OrganizationProfileInfoModal = memo(() => {
     const dispatch = useDispatch()
     const formData = new FormData()
     const data = useSelector(getOrganizationProfileData)
+    const userProfile = useSelector(getOrganizationProfileUserData)
     const regionsData = useSelector(getRegions)
     const loading = useSelector(getOrganizationProfileLoading)
     const error = useSelector(getOrganizationProfileError)
     const [activeModal, setActiveModal] = useState(false)
+    const [activeAddModal, setActiveAddModal] = useState(false)
+    const [isDelete, setIsDelete] = useState(false)
     const [selectedRegion, setSelectedRegion] = useState(null)
     const [newImageFile, setNewImageFile] = useState(null)
     const {getInputProps, getRootProps} = useDropzone({
@@ -68,9 +76,81 @@ export const OrganizationProfileInfoModal = memo(() => {
         formData.delete("img")
     }
 
+    const onCreate = (data) => {
+        const res = {
+            organization: 1,
+            job: 1,
+            user: {
+                name: data?.name,
+                username: data?.username,
+                surname: data?.surname,
+                phone: data?.phone
+            }
+        }
+        console.log(data, "data")
+        request(
+            `${API_URL}organizations/organization_user/crud/create/`,
+            "POST",
+            JSON.stringify(res)
+        )
+            .then(res => {
+                console.log(res)
+                dispatch(createUserData(res))
+            })
+            .catch(err => console.log(err))
+    }
+
+    const onChange = (data) => {
+        let obj;
+        if (data?.username !== userProfile?.user?.username) obj = {username: data?.username}
+        if (data?.phone !== userProfile?.user?.phone) obj = {...obj, phone: data?.phone}
+        console.log(data?.password, "password")
+        console.log(data?.confirm_password, "confirn_password")
+        console.log(data?.password === data?.confirm_password, "tie")
+        if (data?.password === data?.confirm_password && data?.password?.length <= 8) {
+            const res = {
+                user: {
+                    name: data?.name,
+                    surname: data?.surname,
+                    password: data?.password,
+                    ...obj
+                },
+                organization: 1,
+                job: 1
+            }
+            request(
+                `${API_URL}organizations/organization_user/crud/update/${userProfile?.id}/`,
+                "PATCH",
+                JSON.stringify(res)
+            )
+                .then(res => {
+                    console.log(res)
+                    dispatch(createUserData(res))
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    const onDelete = () => {
+        request(
+            `${API_URL}organizations/organization_user/crud/delete/${userProfile?.id}/`,
+            "DELETE"
+        )
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err))
+        dispatch(deleteUserData())
+        setIsDelete(false)
+    }
+
     return (
         <>
-            <OrganizationProfileInfo setActive={onActiveModal}/>
+            <OrganizationProfileInfo
+                setActive={onActiveModal}
+                isAdd={setActiveAddModal}
+                isDel={setIsDelete}
+            />
             <Modal
                 active={activeModal}
                 setActive={setActiveModal}
@@ -132,6 +212,134 @@ export const OrganizationProfileInfoModal = memo(() => {
                     />
                 </Form>
             </Modal>
+            <Modal
+                active={activeAddModal}
+                setActive={setActiveAddModal}
+                extraClass={cls.addModal}
+            >
+                <h1 className={cls.addModal__title}>Ma’lumotni o’zgartirish</h1>
+                <div className={cls.addModal__container}>
+                    <div
+                        className={classNames(cls.imageEdit, {
+                            [cls.active]: newImageFile || data?.file?.url
+                        })}
+                        {...getRootProps()}
+                    >
+                        <input {...getInputProps()}/>
+                        {
+                            newImageFile
+                                ? <img
+                                    className={cls.imageEdit__image}
+                                    src={URL.createObjectURL(newImageFile)}
+                                    alt=""
+                                /> :
+                                data?.file?.url
+                                    ? <img
+                                        className={cls.imageEdit__image}
+                                        src={data?.file?.url}
+                                        alt=""
+                                    />
+                                    : <i className={classNames("far fa-image", cls.imageEdit__icon)}/>
+                        }
+                    </div>
+                    {
+                        activeAddModal === "add" ?
+                            <Form
+                                extraClassname={cls.addModal__form}
+                                onSubmit={handleSubmit(onCreate)}
+                            >
+                                <Input
+                                    required
+                                    register={register}
+                                    name={"username"}
+                                    placeholder={"Username"}
+                                    extraClass={cls.addModal__input}
+                                />
+                                <Input
+                                    required
+                                    register={register}
+                                    name={"name"}
+                                    placeholder={"Name"}
+                                    extraClass={cls.addModal__input}
+                                />
+                                <Input
+                                    required
+                                    register={register}
+                                    name={"surname"}
+                                    placeholder={"Surname"}
+                                    extraClass={cls.addModal__input}
+                                />
+                                <Input
+                                    required
+                                    register={register}
+                                    name={"phone"}
+                                    placeholder={"Phone"}
+                                    extraClass={cls.addModal__input}
+                                />
+                            </Form> :
+                            activeAddModal === "change" ?
+                                <Form
+                                    extraClassname={cls.addModal__form}
+                                    onSubmit={handleSubmit(onChange)}
+                                >
+                                    <Input
+                                        required
+                                        value={userProfile?.user?.username}
+                                        register={register}
+                                        name={"username"}
+                                        placeholder={"Username"}
+                                        extraClass={cls.addModal__input}
+                                    />
+                                    <Input
+                                        required
+                                        value={userProfile?.user?.name}
+                                        register={register}
+                                        name={"name"}
+                                        placeholder={"Name"}
+                                        extraClass={cls.addModal__input}
+                                    />
+                                    <Input
+                                        required
+                                        value={userProfile?.user?.surname}
+                                        register={register}
+                                        name={"surname"}
+                                        placeholder={"Surname"}
+                                        extraClass={cls.addModal__input}
+                                    />
+                                    <Input
+                                        required
+                                        value={userProfile?.user?.phone}
+                                        register={register}
+                                        name={"phone"}
+                                        placeholder={"Phone"}
+                                        extraClass={cls.addModal__input}
+                                    />
+                                    <Input
+                                        type={"password"}
+                                        value={"12345678"}
+                                        required
+                                        placeholder={"Password"}
+                                        name={"password"}
+                                        register={register}
+                                    />
+                                    <Input
+                                        type={"password"}
+                                        value={"12345678"}
+                                        required
+                                        placeholder={"Confirm password"}
+                                        name={"confirm_password"}
+                                        register={register}
+                                    />
+                                </Form> : null
+                    }
+                </div>
+            </Modal>
+            <ConfirmModal
+                type={"danger"}
+                setActive={setIsDelete}
+                active={isDelete}
+                onClick={onDelete}
+            />
         </>
     );
 })

@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchRegionsData} from "../thunk/oftenUsedThunk";
+import {fetchEducationLanguage, fetchRegionsData} from "../thunk/oftenUsedThunk";
 
 const initialState = {
     regions: null,
+    educationLanguages: [],
     loading: null,
     error: null
 }
@@ -23,6 +24,19 @@ const oftenUsedSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchRegionsData.rejected, (state) => {
+                state.loading = null
+                state.error = "error"
+            })
+            .addCase(fetchEducationLanguage.pending, (state) => {
+                state.loading = "regionLoading"
+                state.error = null
+            })
+            .addCase(fetchEducationLanguage.fulfilled, (state, action) => {
+                state.educationLanguages = action.payload?.results
+                state.loading = "regionSuccess"
+                state.error = null
+            })
+            .addCase(fetchEducationLanguage.rejected, (state) => {
                 state.loading = null
                 state.error = "error"
             })

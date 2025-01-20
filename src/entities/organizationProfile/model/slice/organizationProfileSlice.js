@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
+    fetchOrganizationProfileAdmin,
     fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileApplications,
-    fetchOrganizationProfileData,
+    fetchOrganizationProfileData, fetchOrganizationProfileDegrees,
     fetchOrganizationProfileGallery, fetchOrganizationProfileReadMore
 } from "../thunk/organizationProfileThunk";
 
@@ -12,6 +13,8 @@ const initialState = {
     applications: null,
     announcements: null,
     readMore: null,
+    userData: null,
+    degrees: [],
     loading: false,
     error: null
 }
@@ -39,6 +42,12 @@ const OrganizationProfileSlice = createSlice({
                     }
                     : item
             )
+        },
+        deleteUserData: (state) => {
+            state.userData = null
+        },
+        createUserData: (state, action) => {
+            state.userData = action.payload
         }
     },
     extraReducers: builder =>
@@ -61,7 +70,7 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileGallery.fulfilled, (state, action) => {
-                state.gallery = action.payload
+                state.gallery = action.payload?.results
                 state.loading = false
                 state.error = null
             })
@@ -74,7 +83,7 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileApplications.fulfilled, (state, action) => {
-                state.applications = action.payload
+                state.applications = action.payload?.results
                 state.loading = false
                 state.error = null
             })
@@ -100,11 +109,37 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileAnnouncements.fulfilled, (state, action) => {
-                state.announcements = action.payload
+                state.announcements = action.payload?.results
                 state.loading = false
                 state.error = null
             })
             .addCase(fetchOrganizationProfileAnnouncements.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
+            .addCase(fetchOrganizationProfileAdmin.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileAdmin.fulfilled, (state, action) => {
+                state.userData = action.payload?.results[0]
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileAdmin.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
+            .addCase(fetchOrganizationProfileDegrees.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileDegrees.fulfilled, (state, action) => {
+                state.degrees = action.payload?.results
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileDegrees.rejected, (state) => {
                 state.loading = false
                 state.error = "error"
             })
@@ -115,6 +150,8 @@ export const {
     updateData,
     updateReadMore,
     addGallery,
-    updateGallery
+    updateGallery,
+    deleteUserData,
+    createUserData
 } = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer

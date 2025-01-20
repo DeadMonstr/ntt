@@ -40,3 +40,19 @@ export const fetchOrganizationProfileReadMore = createAsyncThunk(
         return request(`${API_URL}organizations/organization_advantage/get/1/`)
     }
 )
+
+export const fetchOrganizationProfileAdmin = createAsyncThunk(
+    "OrganizationProfileSlice/fetchOrganizationProfileAdmin",
+    () =>{
+        const {request} = useHttp()
+        return request(`${API_URL}organizations/organization_user/get/1/`)
+    }
+)
+
+export const fetchOrganizationProfileDegrees = createAsyncThunk(
+    "OrganizationProfileSlice/fetchOrganizationProfileDegrees",
+    () =>{
+        const {request} = useHttp()
+        return request(`${API_URL}organization-degrees/organization-degree/get/`)
+    }
+)

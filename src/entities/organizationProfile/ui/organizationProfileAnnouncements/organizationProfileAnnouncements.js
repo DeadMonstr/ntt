@@ -11,15 +11,13 @@ import classNames from "classnames";
 
 const list = [1, 2, 3]
 
-export const OrganizationProfileAnnouncements = memo(({setActive}) => {
+export const OrganizationProfileAnnouncements = memo(({setActive,isAdd}) => {
 
     const data = useSelector(getOrganizationProfileAnnouncements)
     const announcementsRef = useRef()
     const scholarshipsRef = useRef()
     const [announcementsWidth, setAnnouncementsWidth] = useState(NaN)
     const [scholarshipsWidth, setScholarshipsWidth] = useState(NaN)
-
-    console.log(data,"data")
 
     useEffect(() => {
         setAnnouncementsWidth(announcementsRef.current?.scrollWidth - announcementsRef.current?.offsetWidth)
@@ -50,7 +48,13 @@ export const OrganizationProfileAnnouncements = memo(({setActive}) => {
             <div className={cls.announcements__container}>
                 <div className={cls.announcements__wrapper}>
                     <h2 className={cls.announcements__title}>E’lonlar</h2>
-                    <i className={classNames("fas fa-plus", )}/>
+                    <i
+                        onClick={() => isAdd(true)}
+                        className={classNames(
+                            "fas fa-plus",
+                            cls.announcements__icon
+                        )}
+                    />
                 </div>
                 <motion.div
                     ref={announcementsRef}

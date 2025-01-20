@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {
     OrganizationProfileGallery,
-    fetchOrganizationProfileGallery, addGallery,
+    fetchOrganizationProfileGallery, addGallery, updateGallery,
 } from "entities/organizationProfile";
 import {Modal} from "shared/ui/modal";
 import {Form} from "shared/ui/form";
@@ -48,7 +48,10 @@ export const OrganizationProfileGalleryModal = memo(() => {
             formData,
             {}
         )
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                dispatch(updateGallery(res))
+            })
             .catch(err => console.log(err))
         formData.delete("url")
         formData.delete("type")
@@ -65,7 +68,7 @@ export const OrganizationProfileGalleryModal = memo(() => {
                 request(
                     `${API_URL}organizations/organization_gallery/crud/create/`,
                     "POST",
-                    JSON.stringify({file: res?.id, organization: 1})
+                    JSON.stringify({file_id: res?.id, organization: 1})
                 )
                     .then(res => {
                         console.log(res, "res")

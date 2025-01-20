@@ -9,11 +9,19 @@ export {
     default as OrganizationProfileSlice,
     updateData,
     updateReadMore,
-    addGallery
+    addGallery,
+    updateGallery,
+    deleteUserData,
+    createUserData
 } from "./model/slice/organizationProfileSlice";
 export {
     fetchOrganizationProfileData,
-    fetchOrganizationProfileGallery
+    fetchOrganizationProfileGallery,
+    fetchOrganizationProfileApplications,
+    fetchOrganizationProfileAdmin,
+    fetchOrganizationProfileAnnouncements,
+    fetchOrganizationProfileReadMore,
+    fetchOrganizationProfileDegrees
 } from "./model/thunk/organizationProfileThunk";
 export {
     getOrganizationProfileData,
@@ -21,6 +29,8 @@ export {
     getOrganizationProfileReadMore,
     getOrganizationProfileApplications,
     getOrganizationProfileAnnouncements,
+    getOrganizationProfileUserData,
+    getOrganizationProfileDegrees,
     getOrganizationProfileLoading,
     getOrganizationProfileError
 } from "./model/selector/organizationProfileSelector";
