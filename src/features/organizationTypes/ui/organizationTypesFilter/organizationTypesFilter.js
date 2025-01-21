@@ -33,6 +33,14 @@ export const OrganizationTypesFilter = () => {
     const [selectRegion, setSelectRegion] = useState(false)
 
 
+
+    useEffect(() => {
+        if (filter && Object.keys(filter).length) {
+            setActive(filter[0].id)
+        }
+    },[filter])
+
+
     const [activeItem, setActiveItem] = useState(null)
 
     const [activeEdit, setActiveEdit] = useState(false)
@@ -48,6 +56,8 @@ export const OrganizationTypesFilter = () => {
         setValue("phone", activeItem?.phone)
         setChangeRegion(activeItem?.region)
     }, [activeItem])
+
+
     useEffect(() => {
         dispatch(fetchOrganizationTypesFilter())
         dispatch(fetchRegionsData())
@@ -131,6 +141,8 @@ export const OrganizationTypesFilter = () => {
 
 
     }
+
+
     return (
         <div className={cls.box}>
             <h1>Tashkilot turlari</h1>
@@ -168,9 +180,7 @@ export const OrganizationTypesFilter = () => {
                                 </div>
                                 <h2>{card?.location}</h2>
                                 <h3>Phone: {card?.phone}</h3>
-                                <span>
-                                    <h4>Arizalar soni: {card?.application_num}</h4>
-                                </span>
+
                             </div>
                             {/*<h3>{card.title}</h3>*/}
                             {/*<p>{card.content}</p>*/}
@@ -186,8 +196,7 @@ export const OrganizationTypesFilter = () => {
                     <Select options={region} extraClass={cls.select} onChangeOption={setChangeRegion}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
-                    <Input register={register} name={"request"} type={"number"}
-                           extraClass={cls.box__portal__form__input} placeholder={"Arizalar soni"}/>
+
                     <Button extraClass={cls.box__portal__form__btn}>Add</Button>
                 </Form>
             </Modal>
@@ -201,8 +210,7 @@ export const OrganizationTypesFilter = () => {
                             defaultValue={changeRegion}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
-                    <Input register={register} name={"request"} type={"number"}
-                           extraClass={cls.box__portal__form__input} placeholder={"Arizalar soni"}/>
+
                     <div style={{display: "flex", gap: "1rem"}}>
                         <Button onClick={handleSubmit(onEdit)} extraClass={cls.box__portal__form__btn}>Edit</Button>
                         <Button type={"danger"} onClick={handleSubmit(() => setActiveConfirm(true))}
