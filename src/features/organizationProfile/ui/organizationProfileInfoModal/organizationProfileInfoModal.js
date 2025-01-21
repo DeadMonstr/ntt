@@ -147,7 +147,7 @@ export const OrganizationProfileInfoModal = memo(() => {
     return (
         <>
             <OrganizationProfileInfo
-                setActive={onActiveModal}
+                setActive={setActiveModal}
                 isAdd={setActiveAddModal}
                 isDel={setIsDelete}
             />
