@@ -1,0 +1,32 @@
+@import "app/styles/abstracts/variables"
+@import "app/styles/abstracts/mixins"
+
+.announcementsHeader
+  display: flex
+  flex-direction: column
+  gap: 1rem
+  &__title
+    font-size: 1.8rem
+    color: $main-color
+  &__icon
+    align-self: flex-end
+    width: fit-content
+    background: #E7EDFF
+    border-radius: 50%
+    @include btn-active
+  &__inner
+    padding: 2rem
+    font-size: 1.8rem
+    color: $main-color
+  &__menu
+    display: flex
+    justify-content: space-between
+    padding-bottom: 1rem
+    border-bottom: 1px solid #BEBEBE
+    color: #BEBEBE
+    h2
+      cursor: pointer
+      &.active
+        color: $main-color
+
+
