@@ -30,7 +30,9 @@ export const OrganizationTypesFilter = () => {
     const [portal, setPortal] = useState(false)
     const [activeConfirm, setActiveConfirm] = useState(false)
     const [changeRegion, setChangeRegion] = useState(false)
+    const [changeType, setChangeType] = useState(false)
     const [selectRegion, setSelectRegion] = useState(false)
+    const [selectType, setSelectType] = useState(filter[0]?.id)
 
 
 
@@ -55,6 +57,7 @@ export const OrganizationTypesFilter = () => {
         setValue("request", activeItem?.request)
         setValue("phone", activeItem?.phone)
         setChangeRegion(activeItem?.region)
+        setChangeType(activeItem?.organization_type)
     }, [activeItem])
 
 
@@ -64,10 +67,10 @@ export const OrganizationTypesFilter = () => {
     }, [])
 
     useEffect(() => {
-        if (active || selectRegion) {
-            dispatch(fetchOrganizationTypesCards({id: active, region: selectRegion}))
+        if (selectType || selectRegion) {
+            dispatch(fetchOrganizationTypesCards({id: selectType, region: selectRegion}))
         }
-    }, [active, selectRegion])
+    }, [selectType, selectRegion])
 
     useEffect(() => {
         const updateConstraints = () => {
@@ -107,7 +110,7 @@ export const OrganizationTypesFilter = () => {
         const res = {
             ...data,
             region: +changeRegion,
-            organization_type: active
+            organization_type: changeType
         }
         request(`${API_URL}organizations/organization/crud/create/`, "POST", JSON.stringify(res), headers())
             .then(res => {
@@ -131,7 +134,7 @@ export const OrganizationTypesFilter = () => {
         const res = {
             ...data,
             region: changeRegion,
-            organization_type: active
+            organization_type: changeType
         }
         request(`${API_URL}organizations/organization/crud/update/${activeItem.id}/`, "PUT", JSON.stringify(res), headers())
             .then(res => {
@@ -145,15 +148,14 @@ export const OrganizationTypesFilter = () => {
 
     return (
         <div className={cls.box}>
-            <h1>Tashkilot turlari</h1>
-            <div className={cls.box__btnBox}>
-                {renderItem()}
-            </div>
 
             <div className={cls.box__buttonPanel}>
                 <h1>Tashkilot turlari</h1>
                 <div className={cls.box__buttonPanel__container}>
-                    <Select onChangeOption={setSelectRegion} options={region}/>
+                    <div className={cls.box__buttonPanel__wrapper}>
+                        <Select title={"Location"} onChangeOption={setSelectRegion} options={region}/>
+                        <Select title={"Tashkilot turlari"} defaultValue={selectType} onChangeOption={setSelectType} options={filter}/>
+                    </div>
                     <Button onClick={() => setPortal(!portal)} extraClass={cls.box__buttonPanel__container__btn}>
                         <i className={"fa fa-plus"}/>
                     </Button>
@@ -194,6 +196,7 @@ export const OrganizationTypesFilter = () => {
                     <Input register={register} name={"name"} extraClass={cls.box__portal__form__input}
                            placeholder={"Name"}/>
                     <Select options={region} extraClass={cls.select} onChangeOption={setChangeRegion}/>
+                    <Select options={filter} extraClass={cls.select} onChangeOption={setChangeType}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
 
@@ -208,6 +211,8 @@ export const OrganizationTypesFilter = () => {
                            placeholder={"Name"}/>
                     <Select options={region} extraClass={cls.select} onChangeOption={setChangeRegion}
                             defaultValue={changeRegion}/>
+                    <Select options={filter} extraClass={cls.select} onChangeOption={setChangeType}
+                            defaultValue={changeType}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
 
