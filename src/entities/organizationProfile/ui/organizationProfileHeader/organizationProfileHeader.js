@@ -6,6 +6,7 @@ import readMore from "shared/assets/images/Paper.png";
 import applications from "shared/assets/images/8275507 1.png";
 import announcements from "shared/assets/images/3d-rendering-two-pictures-isolated-png 1.png";
 import gallery from "shared/assets/images/8275507 2.png";
+import info from "shared/assets/images/info.png";
 
 export const OrganizationProfileHeader = memo(({setActive}) => {
 
@@ -13,9 +14,9 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
 
     const linksList = useMemo(() => [
         {
-            name: "Batafsil",
-            image: readMore,
-            bgColor: "#FFF6E4"
+            name: "Haqida",
+            image: info,
+            bgColor: "#E7EFFF"
         },
         {
             name: "Arizalar",
@@ -30,6 +31,11 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
         {
             name: "Gallereya",
             image: gallery,
+            bgColor: "#E7EFFF"
+        },
+        {
+            name: "Haqida",
+            image: info,
             bgColor: "#E7EFFF"
         },
     ], [])

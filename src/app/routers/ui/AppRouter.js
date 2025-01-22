@@ -34,14 +34,12 @@ export const AppRouter = () => {
                                             key={item.path}
                                             path={item.path}
                                             element={item.element}
-
                                         />
                                         {/*{item.back ? setBackBtn(true) : setBackBtn(false)}*/}
                                     </>
                                 )
                             }
                         )
-
                     }
                 </Route>
 

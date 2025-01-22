@@ -24,13 +24,16 @@ import {API_URL, headersImg, useHttp} from "shared/api/base";
 import cls from "./organizationProfileInfoModal.module.sass";
 import {fetchRegionsData, getRegions} from "entities/oftenUsed";
 import {ConfirmModal} from "../../../../shared/ui/confirmModal";
+import {useParams} from "react-router";
 
 export const OrganizationProfileInfoModal = memo(() => {
 
+    const {id} = useParams()
+
     useEffect(() => {
         dispatch(fetchRegionsData())
-        dispatch(fetchOrganizationProfileAdmin())
-    }, [])
+        dispatch(fetchOrganizationProfileAdmin({id}))
+    }, [id])
 
     const {
         register,
@@ -64,7 +67,7 @@ export const OrganizationProfileInfoModal = memo(() => {
         // formData.append("phone", data?.phone)
         formData.append("locations", data?.locations)
         if (newImageFile) formData.append("img", newImageFile)
-        request(`${API_URL}organizations/organization/crud/update/1/`, "PATCH", formData, {})
+        request(`${API_URL}organizations/organization/crud/update/${id}/`, "PATCH", formData, {})
             .then(res => {
                 dispatch(updateData(res))
                 console.log(res, "update")
@@ -78,7 +81,8 @@ export const OrganizationProfileInfoModal = memo(() => {
 
     const onCreate = (data) => {
         const res = {
-            organization: 1,
+            organization: id,
+            job: 1,
             user: {
                 name: data?.name,
                 username: data?.username,
@@ -86,14 +90,12 @@ export const OrganizationProfileInfoModal = memo(() => {
                 phone: data?.phone
             }
         }
-        console.log(data, "data")
         request(
             `${API_URL}organizations/organization_user/crud/create/`,
             "POST",
             JSON.stringify(res)
         )
             .then(res => {
-                console.log(res)
                 dispatch(createUserData(res))
             })
             .catch(err => console.log(err))
@@ -103,9 +105,6 @@ export const OrganizationProfileInfoModal = memo(() => {
         let obj;
         if (data?.username !== userProfile?.user?.username) obj = {username: data?.username}
         if (data?.phone !== userProfile?.user?.phone) obj = {...obj, phone: data?.phone}
-        console.log(data?.password, "password")
-        console.log(data?.confirm_password, "confirn_password")
-        console.log(data?.password === data?.confirm_password, "tie")
         if (data?.password === data?.confirm_password && data?.password?.length <= 8) {
             const res = {
                 user: {
@@ -114,7 +113,7 @@ export const OrganizationProfileInfoModal = memo(() => {
                     password: data?.password,
                     ...obj
                 },
-                organization: 1,
+                organization: id,
                 job: 1
             }
             request(
@@ -146,7 +145,7 @@ export const OrganizationProfileInfoModal = memo(() => {
     return (
         <>
             <OrganizationProfileInfo
-                setActive={onActiveModal}
+                setActive={setActiveModal}
                 isAdd={setActiveAddModal}
                 isDel={setIsDelete}
             />

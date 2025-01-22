@@ -12,12 +12,14 @@ import {Form} from "shared/ui/form";
 import cls from "./organizationProfileGalleryModal.module.sass";
 import {useDropzone} from "react-dropzone";
 import {API_URL, useHttp} from "../../../../shared/api/base";
+import {useParams} from "react-router";
 
 export const OrganizationProfileGalleryModal = memo(() => {
 
+    const {id} = useParams()
     useEffect(() => {
-        dispatch(fetchOrganizationProfileGallery())
-    }, [])
+        dispatch(fetchOrganizationProfileGallery({id}))
+    }, [id])
 
     const {request} = useHttp()
     const formData = new FormData()
@@ -60,7 +62,6 @@ export const OrganizationProfileGalleryModal = memo(() => {
 
     const onCreate = (e) => {
         e.preventDefault()
-        console.log(true)
         formData.append("url", newImageFile)
         formData.append("type", "img")
         request(`${API_URL}organizations/organization_gallery/crud/create-file/`, "POST", formData,{})
@@ -68,7 +69,7 @@ export const OrganizationProfileGalleryModal = memo(() => {
                 request(
                     `${API_URL}organizations/organization_gallery/crud/create/`,
                     "POST",
-                    JSON.stringify({file_id: res?.id, organization: 1})
+                    JSON.stringify({file_id: res?.id, organization: id})
                 )
                     .then(res => {
                         console.log(res, "res")

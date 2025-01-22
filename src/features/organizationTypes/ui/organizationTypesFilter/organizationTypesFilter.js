@@ -16,9 +16,11 @@ import {fetchRegionsData, getRegions} from "../../../../entities/oftenUsed";
 import {API_URL, headers, useHttp} from "../../../../shared/api/base";
 import {Select} from "../../../../shared/ui/select";
 import {ConfirmModal} from "../../../../shared/ui/confirmModal";
+import {Textarea} from "../../../../shared/ui/textArea";
+import {useNavigate} from "react-router";
 
 
-export const OrganizationTypesFilter = () => {
+export const OrganizationTypesFilter = ({setSelectRegion, selectRegion,setSelectType, selectType}) => {
 
     const filter = useSelector(organizationTypeFilter)
     const cards = useSelector(organizationTypeCard)
@@ -30,7 +32,18 @@ export const OrganizationTypesFilter = () => {
     const [portal, setPortal] = useState(false)
     const [activeConfirm, setActiveConfirm] = useState(false)
     const [changeRegion, setChangeRegion] = useState(false)
-    const [selectRegion, setSelectRegion] = useState(false)
+    const [changeType, setChangeType] = useState(false)
+    // const [selectRegion, setSelectRegion] = useState(false)
+    // const [selectType, setSelectType] = useState(filter[0]?.id)
+
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        if (filter && Object.keys(filter).length) {
+            setActive(filter[0].id)
+        }
+    }, [filter])
 
 
     const [activeItem, setActiveItem] = useState(null)
@@ -47,17 +60,20 @@ export const OrganizationTypesFilter = () => {
         setValue("request", activeItem?.request)
         setValue("phone", activeItem?.phone)
         setChangeRegion(activeItem?.region)
+        setChangeType(activeItem?.organization_type)
     }, [activeItem])
+
+
     useEffect(() => {
         dispatch(fetchOrganizationTypesFilter())
         dispatch(fetchRegionsData())
     }, [])
 
-    useEffect(() => {
-        if (active || selectRegion) {
-            dispatch(fetchOrganizationTypesCards({id: active, region: selectRegion}))
-        }
-    }, [active, selectRegion])
+    // useEffect(() => {
+    //     if (selectType || selectRegion) {
+    //         dispatch(fetchOrganizationTypesCards({id: selectType, region: selectRegion}))
+    //     }
+    // }, [selectType, selectRegion])
 
     useEffect(() => {
         const updateConstraints = () => {
@@ -97,7 +113,7 @@ export const OrganizationTypesFilter = () => {
         const res = {
             ...data,
             region: +changeRegion,
-            organization_type: active
+            organization_type: changeType
         }
         request(`${API_URL}organizations/organization/crud/create/`, "POST", JSON.stringify(res), headers())
             .then(res => {
@@ -121,7 +137,7 @@ export const OrganizationTypesFilter = () => {
         const res = {
             ...data,
             region: changeRegion,
-            organization_type: active
+            organization_type: changeType
         }
         request(`${API_URL}organizations/organization/crud/update/${activeItem.id}/`, "PUT", JSON.stringify(res), headers())
             .then(res => {
@@ -131,17 +147,18 @@ export const OrganizationTypesFilter = () => {
 
 
     }
+
+
     return (
         <div className={cls.box}>
-            <h1>Tashkilot turlari</h1>
-            <div className={cls.box__btnBox}>
-                {renderItem()}
-            </div>
 
             <div className={cls.box__buttonPanel}>
                 <h1>Tashkilot turlari</h1>
                 <div className={cls.box__buttonPanel__container}>
-                    <Select onChangeOption={setSelectRegion} options={region}/>
+                    <div className={cls.box__buttonPanel__wrapper}>
+                        <Select defaultValue={selectRegion} title={"Location"} onChangeOption={setSelectRegion} options={region}/>
+                        <Select defaultValue={selectType} title={"Tashkilot turlari"} onChangeOption={setSelectType} options={filter}/>
+                    </div>
                     <Button onClick={() => setPortal(!portal)} extraClass={cls.box__buttonPanel__container__btn}>
                         <i className={"fa fa-plus"}/>
                     </Button>
@@ -149,15 +166,20 @@ export const OrganizationTypesFilter = () => {
                 </div>
             </div>
             <div className={cls.box__spinnerContainer} ref={containerRef}>
-                <motion.div
-                    drag="x"
-                    dragConstraints={{right: 0, left: constraint}}
+                <div
+                    // drag="x"
+                    // dragConstraints={{right: 0, left: constraint}}
                     className={cls.box__spinnerContainer__spinBox}
                 >
                     {cards?.results?.map(card => (
-                        <motion.div
-                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id}>
-                            <img src={asset} alt=""/>
+                        <div
+                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id}
+                        >
+                            <img
+                                onClick={() => navigate(`../organizationProfile/${card.id}`)}
+                                src={asset}
+                                alt=""
+                            />
                             <div className={cls.box__spinnerContainer__spinBox__spinner__innerBox}>
                                 <div className={cls.box__item}>
                                     <h1>{card?.name}</h1>
@@ -168,13 +190,13 @@ export const OrganizationTypesFilter = () => {
                                 </div>
                                 <h2>{card?.location}</h2>
                                 <h3>Phone: {card?.phone}</h3>
-                                <span>
-                                    <h4>Arizalar soni: {card?.application_num}</h4>
-                                </span>
+
                             </div>
-                        </motion.div>
+                            {/*<h3>{card.title}</h3>*/}
+                            {/*<p>{card.content}</p>*/}
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
             <Modal extraClass={cls.box__portal} active={portal} setActive={setPortal}>
                 <h1>Add</h1>
@@ -182,10 +204,10 @@ export const OrganizationTypesFilter = () => {
                     <Input register={register} name={"name"} extraClass={cls.box__portal__form__input}
                            placeholder={"Name"}/>
                     <Select options={region} extraClass={cls.select} onChangeOption={setChangeRegion}/>
+                    <Select options={filter} extraClass={cls.select} onChangeOption={setChangeType}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
-                    <Input register={register} name={"request"} type={"number"}
-                           extraClass={cls.box__portal__form__input} placeholder={"Arizalar soni"}/>
+
                     <Button extraClass={cls.box__portal__form__btn}>Add</Button>
                 </Form>
             </Modal>
@@ -197,10 +219,11 @@ export const OrganizationTypesFilter = () => {
                            placeholder={"Name"}/>
                     <Select options={region} extraClass={cls.select} onChangeOption={setChangeRegion}
                             defaultValue={changeRegion}/>
+                    <Select options={filter} extraClass={cls.select} onChangeOption={setChangeType}
+                            defaultValue={changeType}/>
                     <Input register={register} name={"phone"} type={"number"} extraClass={cls.box__portal__form__input}
                            placeholder={"Phone"}/>
-                    <Input register={register} name={"request"} type={"number"}
-                           extraClass={cls.box__portal__form__input} placeholder={"Arizalar soni"}/>
+
                     <div style={{display: "flex", gap: "1rem"}}>
                         <Button onClick={handleSubmit(onEdit)} extraClass={cls.box__portal__form__btn}>Edit</Button>
                         <Button type={"danger"} onClick={handleSubmit(() => setActiveConfirm(true))}

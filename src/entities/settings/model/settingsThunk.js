@@ -7,27 +7,26 @@ export const fetchOrganizationList = createAsyncThunk(
     async () => {
         const {request} = useHttp()
 
-        return await request(`${API_URL}organizations/organization_type/get/list/`, "GET", null , headers())
+        return await request(`${API_URL}organizations/organization_type/get/list/`, "GET", null, headers())
     }
 )
 
 
 export const fetchOrganizationTypeList = createAsyncThunk(
     "settingsSlice/fetchOrganizationTypeList",
-    async ({id , currentPage , pageSize}) => {
+    async ({id, currentPage, pageSize}) => {
         const {request} = useHttp()
 
-        return await request(`${API_URL}organization_fields/get/organization-fields/${id}/?offset=${(currentPage-1)*9}&limit=${pageSize}`, "GET", null , headers())
+        return await request(`${API_URL}organization_fields/get/organization-fields/${id}/?offset=${(currentPage - 1) * 9}&limit=${pageSize}`, "GET", null, headers())
     }
 )
 
 
-
 export const fetchOrganizationTypeDegree = createAsyncThunk(
     "settingsSlice/fetchOrganizationTypeDegree",
-    async ({id , currentPage , pageSize}) => {
+    ({id, currentPage, pageSize}) => {
         const {request} = useHttp()
 
-        return await request(`${API_URL}organization-degrees/organization-degree/get/list/${id}/?offset=${(currentPage-1)*9}&limit=${pageSize}`, "GET", null , headers())
+        return request(`${API_URL}organization-degrees/organization-degree/get/list/${id}/?offset=${(currentPage - 1) * 9}&limit=${pageSize}`, "GET", null, headers())
     }
 )

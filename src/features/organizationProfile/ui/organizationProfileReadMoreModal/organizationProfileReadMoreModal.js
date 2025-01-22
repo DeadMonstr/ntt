@@ -20,6 +20,7 @@ import {
 } from "../../../../entities/organizationProfile/model/thunk/organizationProfileThunk";
 import {useForm} from "react-hook-form";
 import {API_URL, useHttp} from "../../../../shared/api/base";
+import {useParams} from "react-router";
 
 export const OrganizationProfileReadMoreModal = memo(() => {
 
@@ -28,12 +29,13 @@ export const OrganizationProfileReadMoreModal = memo(() => {
         handleSubmit
     } = useForm()
     const {request} = useHttp()
+    const {id} = useParams()
     const formData = new FormData()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileReadMore())
-    }, [])
+        dispatch(fetchOrganizationProfileReadMore({id}))
+    }, [id])
 
     const data = useSelector(getOrganizationProfileReadMore)
     const [activeModal, setActiveModal] = useState(false)

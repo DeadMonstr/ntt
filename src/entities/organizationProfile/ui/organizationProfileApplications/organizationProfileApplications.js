@@ -1,21 +1,23 @@
 import React, {memo, useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
 
 import {Table} from "shared/ui/table";
+import {Select} from "shared/ui/select";
 
 import cls from "./organizationProfileApplications.module.sass";
-import {Select} from "../../../../shared/ui/select";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchOrganizationProfileApplications} from "../../model/thunk/organizationProfileThunk";
 import {getOrganizationProfileApplications} from "../../model/selector/organizationProfileSelector";
 
 export const OrganizationProfileApplications = memo(() => {
 
+    const {id} = useParams()
     const dispatch = useDispatch()
     const data = useSelector(getOrganizationProfileApplications)
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileApplications())
-    }, [])
+        dispatch(fetchOrganizationProfileApplications({id}))
+    }, [id])
 
     const renderApplicationsList = useCallback(() => {
         return data?.map(item => {

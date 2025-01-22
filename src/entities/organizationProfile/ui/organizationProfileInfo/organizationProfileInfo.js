@@ -64,6 +64,13 @@ export const OrganizationProfileInfo = memo(({setActive, isAdd, isDel}) => {
             </div>
             <div className={cls.info__container}>
                 <img className={cls.info__image} src={data?.img} alt=""/>
+                <i
+                    className={classNames(
+                        "fas fa-pen",
+                        cls.iconSub
+                    )}
+                    onClick={()=>setActive(true)}
+                />
                 <div className={cls.info__form}>
                     <Input
                         value={data?.name}

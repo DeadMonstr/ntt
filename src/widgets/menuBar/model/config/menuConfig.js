@@ -65,17 +65,17 @@ export const menuConfig = [
         roles: [ROLES.admin , ROLES.organization_admin]
     },
     {
-        to: "organizations",
+        to: "organizationTypes",
         label: "Organizations",
         img: {organization},
         back: true,
         roles: [ROLES.organization_admin  , ROLES.admin]
 
     },
-    {
-        to: "organizationTypes",
-        label: "Organizations Types",
-        icon: "fas fa-home",
-        back: true
-    }
+    // {
+    //     to: "organizationTypes",
+    //     label: "Organizations Types",
+    //     icon: "fas fa-home",
+    //     back: true
+    // }
 ]

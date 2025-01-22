@@ -1,17 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
     fetchOrganizationProfileAdmin,
-    fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileApplications,
     fetchOrganizationProfileData,
     fetchOrganizationProfileDegrees,
     fetchOrganizationProfileGallery,
-    fetchOrganizationProfileReadMore, trueAnnouncementsDelete
+    fetchOrganizationProfileReadMore
 } from "../thunk/organizationProfileThunk";
 
 const initialState = {
     data: null,
-    gallery: null,
+    gallery: [],
     applications: null,
     announcementsTrue: null,
     announcementsFalse: null,
@@ -135,20 +134,6 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileReadMore.rejected, (state) => {
-                state.loading = false
-                state.error = "error"
-            })
-            .addCase(fetchOrganizationProfileAnnouncements.pending, (state) => {
-                state.loading = true
-                state.error = null
-            })
-            .addCase(fetchOrganizationProfileAnnouncements.fulfilled, (state, action) => {
-                state.announcementsTrue = action.payload?.grant_true
-                state.announcementsFalse = action.payload?.grant_false
-                state.loading = false
-                state.error = null
-            })
-            .addCase(fetchOrganizationProfileAnnouncements.rejected, (state) => {
                 state.loading = false
                 state.error = "error"
             })
