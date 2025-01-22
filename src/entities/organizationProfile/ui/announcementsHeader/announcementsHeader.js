@@ -1,14 +1,51 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import classNames from "classnames";
 
 import cls from "./announcementsHeader.module.sass";
+import {useNavigate} from "react-router";
 
-export const AnnouncementsHeader = memo(() => {
+
+
+const typesData = [
+    "Bakalavr","Jeki",
+]
+
+
+
+export const AnnouncementsHeader = memo(({setIsChange}) => {
+
+    const [activeType,setActiveType] = useState(typesData[0])
+    const [types,setTypes] = useState(typesData)
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    const onChangeType = (item) => {
+        setActiveType(item)
+    }
+
+
+
+    const onNavigate = () => {
+        setIsChange(true)
+    }
+
+
+
     return (
         <div className={cls.announcementsHeader}>
             <h1 className={cls.announcementsHeader__title}>E’lonlar</h1>
             <div className={cls.announcementsHeader__icon}>
                 <i
+                    onClick={onNavigate}
                     className={classNames(
                         "fas fa-plus",
                         cls.announcementsHeader__inner
@@ -16,9 +53,19 @@ export const AnnouncementsHeader = memo(() => {
                 />
             </div>
             <div className={cls.announcementsHeader__menu}>
-                <h2 className={classNames({[cls.active]: true})}>Bakalavr</h2>
-                <h2>Lorem</h2>
-                <h2>Lorem</h2>
+                {
+                    types.map(item => {
+                        return (
+                            <h2
+                                onClick={() => onChangeType(item)}
+                                className={classNames({[cls.active]: activeType === item})}
+                            >
+                                {item}
+                            </h2>
+                        )
+                    })
+                }
+
             </div>
         </div>
     );

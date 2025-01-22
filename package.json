@@ -46,7 +46,9 @@
     ]
   },
   "devDependencies": {
+    "@lexical/react": "^0.23.1",
     "classnames": "^2.5.1",
+    "lexical": "^0.23.1",
     "react-device-detect": "^2.2.3"
   }
 }

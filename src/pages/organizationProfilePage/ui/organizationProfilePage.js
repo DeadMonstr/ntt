@@ -10,12 +10,17 @@ import {
     OrganizationProfileAnnouncementsModal,
     OrganizationProfileGalleryModal,
     OrganizationProfileInfoModal,
-    OrganizationProfileReadMoreModal
+    OrganizationProfileReadMoreModal,
+    OrganizationProfileInfo
 } from "features/organizationProfile";
 
 import cls from "./organizationProfilePage.module.sass";
+import {useParams} from "react-router";
 
 export const OrganizationProfilePage = () => {
+
+
+    const {id} = useParams()
 
     const dispatch = useDispatch()
 
@@ -29,11 +34,18 @@ export const OrganizationProfilePage = () => {
         <div className={cls.organization}>
             <OrganizationProfileHeader setActive={setActiveLink}/>
             <div className={cls.organization__container}>
-                <OrganizationProfileInfoModal/>
-                {activeLink === "Batafsil" && <OrganizationProfileReadMoreModal/>}
-                {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal/>}
-                {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
-                {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
+                <div className={cls.left}>
+                    <OrganizationProfileInfoModal/>
+                </div>
+                <div className={cls.right}>
+
+                    {activeLink === "Haqida" && <OrganizationProfileInfo/>}
+                    {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal/>}
+                    {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
+                    {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
+
+                </div>
+
             </div>
         </div>
     );
