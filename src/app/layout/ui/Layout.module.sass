@@ -8,16 +8,19 @@
   padding: 5.27rem 10rem
   main
     padding-top: 4rem
-    //height: calc(100vh - #{$appHeader-height} - 12rem)
+    height: calc(100vh - #{$appHeader-height} - 12rem)
     width: 100%
     display: flex
     position: relative
+
     //overflow: auto
     .page
-      width: 100%
+      width: 70%
       //margin-top: 7.4rem
-      background-color: $color-main-bg
       margin-left: 4rem
+      flex: 1
+      height: 100%
+      overflow: auto
 
 @media (max-width: 430px)
   .layout

@@ -13,7 +13,7 @@ import cls from "./organizationProfileAnnouncementsModal.module.sass";
 
 import {
     OrganizationAccouncementsForm
-} from "features/organizationProfile/ui/organizationAccouncementsForm/organizationAccouncementsForm";
+} from "../organizationAccouncementsForm/organizationAccouncementsForm";
 
 export const OrganizationProfileAnnouncementsModal = memo(() => {
 
