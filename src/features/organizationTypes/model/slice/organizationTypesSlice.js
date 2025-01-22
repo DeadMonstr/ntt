@@ -16,7 +16,7 @@ const organizationTypesSlice = createSlice({
     initialState,
     reducers: {
         addOrganization: (state, action) => {
-            state.cards.results = [...state.cards.results, action.payload]
+            state.cards.results = [action.payload, ...state.cards.results]
         },
         onDeleteOrganization: (state, action) => {
             state.cards.results = state.cards.results.filter(item => item.id !== action.payload)

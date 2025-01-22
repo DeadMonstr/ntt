@@ -20,7 +20,7 @@ import {Textarea} from "../../../../shared/ui/textArea";
 import {useNavigate} from "react-router";
 
 
-export const OrganizationTypesFilter = () => {
+export const OrganizationTypesFilter = ({setSelectRegion, selectRegion,setSelectType, selectType}) => {
 
     const filter = useSelector(organizationTypeFilter)
     const cards = useSelector(organizationTypeCard)
@@ -33,17 +33,17 @@ export const OrganizationTypesFilter = () => {
     const [activeConfirm, setActiveConfirm] = useState(false)
     const [changeRegion, setChangeRegion] = useState(false)
     const [changeType, setChangeType] = useState(false)
-    const [selectRegion, setSelectRegion] = useState(false)
-    const [selectType, setSelectType] = useState(filter[0]?.id)
+    // const [selectRegion, setSelectRegion] = useState(false)
+    // const [selectType, setSelectType] = useState(filter[0]?.id)
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     useEffect(() => {
         if (filter && Object.keys(filter).length) {
             setActive(filter[0].id)
         }
-    },[filter])
+    }, [filter])
 
 
     const [activeItem, setActiveItem] = useState(null)
@@ -69,11 +69,11 @@ const navigate = useNavigate()
         dispatch(fetchRegionsData())
     }, [])
 
-    useEffect(() => {
-        if (selectType || selectRegion) {
-            dispatch(fetchOrganizationTypesCards({id: selectType, region: selectRegion}))
-        }
-    }, [selectType, selectRegion])
+    // useEffect(() => {
+    //     if (selectType || selectRegion) {
+    //         dispatch(fetchOrganizationTypesCards({id: selectType, region: selectRegion}))
+    //     }
+    // }, [selectType, selectRegion])
 
     useEffect(() => {
         const updateConstraints = () => {
@@ -156,8 +156,8 @@ const navigate = useNavigate()
                 <h1>Tashkilot turlari</h1>
                 <div className={cls.box__buttonPanel__container}>
                     <div className={cls.box__buttonPanel__wrapper}>
-                        <Select title={"Location"} onChangeOption={setSelectRegion} options={region}/>
-                        <Select title={"Tashkilot turlari"} defaultValue={selectType} onChangeOption={setSelectType} options={filter}/>
+                        <Select defaultValue={selectRegion} title={"Location"} onChangeOption={setSelectRegion} options={region}/>
+                        <Select defaultValue={selectType} title={"Tashkilot turlari"} onChangeOption={setSelectType} options={filter}/>
                     </div>
                     <Button onClick={() => setPortal(!portal)} extraClass={cls.box__buttonPanel__container__btn}>
                         <i className={"fa fa-plus"}/>
@@ -166,15 +166,20 @@ const navigate = useNavigate()
                 </div>
             </div>
             <div className={cls.box__spinnerContainer} ref={containerRef}>
-                <motion.div
-                    drag="x"
-                    dragConstraints={{right: 0, left: constraint}}
+                <div
+                    // drag="x"
+                    // dragConstraints={{right: 0, left: constraint}}
                     className={cls.box__spinnerContainer__spinBox}
                 >
                     {cards?.results?.map(card => (
-                        <motion.div
-                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id} onClick={() => navigate(`../organizationProfile/${card.id}`)}>
-                            <img src={asset} alt=""/>
+                        <div
+                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id}
+                        >
+                            <img
+                                onClick={() => navigate(`../organizationProfile/${card.id}`)}
+                                src={asset}
+                                alt=""
+                            />
                             <div className={cls.box__spinnerContainer__spinBox__spinner__innerBox}>
                                 <div className={cls.box__item}>
                                     <h1>{card?.name}</h1>
@@ -189,9 +194,9 @@ const navigate = useNavigate()
                             </div>
                             {/*<h3>{card.title}</h3>*/}
                             {/*<p>{card.content}</p>*/}
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
             <Modal extraClass={cls.box__portal} active={portal} setActive={setPortal}>
                 <h1>Add</h1>

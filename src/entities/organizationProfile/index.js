@@ -23,7 +23,6 @@ export {
     fetchOrganizationProfileGallery,
     fetchOrganizationProfileApplications,
     fetchOrganizationProfileAdmin,
-    fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileReadMore,
     fetchOrganizationProfileDegrees
 } from "./model/thunk/organizationProfileThunk";
