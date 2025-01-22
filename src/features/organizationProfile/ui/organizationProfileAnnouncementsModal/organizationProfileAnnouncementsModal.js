@@ -11,32 +11,31 @@ import {Form} from "shared/ui/form";
 
 import cls from "./organizationProfileAnnouncementsModal.module.sass";
 
+import {
+    OrganizationAccouncementsForm
+} from "features/organizationProfile/ui/organizationAccouncementsForm/organizationAccouncementsForm";
+
 export const OrganizationProfileAnnouncementsModal = memo(() => {
 
     const [isChange, setIsChange] = useState(false)
 
+
+
+
+
     return (
         <div className={cls.announcements}>
             {
-                isChange ? <Form extraClassname={cls.announcements__form}>
-                    <div className={cls.announcements__change}>
-                        <Select extraClass={cls.announcements__select} title={"Darajalar"}/>
-                        <Select extraClass={cls.announcements__select} title={"Soha"}/>
-                        <Select extraClass={cls.announcements__select} title={" Education Langage"}/>
-                        <Select extraClass={cls.announcements__select} title={"Shift"}/>
-                        <Input extraClass={cls.announcements__input}/>
-                        <Input
-                            type={"checkbox"}
-                            placeholder={"Grant"}
-                        />
-                        <Textarea title={"Talablar"}/>
-                        <Textarea title={"Desc"}/>
-                    </div>
-                </Form> : <div className={cls.announcements__content}>
-                    <AnnouncementsHeader/>
+                isChange ? <OrganizationAccouncementsForm setIsChange={setIsChange}/>
+                    :
+                <div className={cls.announcements__content}>
+                    <AnnouncementsHeader setIsChange={setIsChange}/>
                     <AnnouncementsList setIsChange={setIsChange}/>
                 </div>
             }
         </div>
     );
 })
+
+
+

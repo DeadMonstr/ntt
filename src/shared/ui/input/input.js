@@ -1,4 +1,4 @@
-import {memo, useState} from "react";
+import React, {memo, useState} from "react";
 import classNames from "classnames";
 
 import cls from "./input.module.sass";
@@ -17,12 +17,22 @@ export const Input = memo((
         onChange,
         disabled,
         extraValues,
-        checked
+        checked,
+        title
     }
 ) => {
     const [showPassword, setShowPassword] = useState(false);
     return (
         <label style={style} className={cls.inputLabel} htmlFor={name}>
+            {
+                title ?
+                    <div className={cls.info}>
+                        <span className={cls.info__inner}>
+                            {title}
+                        </span>
+                    </div>
+                    : null
+            }
             {
                 register ? (
                     <div className={cls.field}>
