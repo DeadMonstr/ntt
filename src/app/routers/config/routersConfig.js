@@ -93,10 +93,10 @@ export const routersConfig = [
     {
         path: getRouteOrganizationTypes(),
         element: <OrganizationTypesPage/>
+    },
+    {
+        path: getRouteApplicationsProfile(":id"),
+        element: <ApplicationProfile/>
     }
-    // {
-    //     path: getRouteApplicationsProfile(),
-    //     element: <ApplicationProfile/>
-    // }
 
 ]
