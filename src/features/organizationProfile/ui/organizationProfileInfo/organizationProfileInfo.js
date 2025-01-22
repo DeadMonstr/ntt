@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import cls from "./organizationProfileInfo.module.sass"
 import classNames from "classnames";
 import TextEditor from "entities/textEditor/TextEditor";
-import {useHttp} from "shared/api/base";
+import {API_URL, headers, useHttp} from "shared/api/base";
 import {useParams} from "react-router";
 
 
@@ -32,7 +32,16 @@ export const OrganizationProfileInfo = () => {
         setText(e.text)
         setIsChange(false)
 
-        request(`/organizations/organization/crud/update_desc_text/${id}`)
+
+        const data = {
+            desc: e.text,
+            desc_json: e.editorState
+        }
+
+        request(`${API_URL}organizations/organization/crud/update_desc_text/${id}/`, "PATCH", JSON.stringify(data), headers())
+            .then(res => {
+                console.log(res)
+            })
     }
     
 
