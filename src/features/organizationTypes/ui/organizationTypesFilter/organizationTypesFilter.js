@@ -16,6 +16,8 @@ import {fetchRegionsData, getRegions} from "../../../../entities/oftenUsed";
 import {API_URL, headers, useHttp} from "../../../../shared/api/base";
 import {Select} from "../../../../shared/ui/select";
 import {ConfirmModal} from "../../../../shared/ui/confirmModal";
+import {Textarea} from "../../../../shared/ui/textArea";
+import {useNavigate} from "react-router";
 
 
 export const OrganizationTypesFilter = () => {
@@ -32,6 +34,7 @@ export const OrganizationTypesFilter = () => {
     const [changeRegion, setChangeRegion] = useState(false)
     const [selectRegion, setSelectRegion] = useState(false)
 
+const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -168,7 +171,7 @@ export const OrganizationTypesFilter = () => {
                 >
                     {cards?.results?.map(card => (
                         <motion.div
-                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id}>
+                            className={cls.box__spinnerContainer__spinBox__spinner} key={card.id} onClick={() => navigate(`../organizationProfile/${card.id}`)}>
                             <img src={asset} alt=""/>
                             <div className={cls.box__spinnerContainer__spinBox__spinner__innerBox}>
                                 <div className={cls.box__item}>
