@@ -11,7 +11,8 @@ import {
     OrganizationProfileGalleryModal,
     OrganizationProfileInfoModal,
     OrganizationProfileReadMoreModal,
-    OrganizationProfileInfo
+    OrganizationProfileInfoAbout,
+    OrganizationProfileGrants
 } from "features/organizationProfile";
 
 import cls from "./organizationProfilePage.module.sass";
@@ -27,7 +28,7 @@ export const OrganizationProfilePage = () => {
     const [activeLink, setActiveLink] = useState("")
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileData())
+        dispatch(fetchOrganizationProfileData(id))
     }, [])
 
     return (
@@ -39,7 +40,8 @@ export const OrganizationProfilePage = () => {
                 </div>
                 <div className={cls.right}>
 
-                    {activeLink === "Haqida" && <OrganizationProfileInfo/>}
+                    {activeLink === "Haqida" && <OrganizationProfileInfoAbout/>}
+                    {activeLink === "Grantlar" && <OrganizationProfileGrants/>}
                     {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal/>}
                     {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
                     {activeLink === "Arizalar" && <OrganizationProfileApplications/>}

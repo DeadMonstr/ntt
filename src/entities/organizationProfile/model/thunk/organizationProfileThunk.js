@@ -4,9 +4,9 @@ import {API_URL, useHttp} from "shared/api/base";
 export const fetchOrganizationProfileData =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileData",
-        () => {
+        (id) => {
             const {request} = useHttp()
-            return request(`${API_URL}organizations/organization/get/1/`)
+            return request(`${API_URL}organizations/organization/get/${id}/`)
         }
     )
 
@@ -58,9 +58,9 @@ export const fetchOrganizationProfileAdmin =
 export const fetchOrganizationProfileDegrees =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileDegrees",
-        () => {
+        (id) => {
             const {request} = useHttp()
-            return request(`${API_URL}organization-degrees/organization-degree/get/`)
+            return request(`${API_URL}organization-degrees/organization-degree/get/list/${id}`)
         }
     )
 

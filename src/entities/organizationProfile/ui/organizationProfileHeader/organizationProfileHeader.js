@@ -2,11 +2,11 @@ import {memo, useCallback, useMemo, useState} from 'react';
 import classNames from "classnames";
 
 import cls from "./organizationProfileHeader.module.sass";
-import readMore from "shared/assets/images/Paper.png";
 import applications from "shared/assets/images/8275507 1.png";
 import announcements from "shared/assets/images/3d-rendering-two-pictures-isolated-png 1.png";
 import gallery from "shared/assets/images/8275507 2.png";
 import info from "shared/assets/images/info.png";
+import grants from "shared/assets/images/grants.png";
 
 export const OrganizationProfileHeader = memo(({setActive}) => {
 
@@ -16,6 +16,11 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
         {
             name: "Haqida",
             image: info,
+            bgColor: "#E7EFFF"
+        },
+        {
+            name: "Grantlar",
+            image: grants,
             bgColor: "#E7EFFF"
         },
         {

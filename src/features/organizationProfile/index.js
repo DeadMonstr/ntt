@@ -1,4 +1,3 @@
-import {OrganizationProfileInfo} from "features/organizationProfile/ui/organizationProfileInfo/organizationProfileInfo";
 
 export {OrganizationProfile} from "./ui/organizationProfile"
 
@@ -16,4 +15,5 @@ export {OrganizationProfileReadMoreModal} from "./ui/organizationProfileReadMore
 export {OrganizationProfileInfoModal} from "./ui/organizationProfileInfoModal/organizationProfileInfoModal";
 export {OrganizationProfileGalleryModal} from "./ui/organizationProfileGalleryModal/organizationProfileGalleryModal";
 export {OrganizationProfileAnnouncementsModal} from "./ui/organizationProfileAnnouncementsModal/organizationProfileAnnouncementsModal";
-export {OrganizationProfileInfo} from "./ui/organizationProfileInfo/organizationProfileInfo";
+export {OrganizationProfileInfoAbout} from "./ui/organizationProfileInfoAbout/organizationProfileInfoAbout";
+export {OrganizationProfileGrants} from "./ui/organizationProfileGrants/organizationProfileGrants";

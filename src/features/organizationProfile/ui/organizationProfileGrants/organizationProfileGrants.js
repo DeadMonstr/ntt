@@ -1,19 +1,13 @@
 import React, {useEffect, useState} from 'react';
-
-import cls from "./organizationProfileInfo.module.sass"
-import classNames from "classnames";
-import TextEditor from "entities/textEditor/TextEditor";
-import {API_URL, headers, useHttp} from "shared/api/base";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
-import {getOrganizationProfileData} from "entities/organizationProfile";
+import {getOrganizationProfileData} from "entities/organizationProfile/model/selector/organizationProfileSelector";
+import {API_URL, headers, useHttp} from "shared/api/base";
+import cls from "features/organizationProfile/ui/organizationProfileInfoAbout/organizationProfileInfoAbout.module.sass";
+import classNames from "classnames";
+import TextEditor from "entities/textEditor/TextEditor";
 
-
-
-
-export const OrganizationProfileInfo = () => {
-
-
+export const OrganizationProfileGrants = () => {
     const {id} = useParams()
     const data = useSelector(getOrganizationProfileData)
 
@@ -27,10 +21,9 @@ export const OrganizationProfileInfo = () => {
 
     useEffect(() => {
         if (data.desc) {
-            setText(data.desc)
-            setEditorState(data.desc_json)
+            setText(data.grand_text)
+            setEditorState(data.grand_json)
         }
-
     },[data])
 
 
@@ -41,32 +34,32 @@ export const OrganizationProfileInfo = () => {
 
 
     const {request} = useHttp()
-    
-    
-    
+
+
+
     const onSubmit = (e) => {
         setText(e.text)
         setIsChange(false)
 
 
         const data = {
-            desc: e.text,
-            desc_json: e.editorState
+            grand_text: e.text,
+            grand_json: e.editorState
         }
 
-        request(`${API_URL}organizations/organization/crud/update_desc_text/${id}/`, "PATCH", JSON.stringify(data), headers())
+        request(`${API_URL}organizations/organization/crud/update_grand_text/${id}/`, "PATCH", JSON.stringify(data), headers())
             .then(res => {
-                setText(res.desc)
-                setEditorState(res.desc_json)
+                setText(res.grand_text)
+                setEditorState(res.grand_json)
             })
     }
-    
+
 
 
     return (
         <div className={cls.info}>
             <div className={cls.header}>
-                <h1>Haqida</h1>
+                <h1>Grantlar</h1>
                 <div className={cls.pen} onClick={onChange}>
                     {
                         isChange ?
@@ -96,6 +89,6 @@ export const OrganizationProfileInfo = () => {
 
             </div>
         </div>
-    );
+    )
 };
 
