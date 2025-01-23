@@ -29,12 +29,10 @@ export const  Select = React.memo(({
     }, [options]);
 
     useEffect(() => {
-        console.log("allredy...")
         if (defaultValue) {
             if (defaultValue === "clear") {
                 setSelectOption("");
             } else {
-                console.log(defaultValue,"success")
                 setSelectOption(defaultValue);
             }
             setIsChanged(true)
@@ -43,10 +41,8 @@ export const  Select = React.memo(({
 
     useEffect(() => {
         if (isChanged) {
-            console.log("2x ready")
             if (!selectOption) return;
             if (onChangeOption) {
-                console.log(selectOption,"success 2x")
                 onChangeOption(selectOption);
             }
             setIsChanged(false);

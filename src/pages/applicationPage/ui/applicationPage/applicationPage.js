@@ -43,8 +43,6 @@ export const ApplicationPage = () => {
         dispatch(fetchApplicationData(data))
     },[type, degree, field, shift, language,search])
 
-    console.log(type, 't54ttytytyty')
-
 
 
 

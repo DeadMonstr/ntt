@@ -9,6 +9,7 @@ import {Button} from "../../../shared/ui/button/button";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUserProfileData} from "../../../entities/userProfile/model/userProfileThunk";
 import {getUserId} from "../../../pages/login/model/loginSelector";
+import {Alert} from "../../../features/alert";
 
 
 
@@ -28,6 +29,7 @@ export const Layout = ({back}) => {
 
     return (
         <>
+            <Alert/>
             <div className={cls.layout}>
 
                 <Header/>
