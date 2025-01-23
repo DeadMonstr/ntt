@@ -26,7 +26,6 @@ export const OrganizationProfilePage = () => {
     const {id} = useParams()
 
     const dispatch = useDispatch()
-
     const currentSeason = useSelector(getSeasonSwitcherData)
     const userRole=useSelector(getUserJob)
 
