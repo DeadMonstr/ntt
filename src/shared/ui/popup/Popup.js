@@ -16,7 +16,7 @@ const Popup = ({type = "auto", options, children, extraClass, defaultActive, onC
             return <div
                 key={item.title}
                 className={classNames(cls.item, {
-                    [cls.active]: activeItem.toLowerCase() === item.title.toLowerCase()
+                    [cls.active]: activeItem?.toLowerCase() === item.title.toLowerCase()
                 })}
                 onClick={() => {
                     setActiveItem(item.id)

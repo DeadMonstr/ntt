@@ -7,20 +7,23 @@ import {menuConfig} from "../model/config/menuConfig";
 
 
 import cls from "./MenuBar.module.sass"
+import {useSelector} from "react-redux";
+import {getUserJob} from "../../../entities/userProfile";
 
 export const MenuBar = () => {
 
     const [activeMultiLink, setActiveMultiLink] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
+    const userRole = useSelector(getUserJob)
 
-    const userRole = localStorage.getItem("role")
+    // const userRole = localStorage.getItem("role")
 
     console.log(userRole, "userRole")
 
     const renderMenuList = useCallback(() => {
         return menuConfig.map(item => {
             console.log(item.roles, item.roles?.includes(userRole), "item.roles")
-            // if (item.roles?.includes(userRole)) {
+            if (item.roles?.includes(userRole)) {
 
 
                 if (item?.isMultiLink) {
@@ -85,7 +88,7 @@ export const MenuBar = () => {
                         {item.label}
                     </NavLink>
                 )
-            // }
+            }
         })
     }, [activeMultiLink, userRole])
 

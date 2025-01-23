@@ -81,19 +81,21 @@ export const OrganizationProfileInfoModal = memo(() => {
 
     const onCreate = (data) => {
         const res = {
-            organization: id,
-            job: 1,
-            user: {
-                name: data?.name,
-                username: data?.username,
-                surname: data?.surname,
-                phone: data?.phone
-            }
+            name: data?.name,
+            username: data?.username,
+            surname: data?.surname,
+            phone: data?.phone
         }
+        formData.append("organization", id)
+        formData.append("job", 1)
+        formData.append("user", JSON.stringify(res))
+        formData.append("img", newImageFile)
         request(
             `${API_URL}organizations/organization_user/crud/create/`,
             "POST",
-            JSON.stringify(res)
+            // JSON.stringify(res)
+            formData,
+            {}
         )
             .then(res => {
                 dispatch(createUserData(res))

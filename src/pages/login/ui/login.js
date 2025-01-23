@@ -10,13 +10,14 @@ import {useNavigate} from "react-router";
 
 export const Login = () => {
 
-    const {register , setValue , handleSubmit} = useForm()
+    const {register , handleSubmit} = useForm()
 
     const {request} = useHttp()
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const onPost = (data) => {
+        console.log(data, "data")
         request(`${API_URL}token/` , "POST" , JSON.stringify(data))
             .then(res => {
                 dispatch(getUserData(res))
@@ -35,7 +36,7 @@ export const Login = () => {
                     <Input placeholder={"Enter your username"} register={register} name={"phone"}/>
                     <Input placeholder={"Enter your password"} type={"password"} register={register} name={"password"}/>
 
-                    <Button extraClass={cls.login__button}>
+                    <Button type={"submit"} extraClass={cls.login__button}>
                         Login
                     </Button>
                 </Form>

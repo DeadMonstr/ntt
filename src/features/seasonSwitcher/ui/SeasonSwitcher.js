@@ -77,7 +77,7 @@ export const SeasonSwitcher = ({active, setActive}) => {
             />
 
             <Popup
-                defaultActive={years.filter(item => item.current_year)[0]?.id}
+                // defaultActive={years.filter(item => item.current_year)[0]?.id}
                 onChange={onChange}
                 extraClass={classNames(cls.switcher__popup, {
                     [cls.active]: active === "season"
