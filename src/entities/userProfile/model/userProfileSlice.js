@@ -4,6 +4,8 @@ import {fetchUserProfileData} from "./userProfileThunk";
 
 const initialState = {
     userJob: null,
+    userOrganizationName: null,
+    userOrganizationId: null,
     loading: false,
     error: null
 }
@@ -21,10 +23,13 @@ const userProfileSlice = createSlice({
             .addCase(fetchUserProfileData.fulfilled, (state, action) => {
 
 
+                console.log(action.payload,"action.payload")
 
                 state.userData = action.payload
                 state.userBranchId = action.payload?.branch?.id
                 state.userJob = action.payload?.role
+                state.userOrganizationName = action.payload?.organization_name
+                state.userOrganizationId = action.payload?.organization_id
                 localStorage.setItem("role", action.payload?.role)
 
                 localStorage.setItem("phone",  action.payload.phone)

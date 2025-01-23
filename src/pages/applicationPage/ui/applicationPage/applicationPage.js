@@ -43,6 +43,8 @@ export const ApplicationPage = () => {
         dispatch(fetchApplicationData(data))
     },[type, degree, field, shift, language,search])
 
+    console.log(type, 't54ttytytyty')
+
 
 
 
@@ -53,7 +55,7 @@ export const ApplicationPage = () => {
                 <h1 className={cls.applicationPage__title}>Barcha arizalar</h1>
                 <ApplicationFilters/>
             </div>
-            <ApplicationList list={requests || []}/>
+            <ApplicationList list={requests?.results || []}/>
         </div>
     )
 }

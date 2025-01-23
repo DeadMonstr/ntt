@@ -8,9 +8,10 @@ export const getOrganizationProfileReadMore = (state) =>
     state.OrganizationProfileSlice.readMore
 export const getOrganizationProfileAnnouncements = (state) =>
     state.OrganizationProfileSlice.announcements
-
 export const getOrganizationProfileUserData = (state) =>
     state.OrganizationProfileSlice.userData
+export const getOrganizationProfileUserImageData = (state) =>
+    state.OrganizationProfileSlice.userDataImage
 export const getOrganizationProfileDegrees = (state) =>
     state.OrganizationProfileSlice.degrees
 

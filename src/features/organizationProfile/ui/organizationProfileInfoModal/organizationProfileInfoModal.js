@@ -24,13 +24,20 @@ import {API_URL, headersImg, useHttp} from "shared/api/base";
 import cls from "./organizationProfileInfoModal.module.sass";
 import {fetchRegionsData, getRegions} from "entities/oftenUsed";
 import {ConfirmModal} from "../../../../shared/ui/confirmModal";
+import {useParams} from "react-router";
+import {
+    getOrganizationProfileUserImageData
+} from "../../../../entities/organizationProfile/model/selector/organizationProfileSelector";
+import {getOrganizationImage} from "../../../../entities/organizationProfile/model/slice/organizationProfileSlice";
 
-export const OrganizationProfileInfoModal = memo(() => {
+export const OrganizationProfileInfoModal = memo(({userRole}) => {
+
+    const {id} = useParams()
 
     useEffect(() => {
         dispatch(fetchRegionsData())
-        dispatch(fetchOrganizationProfileAdmin())
-    }, [])
+        dispatch(fetchOrganizationProfileAdmin({id}))
+    }, [id])
 
     const {
         register,
@@ -41,6 +48,7 @@ export const OrganizationProfileInfoModal = memo(() => {
     const formData = new FormData()
     const data = useSelector(getOrganizationProfileData)
     const userProfile = useSelector(getOrganizationProfileUserData)
+    const userProfileImage = useSelector(getOrganizationProfileUserImageData)
     const regionsData = useSelector(getRegions)
     const loading = useSelector(getOrganizationProfileLoading)
     const error = useSelector(getOrganizationProfileError)
@@ -56,6 +64,12 @@ export const OrganizationProfileInfoModal = memo(() => {
         }
     })
 
+    useEffect(() => {
+        if (activeAddModal || activeModal) {
+            setNewImageFile(null)
+        }
+    }, [activeAddModal, activeModal])
+
     const onActiveModal = useCallback(() => setActiveModal(true), [])
 
     const onSubmit = (data) => {
@@ -64,7 +78,7 @@ export const OrganizationProfileInfoModal = memo(() => {
         // formData.append("phone", data?.phone)
         formData.append("locations", data?.locations)
         if (newImageFile) formData.append("img", newImageFile)
-        request(`${API_URL}organizations/organization/crud/update/1/`, "PATCH", formData, {})
+        request(`${API_URL}organizations/organization/crud/update/${id}/`, "PATCH", formData, {})
             .then(res => {
                 dispatch(updateData(res))
                 console.log(res, "update")
@@ -77,57 +91,125 @@ export const OrganizationProfileInfoModal = memo(() => {
     }
 
     const onCreate = (data) => {
-        const res = {
-            organization: 1,
-            job: 1,
-            user: {
-                name: data?.name,
-                username: data?.username,
-                surname: data?.surname,
-                phone: data?.phone
-            }
-        }
-        console.log(data, "data")
-        request(
-            `${API_URL}organizations/organization_user/crud/create/`,
-            "POST",
-            JSON.stringify(res)
-        )
-            .then(res => {
-                console.log(res)
-                dispatch(createUserData(res))
-            })
-            .catch(err => console.log(err))
-    }
-
-    const onChange = (data) => {
-        let obj;
-        if (data?.username !== userProfile?.user?.username) obj = {username: data?.username}
-        if (data?.phone !== userProfile?.user?.phone) obj = {...obj, phone: data?.phone}
-        console.log(data?.password, "password")
-        console.log(data?.confirm_password, "confirn_password")
-        console.log(data?.password === data?.confirm_password, "tie")
-        if (data?.password === data?.confirm_password && data?.password?.length <= 8) {
-            const res = {
+        if (newImageFile) {
+            formData.append("url", newImageFile)
+            formData.append("type", "img")
+            request(`${API_URL}organizations/organization_gallery/crud/create-file/`, "POST", formData, {})
+                .then(res => {
+                    dispatch(getOrganizationImage(res))
+                    const createData = {
+                        organization: +id,
+                        user: {
+                            file: res?.id,
+                            name: data?.name,
+                            username: data?.username,
+                            surname: data?.surname,
+                            phone: data?.phone
+                        }
+                    }
+                    request(
+                        `${API_URL}organizations/organization_user/crud/create/`,
+                        "POST",
+                        JSON.stringify(createData)
+                        // formData,
+                        // {}
+                    )
+                        .then(res => {
+                            dispatch(createUserData(res))
+                        })
+                        .catch(err => console.log(err))
+                })
+            formData.delete("url")
+            formData.delete("type")
+        } else {
+            const createData = {
+                organization: +id,
                 user: {
                     name: data?.name,
+                    username: data?.username,
                     surname: data?.surname,
-                    password: data?.password,
-                    ...obj
-                },
-                organization: 1,
-                job: 1
+                    phone: data?.phone
+                }
             }
             request(
-                `${API_URL}organizations/organization_user/crud/update/${userProfile?.id}/`,
-                "PATCH",
-                JSON.stringify(res)
+                `${API_URL}organizations/organization_user/crud/create/`,
+                "POST",
+                JSON.stringify(createData)
+                // formData,
+                // {}
             )
                 .then(res => {
-                    console.log(res)
                     dispatch(createUserData(res))
                 })
                 .catch(err => console.log(err))
+        }
+    }
+
+    const onChange = (data) => {
+        if (newImageFile) {
+            formData.append("url", newImageFile)
+            request(
+                `${API_URL}organizations/organization_user/crud/update-file/${userProfileImage?.id}/`,
+                "PATCH",
+                formData,
+                {}
+            )
+                .then(res => {
+                    dispatch(getOrganizationImage(res))
+                    let obj;
+                    if (data?.username !== userProfile?.user?.username) obj = {username: data?.username}
+                    if (data?.phone !== userProfile?.user?.phone) obj = {...obj, phone: data?.phone}
+                    if (data?.password === data?.confirm_password && data?.password?.length <= 8) {
+                        const createData = {
+                            user: {
+                                file: res?.id,
+                                name: data?.name,
+                                surname: data?.surname,
+                                password: data?.password,
+                                ...obj
+                            },
+                            organization: id,
+                            job: 1
+                        }
+                        request(
+                            `${API_URL}organizations/organization_user/crud/update/${userProfile?.id}/`,
+                            "PATCH",
+                            JSON.stringify(createData)
+                        )
+                            .then(res => {
+                                console.log(res)
+                                dispatch(createUserData(res))
+                            })
+                            .catch(err => console.log(err))
+                    }
+                })
+            formData.delete("url")
+        } else {
+            let obj;
+            if (data?.username !== userProfile?.user?.username) obj = {username: data?.username}
+            if (data?.phone !== userProfile?.user?.phone) obj = {...obj, phone: data?.phone}
+            if (data?.password === data?.confirm_password && data?.password?.length <= 8) {
+                const res = {
+                    user: {
+                        name: data?.name,
+                        surname: data?.surname,
+                        password: data?.password,
+                        ...obj
+                    },
+                    organization: id,
+                    job: 1
+                }
+                request(
+                    `${API_URL}organizations/organization_user/crud/update/${userProfile?.id}/`,
+                    "PATCH",
+                    JSON.stringify(res)
+                )
+                    .then(res => {
+                        console.log(res)
+                        dispatch(createUserData(res))
+                    })
+                    .catch(err => console.log(err))
+            }
         }
     }
 
@@ -147,6 +229,7 @@ export const OrganizationProfileInfoModal = memo(() => {
     return (
         <>
             <OrganizationProfileInfo
+                userRole={userRole}
                 setActive={setActiveModal}
                 isAdd={setActiveAddModal}
                 isDel={setIsDelete}
@@ -233,10 +316,10 @@ export const OrganizationProfileInfoModal = memo(() => {
                                     src={URL.createObjectURL(newImageFile)}
                                     alt=""
                                 /> :
-                                data?.file?.url
+                                userProfileImage?.url
                                     ? <img
                                         className={cls.imageEdit__image}
-                                        src={data?.file?.url}
+                                        src={userProfileImage?.url}
                                         alt=""
                                     />
                                     : <i className={classNames("far fa-image", cls.imageEdit__icon)}/>

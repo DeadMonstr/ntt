@@ -9,20 +9,17 @@ import {useSelector} from "react-redux";
 import {getOrganizationProfileData} from "entities/organizationProfile";
 
 
-
-
-export const OrganizationProfileInfoAbout = () => {
+export const OrganizationProfileInfoAbout = ({userRole}) => {
 
 
     const {id} = useParams()
     const data = useSelector(getOrganizationProfileData)
 
 
-    const [text,setText] = useState(null)
-    const [editorState,setEditorState] = useState(null)
+    const [text, setText] = useState(null)
+    const [editorState, setEditorState] = useState(null)
 
-    const [isChange,setIsChange] = useState(false)
-
+    const [isChange, setIsChange] = useState(false)
 
 
     useEffect(() => {
@@ -31,7 +28,7 @@ export const OrganizationProfileInfoAbout = () => {
             setEditorState(data.desc_json)
         }
 
-    },[data])
+    }, [data])
 
 
     const onChange = () => {
@@ -39,11 +36,9 @@ export const OrganizationProfileInfoAbout = () => {
     }
 
 
-
     const {request} = useHttp()
-    
-    
-    
+
+
     const onSubmit = (e) => {
         setText(e.text)
         setIsChange(false)
@@ -60,14 +55,13 @@ export const OrganizationProfileInfoAbout = () => {
                 setEditorState(res.desc_json)
             })
     }
-    
 
 
     return (
         <div className={cls.info}>
             <div className={cls.header}>
                 <h1>Haqida</h1>
-                <div className={cls.pen} onClick={onChange}>
+                {userRole && <div className={cls.pen} onClick={onChange}>
                     {
                         isChange ?
                             <i
@@ -80,7 +74,7 @@ export const OrganizationProfileInfoAbout = () => {
                             />
                     }
 
-                </div>
+                </div>}
             </div>
 
             <div className={cls.container}>
@@ -88,7 +82,7 @@ export const OrganizationProfileInfoAbout = () => {
 
                 {
                     isChange ?
-                        <TextEditor editorState={editorState} onSubmit={onSubmit}  />
+                        <TextEditor editorState={editorState} onSubmit={onSubmit}/>
                         :
                         <p dangerouslySetInnerHTML={{__html: text}}></p>
                 }

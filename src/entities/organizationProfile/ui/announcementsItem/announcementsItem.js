@@ -8,7 +8,7 @@ import image2 from "shared/assets/icons/type.png";
 import image3 from "shared/assets/icons/prime_dollar.png";
 import image4 from "shared/assets/icons/star.png";
 
-export const AnnouncementsItem = memo(({onChange, item}) => {
+export const AnnouncementsItem = memo(({userRole,onChange, item}) => {
 
 
 
@@ -18,13 +18,14 @@ export const AnnouncementsItem = memo(({onChange, item}) => {
 
     return (
         <div className={cls.announcementsItem}>
+            {userRole&&
             <i
                 onClick={() => onChange(item)}
                 className={classNames(
                     "fas fa-pen",
                     cls.announcementsItem__icon
                 )}
-            />
+            />}
             <div className={cls.announcementsItem__header}>
                 <img className={cls.announcementsItem__ava} src={image} alt=""/>
                 <h2 className={cls.announcementsItem__title}>

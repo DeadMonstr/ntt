@@ -33,7 +33,9 @@ export const Layout = ({back}) => {
                 <Header/>
 
                 <main>
-                    {!isMobile && <MenuBar/>}
+                    {!isMobile &&
+                        <MenuBar/>
+                    }
 
 
                     <div className={cls.page}>
@@ -53,7 +55,9 @@ export const Layout = ({back}) => {
 
 
             </div>
-            {isMobile && <MenuBar/>}
+            {isMobile &&
+                <MenuBar/>
+            }
         </>
     );
 };

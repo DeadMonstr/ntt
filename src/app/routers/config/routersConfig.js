@@ -9,7 +9,6 @@ import {
 } from "shared/const/routers";
 import {DashboardPage} from "pages/dashboardPage";
 
-
 import {ApplicationProfile} from "pages/applicationProfilePage";
 import {OrganizationProfilePage} from "pages/organizationProfilePage";
 import {ApplicationPage} from "pages/applicationPage";
@@ -93,10 +92,10 @@ export const routersConfig = [
     {
         path: getRouteOrganizationTypes(),
         element: <OrganizationTypesPage/>
+    },
+    {
+        path: getRouteApplicationsProfile(":id"),
+        element: <ApplicationProfile/>
     }
-    // {
-    //     path: getRouteApplicationsProfile(),
-    //     element: <ApplicationProfile/>
-    // }
 
 ]

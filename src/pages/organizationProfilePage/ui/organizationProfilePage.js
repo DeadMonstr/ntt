@@ -18,6 +18,7 @@ import {
 import cls from "./organizationProfilePage.module.sass";
 import {useParams} from "react-router";
 import {getSeasonSwitcherData} from "features/seasonSwitcher";
+import {getUserJob} from "../../../entities/userProfile";
 
 export const OrganizationProfilePage = () => {
 
@@ -25,8 +26,8 @@ export const OrganizationProfilePage = () => {
     const {id} = useParams()
 
     const dispatch = useDispatch()
-
     const currentSeason = useSelector(getSeasonSwitcherData)
+    const userRole=useSelector(getUserJob)
 
 
     const [activeLink, setActiveLink] = useState("")
@@ -42,13 +43,16 @@ export const OrganizationProfilePage = () => {
             <OrganizationProfileHeader setActive={setActiveLink}/>
             <div className={cls.organization__container}>
                 <div className={cls.left}>
-                    <OrganizationProfileInfoModal/>
+                    <OrganizationProfileInfoModal
+                        userRole={userRole==="admin"}
+                        // userRole={true}
+                    />
                 </div>
                 <div className={cls.right}>
-                    {activeLink === "Haqida" && <OrganizationProfileInfoAbout/>}
-                    {activeLink === "Grantlar" && <OrganizationProfileGrants/>}
-                    {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal seasonId={currentSeason?.id}/>}
-                    {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
+                    {activeLink === "Haqida" && <OrganizationProfileInfoAbout userRole={userRole==="organization"}/>}
+                    {activeLink === "Grantlar" && <OrganizationProfileGrants userRole={userRole==="organization"}/>}
+                    {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal seasonId={currentSeason?.id} userRole={userRole==="organization"}/>}
+                    {activeLink === "Gallereya" && <OrganizationProfileGalleryModal userRole={userRole==="organization"}/>}
                     {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
                 </div>
             </div>

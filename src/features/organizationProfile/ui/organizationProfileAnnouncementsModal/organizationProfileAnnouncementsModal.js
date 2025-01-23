@@ -12,7 +12,7 @@ import {
     OrganizationAccouncementsForm
 } from "../organizationAccouncementsForm/organizationAccouncementsForm";
 
-export const OrganizationProfileAnnouncementsModal = memo(({seasonId}) => {
+export const OrganizationProfileAnnouncementsModal = memo(({seasonId,userRole}) => {
 
     const [isChange, setIsChange] = useState(false)
     const [changedItem,setChangedItem] = useState(null)
@@ -31,8 +31,8 @@ export const OrganizationProfileAnnouncementsModal = memo(({seasonId}) => {
                 isChange ? <OrganizationAccouncementsForm changedItem={changedItem} setIsChange={setIsChange}/>
                     :
                 <div className={cls.announcements__content}>
-                    <AnnouncementsHeader setIsChange={setIsChange}/>
-                    <AnnouncementsList seasonId={seasonId} setIsChange={onChangedItem}/>
+                    <AnnouncementsHeader userRole={userRole} setIsChange={setIsChange}/>
+                    <AnnouncementsList userRole={userRole} seasonId={seasonId} setIsChange={onChangedItem}/>
                 </div>
             }
         </div>

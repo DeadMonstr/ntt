@@ -1,21 +1,26 @@
 import React, {memo, useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
 
 import {Table} from "shared/ui/table";
+import {Select} from "shared/ui/select";
 
 import cls from "./organizationProfileApplications.module.sass";
-import {Select} from "../../../../shared/ui/select";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchOrganizationProfileApplications} from "../../model/thunk/organizationProfileThunk";
 import {getOrganizationProfileApplications} from "../../model/selector/organizationProfileSelector";
+import {fetchEducationLanguage, getEducationLanguages} from "../../../oftenUsed";
 
 export const OrganizationProfileApplications = memo(() => {
 
+    const {id} = useParams()
     const dispatch = useDispatch()
     const data = useSelector(getOrganizationProfileApplications)
+    const languages = useSelector(getEducationLanguages)
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileApplications())
-    }, [])
+        dispatch(fetchOrganizationProfileApplications({id}))
+        dispatch(fetchEducationLanguage())
+    }, [id])
 
     const renderApplicationsList = useCallback(() => {
         return data?.map(item => {
@@ -40,7 +45,7 @@ export const OrganizationProfileApplications = memo(() => {
                 <Select extraClass={cls.applications__select} titleOption={"Bakalavriat"}/>
                 <Select extraClass={cls.applications__select} titleOption={"Yo’nalish"}/>
                 <Select extraClass={cls.applications__select} titleOption={"Ta’lim turi"}/>
-                <Select extraClass={cls.applications__select} titleOption={"Ta’lim tili"}/>
+                <Select options={languages} extraClass={cls.applications__select} titleOption={"Ta’lim tili"}/>
             </div>
             <div className={cls.applications__content}>
                 <Table extraClass={cls.applications__table}>

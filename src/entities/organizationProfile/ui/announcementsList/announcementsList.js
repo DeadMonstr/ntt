@@ -10,7 +10,7 @@ import {
 import {fetchOrganizationProfileAnnouncements} from "entities/organizationProfile/model/thunk/organizationProfileThunk";
 import {useParams} from "react-router";
 
-export const AnnouncementsList = memo(({setIsChange,seasonId}) => {
+export const AnnouncementsList = memo(({userRole,setIsChange,seasonId}) => {
 
     const listAnn = useSelector(getOrganizationProfileAnnouncements)
     const {id} = useParams()
@@ -34,7 +34,7 @@ export const AnnouncementsList = memo(({setIsChange,seasonId}) => {
             {
                 listAnn.map(item => {
                     return (
-                        <AnnouncementsItem item={item} onChange={setIsChange}/>
+                        <AnnouncementsItem item={item} onChange={setIsChange} userRole={userRole}/>
                     )
                 })
             }
