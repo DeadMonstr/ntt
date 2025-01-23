@@ -55,27 +55,29 @@ export const menuConfig = [
         to: "courseApplications",
         label: "Kurs arizalari",
         icon: "far fa-file-alt",
-        roles: [ROLES.admin , ROLES.organization_admin]
+        roles: [ROLES.admin]
     },
     {
         to: "settings",
         label: "Sozlamalar",
         icon: "fas fa-cog",
         back: true,
-        roles: [ROLES.admin , ROLES.organization_admin]
+        roles: [ROLES.admin]
     },
     {
         to: "organizationTypes",
         label: "Organizations",
         img: {organization},
         back: true,
-        roles: [ROLES.organization_admin  , ROLES.admin]
+        roles: [ROLES.admin]
 
     },
-    // {
-    //     to: "organizationTypes",
-    //     label: "Organizations Types",
-    //     icon: "fas fa-home",
-    //     back: true
-    // }
+    {
+        to: "organizationProfile",
+        label: "",
+        icon: "fas fa-home",
+        back: true,
+        isOrganization: true,
+        roles: [ROLES.organization_admin]
+    }
 ]

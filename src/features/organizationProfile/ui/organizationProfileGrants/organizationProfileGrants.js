@@ -7,7 +7,7 @@ import cls from "features/organizationProfile/ui/organizationProfileInfoAbout/or
 import classNames from "classnames";
 import TextEditor from "entities/textEditor/TextEditor";
 
-export const OrganizationProfileGrants = () => {
+export const OrganizationProfileGrants = ({userRole}) => {
     const {id} = useParams()
     const data = useSelector(getOrganizationProfileData)
 
@@ -60,7 +60,7 @@ export const OrganizationProfileGrants = () => {
         <div className={cls.info}>
             <div className={cls.header}>
                 <h1>Grantlar</h1>
-                <div className={cls.pen} onClick={onChange}>
+                {userRole&&<div className={cls.pen} onClick={onChange}>
                     {
                         isChange ?
                             <i
@@ -73,7 +73,7 @@ export const OrganizationProfileGrants = () => {
                             />
                     }
 
-                </div>
+                </div>}
             </div>
 
             <div className={cls.container}>

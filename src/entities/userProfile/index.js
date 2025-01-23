@@ -1,3 +1,7 @@
 export {default as userProfileSlice} from "./model/userProfileSlice"
 
-export {getUserJob} from "./model/userProfileSelector";
+export {
+    getUserJob,
+    getUserOrganizationName,
+    getUserOrganizationId
+} from "./model/userProfileSelector";

@@ -16,6 +16,7 @@ const initialState = {
     announcements: [],
     readMore: null,
     userData: null,
+    userDataImage: null,
     degrees: [],
     fields: [],
     loading: false,
@@ -52,8 +53,6 @@ const OrganizationProfileSlice = createSlice({
         createUserData: (state, action) => {
             state.userData = action.payload
         },
-
-
         deleteAnnouncements: (state, action) => {
             if (action.payload.type) {
                 state.announcementsTrue =
@@ -62,6 +61,9 @@ const OrganizationProfileSlice = createSlice({
                 state.announcementsFalse =
                     state.announcementsFalse.filter(item => item.id !== action.payload.id)
             }
+        },
+        getOrganizationImage: (state, action) => {
+            state.userDataImage = action.payload
         }
     },
     extraReducers: builder =>
@@ -137,6 +139,7 @@ const OrganizationProfileSlice = createSlice({
             })
             .addCase(fetchOrganizationProfileAdmin.fulfilled, (state, action) => {
                 state.userData = action.payload?.results[0]
+                state.userDataImage = action.payload?.results[0]?.user?.file
                 state.loading = false
                 state.error = null
             })
@@ -181,6 +184,7 @@ export const {
     updateGallery,
     deleteUserData,
     createUserData,
-    deleteAnnouncements
+    deleteAnnouncements,
+    getOrganizationImage
 } = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer

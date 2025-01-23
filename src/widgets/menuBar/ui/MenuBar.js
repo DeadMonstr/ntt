@@ -8,22 +8,19 @@ import {menuConfig} from "../model/config/menuConfig";
 
 import cls from "./MenuBar.module.sass"
 import {useSelector} from "react-redux";
-import {getUserJob} from "../../../entities/userProfile";
+import {getUserJob, getUserOrganizationId, getUserOrganizationName} from "../../../entities/userProfile";
 
 export const MenuBar = () => {
 
     const [activeMultiLink, setActiveMultiLink] = useState(false)
     const [activeMenu, setActiveMenu] = useState(false)
     const userRole = useSelector(getUserJob)
-
-    // const userRole = localStorage.getItem("role")
-
-    console.log(userRole, "userRole")
+    const userOrganizationName = useSelector(getUserOrganizationName)
+    const userOrganizationId = useSelector(getUserOrganizationId)
 
     const renderMenuList = useCallback(() => {
         return menuConfig.map(item => {
-            console.log(item.roles, item.roles?.includes(userRole), "item.roles")
-            if (item.roles?.includes(userRole)) {
+            if (item.roles?.includes(userRole?.toLowerCase())) {
 
 
                 if (item?.isMultiLink) {
@@ -82,15 +79,15 @@ export const MenuBar = () => {
                             ({isActive}) =>
                                 isActive ? classNames(cls.menubar__item, cls.active) : cls.menubar__item
                         }
-                        to={item.to}
+                        to={item?.isOrganization ? `${item.to}/${userOrganizationId}` : item.to}
                     >
                         {item.icon ? <i className={classNames(item.icon)}/> : <img src={item.img.organization} alt=""/>}
-                        {item.label}
+                        {item?.isOrganization ? userOrganizationName : item.label}
                     </NavLink>
                 )
             }
         })
-    }, [activeMultiLink, userRole])
+    }, [activeMultiLink, userOrganizationId, userOrganizationName, userRole])
 
     return (
         <>

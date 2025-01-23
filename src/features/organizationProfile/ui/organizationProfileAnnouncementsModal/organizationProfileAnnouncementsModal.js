@@ -15,7 +15,7 @@ import {
     OrganizationAccouncementsForm
 } from "../organizationAccouncementsForm/organizationAccouncementsForm";
 
-export const OrganizationProfileAnnouncementsModal = memo(() => {
+export const OrganizationProfileAnnouncementsModal = memo(({userRole}) => {
 
     const [isChange, setIsChange] = useState(false)
 
@@ -25,8 +25,8 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
                 isChange ? <OrganizationAccouncementsForm setIsChange={setIsChange}/>
                     :
                 <div className={cls.announcements__content}>
-                    <AnnouncementsHeader setIsChange={setIsChange}/>
-                    <AnnouncementsList setIsChange={setIsChange}/>
+                    <AnnouncementsHeader userRole={userRole} setIsChange={setIsChange}/>
+                    <AnnouncementsList userRole={userRole} setIsChange={setIsChange}/>
                 </div>
             }
         </div>
