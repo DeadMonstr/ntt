@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {
     fetchOrganizationProfileData,
@@ -17,6 +17,7 @@ import {
 
 import cls from "./organizationProfilePage.module.sass";
 import {useParams} from "react-router";
+import {getSeasonSwitcherData} from "features/seasonSwitcher";
 
 export const OrganizationProfilePage = () => {
 
@@ -24,6 +25,9 @@ export const OrganizationProfilePage = () => {
     const {id} = useParams()
 
     const dispatch = useDispatch()
+
+    const currentSeason = useSelector(getSeasonSwitcherData)
+
 
     const [activeLink, setActiveLink] = useState("")
 
@@ -39,15 +43,12 @@ export const OrganizationProfilePage = () => {
                     <OrganizationProfileInfoModal/>
                 </div>
                 <div className={cls.right}>
-
                     {activeLink === "Haqida" && <OrganizationProfileInfoAbout/>}
                     {activeLink === "Grantlar" && <OrganizationProfileGrants/>}
                     {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal/>}
                     {activeLink === "Gallereya" && <OrganizationProfileGalleryModal/>}
                     {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
-
                 </div>
-
             </div>
         </div>
     );

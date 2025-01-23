@@ -26,7 +26,7 @@ export const Header = () => {
 
             <div className={cls.container}>
                 <SeasonSwitcher setActive={setActive} active={active}/>
-                <LanguageSwitcher setActive={setActive} active={active}/>
+                {/*<LanguageSwitcher setActive={setActive} active={active}/>*/}
                 <ProfileSwitcher setActive={setActive} active={active}/>
             </div>
 

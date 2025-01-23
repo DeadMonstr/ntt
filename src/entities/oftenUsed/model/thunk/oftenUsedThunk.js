@@ -18,3 +18,20 @@ export const fetchEducationLanguage = createAsyncThunk(
 )
 
 
+export const fetchAcademicYear = createAsyncThunk(
+    "oftenUsedSlice/fetchAcademicYear",
+    () => {
+        const {request} = useHttp()
+        return request(`${API_URL}students/acedemic_year/`, "GET", null, headers())
+    }
+)
+
+
+export const fetchShifts = createAsyncThunk(
+    "oftenUsedSlice/fetchShifts",
+    () => {
+        const {request} = useHttp()
+        return request(`${API_URL}students/shift/`, "GET", null, headers())
+    }
+)
+

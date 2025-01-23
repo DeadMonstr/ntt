@@ -1,9 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchEducationLanguage, fetchRegionsData} from "../thunk/oftenUsedThunk";
+import {fetchAcademicYear, fetchEducationLanguage, fetchRegionsData, fetchShifts} from "../thunk/oftenUsedThunk";
 
 const initialState = {
     regions: null,
     educationLanguages: [],
+    academicYears: [],
+    shifts: [],
     loading: null,
     error: null
 }
@@ -37,6 +39,34 @@ const oftenUsedSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchEducationLanguage.rejected, (state) => {
+                state.loading = null
+                state.error = "error"
+            })
+
+            .addCase(fetchAcademicYear.pending, (state) => {
+                state.loading = "academicYearLoading"
+                state.error = null
+            })
+            .addCase(fetchAcademicYear.fulfilled, (state, action) => {
+                state.academicYears = action.payload?.results
+                state.loading = "academicYearSuccess"
+                state.error = null
+            })
+            .addCase(fetchAcademicYear.rejected, (state) => {
+                state.loading = null
+                state.error = "error"
+            })
+
+            .addCase(fetchShifts.pending, (state) => {
+                state.loading = "shiftsLoading"
+                state.error = null
+            })
+            .addCase(fetchShifts.fulfilled, (state, action) => {
+                state.shifts = action.payload?.results
+                state.loading = "shiftsSuccess"
+                state.error = null
+            })
+            .addCase(fetchShifts.rejected, (state) => {
                 state.loading = null
                 state.error = "error"
             })
