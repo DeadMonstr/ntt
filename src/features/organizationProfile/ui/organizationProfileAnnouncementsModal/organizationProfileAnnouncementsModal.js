@@ -19,10 +19,6 @@ export const OrganizationProfileAnnouncementsModal = memo(() => {
 
     const [isChange, setIsChange] = useState(false)
 
-
-
-
-
     return (
         <div className={cls.announcements}>
             {

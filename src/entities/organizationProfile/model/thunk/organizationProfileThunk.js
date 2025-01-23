@@ -22,9 +22,9 @@ export const fetchOrganizationProfileGallery =
 export const fetchOrganizationProfileAnnouncements =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileAnnouncements",
-        () => {
+        (id) => {
             const {request} = useHttp()
-            return request(`${API_URL}organizations/organization_landing_page/get/?organization_id=1`)
+            return request(`${API_URL}organizations/organization_landing_page/get/?organization_id=${id}`)
         }
     )
 
@@ -64,6 +64,15 @@ export const fetchOrganizationProfileDegrees =
         }
     )
 
+export const fetchOrganizationProfileFields =
+    createAsyncThunk(
+        "OrganizationProfileSlice/fetchOrganizationProfileFields",
+        (id) => {
+            const {request} = useHttp()
+            return request(`${API_URL}organization_fields/get/organization-fields/${id}`)
+        }
+    )
+
 export const trueAnnouncementsDelete =
     createAsyncThunk(
         "OrganizationProfileSlice/trueAnnouncementsDelete",
@@ -81,3 +90,5 @@ export const falseAnnouncementsDelete =
             return request(`${API_URL}organizations/organization_landing_page/crud/delete/${id}/`, "DELETE")
         }
     )
+
+

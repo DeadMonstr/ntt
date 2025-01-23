@@ -4,7 +4,7 @@ import {
     fetchOrganizationProfileAnnouncements,
     fetchOrganizationProfileApplications,
     fetchOrganizationProfileData,
-    fetchOrganizationProfileDegrees,
+    fetchOrganizationProfileDegrees, fetchOrganizationProfileFields,
     fetchOrganizationProfileGallery,
     fetchOrganizationProfileReadMore, trueAnnouncementsDelete
 } from "../thunk/organizationProfileThunk";
@@ -13,11 +13,11 @@ const initialState = {
     data: null,
     gallery: null,
     applications: null,
-    announcementsTrue: null,
-    announcementsFalse: null,
+    announcements: [],
     readMore: null,
     userData: null,
     degrees: [],
+    fields: [],
     loading: false,
     error: null
 }
@@ -52,28 +52,8 @@ const OrganizationProfileSlice = createSlice({
         createUserData: (state, action) => {
             state.userData = action.payload
         },
-        updateTrueAnnouncements: (state, action) => {
-            state.announcementsTrue =
-                state.announcementsTrue.map(item =>
-                    item.id === action.payload.id ?
-                        action.payload : item
-                )
-        },
-        updateFalseAnnouncements: (state, action) => {
-            state.announcementsFalse =
-                state.announcementsFalse.map(item =>
-                    item.id === action.payload.id ?
-                        action.payload : item
-                )
-        },
-        createAnnouncementsTrue: (state, action) => {
-            state.announcementsTrue =
-                [...state.announcementsTrue, action.payload]
-        },
-        createAnnouncementsFalse: (state, action) => {
-            state.announcementsFalse =
-                [...state.announcementsFalse, action.payload]
-        },
+
+
         deleteAnnouncements: (state, action) => {
             if (action.payload.type) {
                 state.announcementsTrue =
@@ -143,8 +123,7 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileAnnouncements.fulfilled, (state, action) => {
-                state.announcementsTrue = action.payload?.grant_true
-                state.announcementsFalse = action.payload?.grant_false
+                state.announcements = action.payload?.results
                 state.loading = false
                 state.error = null
             })
@@ -178,6 +157,20 @@ const OrganizationProfileSlice = createSlice({
                 state.loading = false
                 state.error = "error"
             })
+
+            .addCase(fetchOrganizationProfileFields.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileFields.fulfilled, (state, action) => {
+                state.fields = action.payload?.results
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileFields.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
 })
 
 
@@ -188,10 +181,6 @@ export const {
     updateGallery,
     deleteUserData,
     createUserData,
-    updateTrueAnnouncements,
-    updateFalseAnnouncements,
-    createAnnouncementsTrue,
-    createAnnouncementsFalse,
     deleteAnnouncements
 } = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer

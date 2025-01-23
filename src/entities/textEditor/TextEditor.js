@@ -19,6 +19,8 @@ import {ListPlugin} from "@lexical/react/LexicalListPlugin";
 import {LinkPlugin} from "@lexical/react/LexicalLinkPlugin";
 import {MarkdownShortcutPlugin} from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
+
 
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHightlightPlugin";
@@ -27,7 +29,6 @@ import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import "./textEditor.sass"
 
 import exampleTheme from "./themes/ExampleTheme";
-import {$getSelection} from "lexical";
 import {Button} from "shared/ui/button/button";
 import ToolbarPlugin from "entities/textEditor/plugins/Toolbar";
 
@@ -60,66 +61,59 @@ function Placeholder() {
     return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-function MyOnChangePlugin() {
+function MyOnChangePlugin({onChange}) {
+
     const [editor] = useLexicalComposerContext();
 
-    // useEffect(() => {
-    //     return editor.registerUpdateListener(({editorState}) => {
-    //         onChange(editorState);
-    //     });
-    // }, [editor, onChange]);
-
-    const onClick = () => {
-        editor.update(() => {
-            const selection = $getSelection();
-            if (selection !== null && !selection.isCollapsed()) {
 
 
+    return <OnChangePlugin onChange={editorState => {
+        editorState.read(() => {
+            const htmlString = $generateHtmlFromNodes(editor, null);
+            const editorState = editor.getEditorState();
+            const data = {
 
-
-                const nodes = selection.getNodes()
-                const selectedText = selection.getTextContent();
-                const wrappedText = `?/${selectedText}/?`;
-
-                const selectedItem = editor.getElementByKey(nodes[0].getKey())
-
-
-                // selectedItem.setAttribute("data-type","input")
-                // selectedItem.classList.add("Excinput")
-
-
-                // selection.insertText(wrappedText);
+                text: htmlString,
+                editorState: editorState.toJSON(),
             }
-        });
-    }
+            onChange(data)
 
-
-
-    return <button onClick={onClick}>Hello</button>;
+        })
+    }}/>;
 }
 
 
-function MyOnSubmitPlugin({onSubmit}) {
+function MyOnSubmitPlugin({onSubmit,isSubmit= true}) {
     const [editor] = useLexicalComposerContext();
 
 
+
+
+    useEffect(() => {
+        if (!isSubmit) {
+            editor.update(() => {
+                const htmlString = $generateHtmlFromNodes(editor, null);
+                const editorState = editor.getEditorState();
+                const data = {
+                    text: htmlString,
+                    editorState: editorState.toJSON(),
+                }
+                onSubmit(data)
+            });
+        }
+    },[editor,isSubmit])
+
+
     const onSubmitChanges = useCallback(() => {
+
+
+
         editor.update(() => {
             const htmlString = $generateHtmlFromNodes(editor, null);
 
             const editorState = editor.getEditorState();
-            // const inputsRegex = /[\%|\?]\/(.*?)\/[\%|\?]/g;
-            const inputsRegex = /%\/[^\/]+\/%|\$\^\/[^\/]+\/\^\$|\?\/[^\/]+\/\?/g;
 
 
-
-            // const inputsRegex = /\?\/(.*?)\/\?/g;
-            // const matchWordsRegex = /\%\/(.*?)\/\%/g;
-            //
-            // console.log(dataText?.text?.match(regex))
-
-
-            htmlString?.match(inputsRegex);
             const data = {
                 text: htmlString,
                 editorState: editorState.toJSON(),
@@ -129,6 +123,11 @@ function MyOnSubmitPlugin({onSubmit}) {
             onSubmit(data)
         });
     }, [editor]);
+
+
+    if (!isSubmit) return (
+        <></>
+    )
 
     return (
         <Button id={''} type={"submit"} onClick={onSubmitChanges}>Tasdiqlash</Button>
@@ -153,8 +152,7 @@ function OnSetEditorState({oldEditorState}) {
 
 
 
-const TextEditor = ({onSubmit,editorState,text,title}) => {
-
+const TextEditor = React.memo(({onSubmit,editorState,text,title,isSubmit}) => {
 
     return (
         <LexicalComposer initialConfig={editorConfig}>
@@ -180,10 +178,16 @@ const TextEditor = ({onSubmit,editorState,text,title}) => {
                         <MarkdownShortcutPlugin transformers={TRANSFORMERS}/>
                         <OnSetEditorState text={text} oldEditorState={editorState}/>
                     </div>
-                    <MyOnSubmitPlugin onSubmit={onSubmit}/>
+                    {
+                        isSubmit ?
+                            <MyOnSubmitPlugin isSubmit={isSubmit}  onSubmit={onSubmit}/>
+                            :
+                            <MyOnChangePlugin onChange={onSubmit}/>
+                    }
+
                 </div>
             </div>
         </LexicalComposer>
     );
-};
+}) ;
 export default TextEditor;
