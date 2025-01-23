@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@lexical/code": "^0.23.1",
+    "@lexical/html": "^0.23.1",
+    "@lexical/link": "^0.23.1",
+    "@lexical/list": "^0.23.1",
+    "@lexical/markdown": "^0.23.1",
+    "@lexical/rich-text": "^0.23.1",
+    "@lexical/table": "^0.23.1",
     "@reduxjs/toolkit": "^2.3.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

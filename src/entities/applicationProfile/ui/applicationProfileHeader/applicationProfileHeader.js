@@ -11,7 +11,7 @@ export const ApplicationProfileHeader = () => {
 
     return (
         <div className={`${cls.application__header} ${cls.application__box}`}>
-            <div onClick={() => navigate(-1)}>r
+            <div onClick={() => navigate(-1)}>
                 <i className="fas fa-arrow-left"/>
             </div>
             <div>
