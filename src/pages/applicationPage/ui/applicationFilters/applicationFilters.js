@@ -47,9 +47,9 @@ export const ApplicationFilters = () => {
     const dispatch = useDispatch()
 
 
-    // useEffect(() => {
-    //     dispatch(fetchApplicationFiltersData({id: type}))
-    // },[type])
+    useEffect(() => {
+        dispatch(fetchApplicationFiltersData({id: type}))
+    },[type])
 
 
     const onChangeSearch = (e) => {
