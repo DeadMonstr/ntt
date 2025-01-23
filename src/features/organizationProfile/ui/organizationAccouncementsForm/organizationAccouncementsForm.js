@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
 import cls from "./organizationAccouncementsForm.module.sass";
 import {Button} from "shared/ui/button/button";
 import {Select} from "shared/ui/select";
@@ -19,7 +19,7 @@ import {getOrganizationProfileFields} from "entities/organizationProfile/model/s
 import {set} from "react-hook-form";
 import {useNavigate} from "react-router";
 
-export const OrganizationAccouncementsForm = ({setIsChange}) => {
+export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
 
 
     const academicYears = useSelector(getAcademicYears)
@@ -42,10 +42,36 @@ export const OrganizationAccouncementsForm = ({setIsChange}) => {
     const [grant, setGrant] = useState(false)
 
     const [editorDesc, setEditorDesc] = useState({})
-    const [editorDemand, setDemandDesc] = useState({})
+    const [editorDemand, setEditorDemand] = useState({})
 
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
+
+
+    useLayoutEffect(() => {
+        if (changedItem?.id) {
+            setEditorDesc({
+                text: changedItem.desc,
+                editorState: changedItem.desc_json
+            })
+            setEditorDemand({
+                text: changedItem.requirements,
+                editorState: changedItem.requirements_json
+            })
+            console.log(changedItem)
+            setYear(changedItem.year.id)
+            setLang(changedItem.education_language.id)
+            setDegree(changedItem.degree.id)
+            setField(changedItem.field.id)
+            setShift(changedItem.shift.id)
+            setPrice(changedItem.price)
+            setGrant(changedItem.grant)
+
+            setStart(changedItem.start_date)
+            setEnd(changedItem.expire_date)
+
+        }
+    }, [changedItem])
 
 
     useEffect(() => {
@@ -61,11 +87,11 @@ export const OrganizationAccouncementsForm = ({setIsChange}) => {
 
     const onSubmitDesc = useCallback((e) => {
         setEditorDesc(e)
-    }, [])
+    }, [setEditorDesc])
 
     const onSubmitTalablar = useCallback((e) => {
-        setDemandDesc(e)
-    }, [])
+        setEditorDemand(e)
+    }, [setEditorDemand])
 
     const onChangedGrant = useCallback((e) => {
         setGrant(e.target.checked)
@@ -109,14 +135,30 @@ export const OrganizationAccouncementsForm = ({setIsChange}) => {
         }
 
 
-        request(`${API_URL}organizations/organization_landing_page/crud/create/`, "POST", JSON.stringify(data), headers())
-            .then(res => {
-                navigate(-1)
-            })
+        if (changedItem?.id) {
+            request(`${API_URL}organizations/organization_landing_page/crud/update/${changedItem?.id}/`, "PUT", JSON.stringify(data), headers())
+                .then(res => {
+
+                    // navigate(-1)
+                })
+        } else{
+            request(`${API_URL}organizations/organization_landing_page/crud/create/`, "POST", JSON.stringify(data), headers())
+                .then(res => {
+                    // navigate(-1)
+                })
+        }
 
 
+        setIsChange(false)
     }
 
+
+    const deleteAnn  = () => {
+        request(`${API_URL}organizations/organization_landing_page/crud/delete/${changedItem?.id}/`, "DELETE",null, headers())
+            .then(res => {
+                // navigate(-1)
+            })
+    }
 
     return (
         <>
@@ -124,44 +166,48 @@ export const OrganizationAccouncementsForm = ({setIsChange}) => {
             <Form extraClassname={cls.create} id={"createForm"} isChange={false} onSubmit={onSubmit}>
                 <Button onClick={() => setIsChange(false)}>Back</Button>
                 <div className={cls.create__change}>
-
-
-                    <Select required onChangeOption={setDegree} options={degrees} extraClass={cls.create__select}
+                    <Select defaultValue={degree} required onChangeOption={setDegree} options={degrees}
+                            extraClass={cls.create__select}
                             title={"Darajalar"}/>
-                    <Select required onChangeOption={setField} options={fields} extraClass={cls.create__select}
+                    <Select defaultValue={field} required onChangeOption={setField} options={fields}
+                            extraClass={cls.create__select}
                             title={"Soha"}/>
-                    <Select required onChangeOption={setShift} options={shifts} extraClass={cls.create__select}
+                    <Select defaultValue={shift} required onChangeOption={setShift} options={shifts}
+                            extraClass={cls.create__select}
                             title={"Shift"}/>
-                    <Select required onChangeOption={setLang} options={languages} extraClass={cls.create__select}
+                    <Select defaultValue={lang} required onChangeOption={setLang} options={languages}
+                            extraClass={cls.create__select}
                             title={"Education Langage"}/>
-                    <Select required onChangeOption={setYear} options={academicYears} extraClass={cls.create__select}
+                    <Select defaultValue={year} required onChangeOption={setYear} options={academicYears}
+                            extraClass={cls.create__select}
                             title={"Academic year"}/>
-                    <Input required onChange={onChangedPrice} type={"number"} title={"Price"}
+                    <Input value={price} required onChange={onChangedPrice} type={"number"} title={"Price"}
                            extraClass={cls.create__input}/>
-                    <Input required onChange={onChangedStartTime} type={"date"} title={"Start date"}
+                    <Input value={start} required onChange={onChangedStartTime} type={"date"} title={"Start date"}
                            extraClass={cls.create__input}/>
-                    <Input required onChange={onChangedEndTime} type={"date"} title={"End date"}
+                    <Input value={end} required onChange={onChangedEndTime} type={"date"} title={"End date"}
                            extraClass={cls.create__input}/>
                     <Input
                         required
-                        value={grant}
+                        checked={grant}
                         onChange={onChangedGrant}
                         type={"checkbox"}
                         placeholder={"Grant"}
                     />
-
                     {/*<Textarea title={"Desc"}/>*/}
                 </div>
 
-
-
             </Form>
             <div className={cls.item}>
-                <TextEditor required isSubmit={false} title={"Description"} onSubmit={onSubmitDesc}/>
-                <TextEditor isSubmit={false} title={"Talablar"} onSubmit={onSubmitTalablar}/>
+                <TextEditor editorState={editorDesc?.editorState} required isSubmit={false} title={"Description"}
+                            onSubmit={onSubmitDesc}/>
+                <TextEditor editorState={editorDemand?.editorState} isSubmit={false} title={"Talablar"}
+                            onSubmit={onSubmitTalablar}/>
 
             </div>
             <Button id={"createForm"} type={"submit"}>Submit</Button>
+            {changedItem?.id && <Button onClick={deleteAnn} id={"Delete"} type={"danger"}>Delete</Button>}
+
 
         </>
     );

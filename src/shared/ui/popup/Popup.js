@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 
 import cls from "./Popup.module.sass"
@@ -7,8 +7,11 @@ import cls from "./Popup.module.sass"
 
 const Popup = ({type = "auto", options, children, extraClass, defaultActive, onChange}) => {
 
+    const [activeItem, setActiveItem] = useState(defaultActive || "")
 
-    const [activeItem, setActiveItem] = useState(defaultActive ?? "")
+    useEffect(() => {
+        setActiveItem(defaultActive)
+    }, [defaultActive])
 
 
     const renderOptions = useCallback(() => {
@@ -16,11 +19,11 @@ const Popup = ({type = "auto", options, children, extraClass, defaultActive, onC
             return <div
                 key={item.title}
                 className={classNames(cls.item, {
-                    [cls.active]: activeItem.toLowerCase() === item.title.toLowerCase()
+                    [cls.active]: +activeItem?.id === item.id
                 })}
                 onClick={() => {
-                    setActiveItem(item.id)
-                    onChange && onChange(item.id)
+                    setActiveItem(item)
+                    onChange && onChange(item)
                 }}
             >
                 {!!item.img && <img src={item.img} alt={item.title}/>}

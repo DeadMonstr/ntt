@@ -74,6 +74,7 @@ export const Input = memo((
                             type={showPassword ? "text" : type}
                             defaultValue={defaultValue}
                             value={value}
+
                             onChange={onChange}
                             placeholder={placeholder}
                             disabled={disabled}

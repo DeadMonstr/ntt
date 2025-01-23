@@ -10,13 +10,16 @@ import image4 from "shared/assets/icons/star.png";
 
 export const AnnouncementsItem = memo(({onChange, item}) => {
 
-    console.log(item, "item")
+
+
+
+
 
 
     return (
         <div className={cls.announcementsItem}>
             <i
-                onClick={onChange}
+                onClick={() => onChange(item)}
                 className={classNames(
                     "fas fa-pen",
                     cls.announcementsItem__icon
@@ -69,16 +72,7 @@ export const AnnouncementsItem = memo(({onChange, item}) => {
                     <h3 className={cls.info__title}>{item.price}</h3>
 
                 </div>
-                <div className={cls.info}>
-                    <div className={cls.info__header}>
-                        <div className={cls.info__icon}>
-                            <img src={image3} alt=""/>
-                        </div>
-                        <p className={cls.info__subTitle}>Talablar</p>
-                    </div>
-                    <div dangerouslySetInnerHTML={{__html: item.requirements.toString().substring(0, 100)}} className={cls.info__title}></div>
 
-                </div>
             </div>
             <div className={cls.announcementsItem__text}>
                 <div className={cls.header}>
@@ -95,8 +89,19 @@ export const AnnouncementsItem = memo(({onChange, item}) => {
                         <i className={"fas fa-arrow-up"}/>
                     </div>
                 </div>
-                <div dangerouslySetInnerHTML={{__html: item.desc}} className={cls.text}>
 
+                <h2>Ma'lumot</h2>
+                <div className={cls.text}>
+                    <div dangerouslySetInnerHTML={{__html: item.desc.toString().substring(0,300)}}></div>
+                    <span>...</span>
+                </div>
+
+                <br/>
+                <br/>
+                <h2>Talablar</h2>
+                <div  className={cls.text}>
+                    <div dangerouslySetInnerHTML={{__html: item.requirements.toString().substring(0,300)}}></div>
+                    <span>...</span>
                 </div>
             </div>
         </div>
