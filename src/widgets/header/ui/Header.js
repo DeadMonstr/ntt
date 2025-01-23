@@ -20,13 +20,13 @@ export const Header = () => {
             <div className={cls.container}>
 
                 <img className={cls.container__img} src={Logo} alt="Logo"/>
-                <h1>{currentSeason ?? "Qabul 2024-2025"}</h1>
+                <h1>{currentSeason?.date}</h1>
 
             </div>
 
             <div className={cls.container}>
                 <SeasonSwitcher setActive={setActive} active={active}/>
-                <LanguageSwitcher setActive={setActive} active={active}/>
+                {/*<LanguageSwitcher setActive={setActive} active={active}/>*/}
                 <ProfileSwitcher setActive={setActive} active={active}/>
             </div>
 

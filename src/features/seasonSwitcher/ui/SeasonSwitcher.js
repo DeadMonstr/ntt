@@ -1,13 +1,16 @@
 import classNames from "classnames";
 import {getSeasonSwitcherData} from "features/seasonSwitcher/model/seasonSwitcherSelector";
 import {fetchCurrentSeason} from "features/seasonSwitcher/model/seasonSwitcherSlice";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {isMobile} from "react-device-detect";
 import {useDispatch, useSelector} from "react-redux";
 
 import {Popup} from "shared/ui/popup";
 
 import cls from "./SeasonSwitcher.module.sass"
+import {useHttp} from "shared/api/base";
+import {fetchAcademicYear} from "entities/oftenUsed/model/thunk/oftenUsedThunk";
+import {getAcademicYears} from "entities/oftenUsed/model/selector/oftenUsedSelector";
 
 const optionsSeason = [
     {
@@ -35,13 +38,27 @@ const telOptionsSeason = [
 export const SeasonSwitcher = ({active, setActive}) => {
 
     const dispatch = useDispatch()
+    const currentYear = useSelector(getSeasonSwitcherData)
+    const years = useSelector(getAcademicYears)
 
-    const currentLanguage = useSelector(getSeasonSwitcherData)
+    
+    const {request} = useHttp()
+
+
+    useEffect(() => {
+        dispatch(fetchAcademicYear())
+    },[])
+
+    useEffect(() => {
+        if (years.length) {
+            dispatch(fetchCurrentSeason(years.filter(item => item.current_year)[0]))
+        }
+
+    },[years])
 
     const onChange = (data) => {
         dispatch(fetchCurrentSeason(data))
     }
-
     const onToggle = () => setActive(active === "season" ? "" : "season")
 
 
@@ -51,8 +68,9 @@ export const SeasonSwitcher = ({active, setActive}) => {
                 className={cls.switcher__title}
                 onClick={onToggle}
             >
-                Mavsumni uzgartirish
+                Mavsumni o'zgartirish
             </h1>
+
             <i
                 onClick={onToggle}
                 className={classNames(
@@ -62,11 +80,12 @@ export const SeasonSwitcher = ({active, setActive}) => {
             />
 
             <Popup
+                defaultActive={currentYear}
                 onChange={onChange}
                 extraClass={classNames(cls.switcher__popup, {
                     [cls.active]: active === "season"
                 })}
-                options={isMobile ? telOptionsSeason : optionsSeason}
+                options={isMobile ? telOptionsSeason : years.map(item => ({...item,title: item.date}))}
             />
         </div>
     );

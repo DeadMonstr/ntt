@@ -5,27 +5,28 @@ import {useSelector} from "react-redux";
 import {Input} from "shared/ui/input";
 import {
     getOrganizationProfileData,
-    getOrganizationProfileUserData
+    getOrganizationProfileUserData, getOrganizationProfileUserImageData
 } from "../../model/selector/organizationProfileSelector";
 
 import cls from "./organizationProfileInfo.module.sass";
 import image from "shared/assets/images/photo_2024-02-08_12-55-08_hATlV6P_pdyLCyK 1.png";
 
-export const OrganizationProfileInfo = memo(({setActive, isAdd, isDel}) => {
+export const OrganizationProfileInfo = memo(({userRole, setActive, isAdd, isDel}) => {
 
     const data = useSelector(getOrganizationProfileData)
     const userProfile = useSelector(getOrganizationProfileUserData)
+    const userProfileImage = useSelector(getOrganizationProfileUserImageData)
 
     return (
         <div className={cls.info}>
-            {userProfile?.id && (
+            {userRole && userProfile?.id && (
                 <>
                     <i
                         className={classNames(
                             "fas fa-pen",
                             cls.info__icon
                         )}
-                        onClick={()=>isAdd("change")}
+                        onClick={() => isAdd("change")}
                     />
                     <i
                         className={classNames(
@@ -33,7 +34,7 @@ export const OrganizationProfileInfo = memo(({setActive, isAdd, isDel}) => {
                             cls.info__icon,
                             cls.info__delIcon
                         )}
-                        onClick={()=>isDel(true)}
+                        onClick={() => isDel(true)}
                     />
                 </>
             )}
@@ -43,7 +44,11 @@ export const OrganizationProfileInfo = memo(({setActive, isAdd, isDel}) => {
                 {
                     userProfile?.id
                         ? <>
-                            <img className={cls.info__ava} src={image} alt=""/>
+                            <img
+                                className={cls.info__ava}
+                                src={userProfileImage?.url}
+                                alt=""
+                            />
                             <div className={cls.info__user}>
                                 <h2>{userProfile?.user?.name} {userProfile?.user?.surname}</h2>
                                 <p>{userProfile?.user?.phone}</p>
@@ -64,13 +69,13 @@ export const OrganizationProfileInfo = memo(({setActive, isAdd, isDel}) => {
             </div>
             <div className={cls.info__container}>
                 <img className={cls.info__image} src={data?.img} alt=""/>
-                <i
+                {userRole && <i
                     className={classNames(
                         "fas fa-pen",
                         cls.iconSub
                     )}
-                    onClick={()=>setActive(true)}
-                />
+                    onClick={() => setActive(true)}
+                />}
                 <div className={cls.info__form}>
                     <Input
                         value={data?.name}

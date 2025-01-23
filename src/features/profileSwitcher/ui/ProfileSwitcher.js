@@ -9,10 +9,12 @@ import logoImage from "shared/assets/logo/logo.png";
 
 const optionsSeason = [
     {
+        id: 1,
         icon: "far fa-user-circle",
         title: "Profil"
     },
     {
+        id: 2,
         icon: ["fas fa-sign-out-alt", cls.exit],
         title: "Chiqish"
     },

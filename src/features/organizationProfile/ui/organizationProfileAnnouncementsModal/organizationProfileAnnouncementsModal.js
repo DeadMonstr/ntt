@@ -4,33 +4,35 @@ import {
     AnnouncementsHeader,
     AnnouncementsList
 } from "entities/organizationProfile";
-import {Select} from "shared/ui/select";
-import {Input} from "shared/ui/input";
-import {Textarea} from "shared/ui/textArea";
-import {Form} from "shared/ui/form";
+
 
 import cls from "./organizationProfileAnnouncementsModal.module.sass";
 
 import {
     OrganizationAccouncementsForm
-} from "features/organizationProfile/ui/organizationAccouncementsForm/organizationAccouncementsForm";
+} from "../organizationAccouncementsForm/organizationAccouncementsForm";
 
-export const OrganizationProfileAnnouncementsModal = memo(() => {
+export const OrganizationProfileAnnouncementsModal = memo(({seasonId,userRole}) => {
 
     const [isChange, setIsChange] = useState(false)
+    const [changedItem,setChangedItem] = useState(null)
 
 
 
+    const onChangedItem = (item) => {
+        setIsChange(true)
+        setChangedItem(item)
+    }
 
 
     return (
         <div className={cls.announcements}>
             {
-                isChange ? <OrganizationAccouncementsForm setIsChange={setIsChange}/>
+                isChange ? <OrganizationAccouncementsForm changedItem={changedItem} setIsChange={setIsChange}/>
                     :
                 <div className={cls.announcements__content}>
-                    <AnnouncementsHeader setIsChange={setIsChange}/>
-                    <AnnouncementsList setIsChange={setIsChange}/>
+                    <AnnouncementsHeader userRole={userRole} setIsChange={setIsChange}/>
+                    <AnnouncementsList userRole={userRole} seasonId={seasonId} setIsChange={onChangedItem}/>
                 </div>
             }
         </div>

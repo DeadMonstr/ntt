@@ -1,34 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import cls from "./organizationProfileInfo.module.sass"
+import cls from "features/organizationProfile/ui/organizationProfileInfoAbout/organizationProfileInfoAbout.module.sass"
 import classNames from "classnames";
 import TextEditor from "entities/textEditor/TextEditor";
 import {API_URL, headers, useHttp} from "shared/api/base";
 import {useParams} from "react-router";
+import {useSelector} from "react-redux";
+import {getOrganizationProfileData} from "entities/organizationProfile";
 
 
-
-
-export const OrganizationProfileInfo = () => {
+export const OrganizationProfileInfoAbout = ({userRole}) => {
 
 
     const {id} = useParams()
+    const data = useSelector(getOrganizationProfileData)
 
-    const [text,setText] = useState(null)
-    const [isChange,setIsChange] = useState(false)
+
+    const [text, setText] = useState(null)
+    const [editorState, setEditorState] = useState(null)
+
+    const [isChange, setIsChange] = useState(false)
+
+
+    useEffect(() => {
+        if (data.desc) {
+            setText(data.desc)
+            setEditorState(data.desc_json)
+        }
+
+    }, [data])
+
 
     const onChange = () => {
         setIsChange(state => !state)
     }
 
 
-
     const {request} = useHttp()
-    
-    
-    
+
+
     const onSubmit = (e) => {
-        console.log(e)
         setText(e.text)
         setIsChange(false)
 
@@ -40,17 +51,17 @@ export const OrganizationProfileInfo = () => {
 
         request(`${API_URL}organizations/organization/crud/update_desc_text/${id}/`, "PATCH", JSON.stringify(data), headers())
             .then(res => {
-                console.log(res)
+                setText(res.desc)
+                setEditorState(res.desc_json)
             })
     }
-    
 
 
     return (
         <div className={cls.info}>
             <div className={cls.header}>
                 <h1>Haqida</h1>
-                <div className={cls.pen} onClick={onChange}>
+                {userRole && <div className={cls.pen} onClick={onChange}>
                     {
                         isChange ?
                             <i
@@ -63,7 +74,7 @@ export const OrganizationProfileInfo = () => {
                             />
                     }
 
-                </div>
+                </div>}
             </div>
 
             <div className={cls.container}>
@@ -71,7 +82,7 @@ export const OrganizationProfileInfo = () => {
 
                 {
                     isChange ?
-                        <TextEditor onSubmit={onSubmit}  />
+                        <TextEditor editorState={editorState} onSubmit={onSubmit}/>
                         :
                         <p dangerouslySetInnerHTML={{__html: text}}></p>
                 }

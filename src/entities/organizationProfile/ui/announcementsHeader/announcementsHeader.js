@@ -12,7 +12,7 @@ const typesData = [
 
 
 
-export const AnnouncementsHeader = memo(({setIsChange}) => {
+export const AnnouncementsHeader = memo(({userRole,setIsChange}) => {
 
     const [activeType,setActiveType] = useState(typesData[0])
     const [types,setTypes] = useState(typesData)
@@ -44,13 +44,13 @@ export const AnnouncementsHeader = memo(({setIsChange}) => {
         <div className={cls.announcementsHeader}>
             <h1 className={cls.announcementsHeader__title}>E’lonlar</h1>
             <div className={cls.announcementsHeader__icon}>
-                <i
+                {userRole&&<i
                     onClick={onNavigate}
                     className={classNames(
                         "fas fa-plus",
                         cls.announcementsHeader__inner
                     )}
-                />
+                />}
             </div>
             <div className={cls.announcementsHeader__menu}>
                 {
