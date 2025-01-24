@@ -1,6 +1,6 @@
 
 
-export const API_URL_DOC = `http://192.168.1.61:8000/`
+export const API_URL_DOC = `http://192.168.1.14:8000/`
 export const API_URL = `${API_URL_DOC}api/`
 export const CLASSROOM_API_URL = `http://localhost:3000/`
 export const CLASSROOM_API_URL_DOC = `http://192.168.68.116:8000/`
@@ -42,9 +42,9 @@ export const useHttp = () => {
         try {
             const response = await fetch(url, {method,mode: 'cors', body, headers});
 
-            if (!response.ok) {
-                throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-            }
+            // if (!response.ok) {
+            //     throw new Error(`Could not fetch ${url}, status: ${response.status}`);
+            // }
 
             return await response?.json();
 

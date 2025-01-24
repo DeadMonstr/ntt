@@ -101,7 +101,7 @@ export const AnnouncementsItem = memo(({userRole,onChange, item}) => {
                 <br/>
                 <h2>Talablar</h2>
                 <div  className={cls.text}>
-                    <div dangerouslySetInnerHTML={{__html: item.requirements.toString().substring(0,300)}}></div>
+                    <div dangerouslySetInnerHTML={{__html: item?.requirements?.toString()?.substring(0,300)}}></div>
                     <span>...</span>
                 </div>
             </div>

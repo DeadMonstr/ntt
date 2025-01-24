@@ -19,7 +19,7 @@ import {Form} from "shared/ui/form";
 import {Input} from "shared/ui/input";
 import {Select} from "shared/ui/select";
 import {Textarea} from "shared/ui/textArea";
-import {API_URL, headersImg, useHttp} from "shared/api/base";
+import {API_URL, headers, headersImg, useHttp} from "shared/api/base";
 
 import cls from "./organizationProfileInfoModal.module.sass";
 import {fetchRegionsData, getRegions} from "entities/oftenUsed";
@@ -56,7 +56,9 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     const [activeAddModal, setActiveAddModal] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
     const [selectedRegion, setSelectedRegion] = useState(null)
+    const [checkUsername, setCheckUserName] = useState(null)
     const [newImageFile, setNewImageFile] = useState(null)
+
     const {getInputProps, getRootProps} = useDropzone({
         onDrop: (acceptedFiles) => {
             console.log(acceptedFiles[0])
@@ -226,6 +228,19 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
         setIsDelete(false)
     }
 
+    const onChangeUserName = (e) => {
+
+        if (e.length >= 0) {
+            request(`${API_URL}users/user/get/check-username/?username=${e}`  , "GET" , null , headers())
+                .then(res => {
+                    setCheckUserName(res.available)
+                })
+        }else {
+            setCheckUserName(null)
+        }
+    }
+    console.log(checkUsername)
+
     return (
         <>
             <OrganizationProfileInfo
@@ -365,6 +380,11 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                                     extraClassname={cls.addModal__form}
                                     onSubmit={handleSubmit(onChange)}
                                 >
+                                    <h3 style={{color: checkUsername ? checkUsername ? "green" : "red" : "black"}}>
+
+                                        {checkUsername ? checkUsername ? "foydalanuvchi nomi bo'sh" : "foydalanuvchi nomi allaqachon mavjud" : "foydalanuvchi nomini kiriting"}
+                                    </h3>
+
                                     <Input
                                         required
                                         value={userProfile?.user?.username}
@@ -372,6 +392,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                                         name={"username"}
                                         placeholder={"Username"}
                                         extraClass={cls.addModal__input}
+                                        onChange={(e) => onChangeUserName(e.target.value)}
                                     />
                                     <Input
                                         required

@@ -37,6 +37,7 @@ export const OrganizationProfilePage = () => {
     }, [])
 
 
+    console.log(userRole)
 
     return (
         <div className={cls.organization}>

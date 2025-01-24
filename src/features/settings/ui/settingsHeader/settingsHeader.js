@@ -121,13 +121,15 @@ export const Add = ({active, setActive}) => {
 }
 
 export const Edit = ({active, setActive, activeItem}) => {
+
+    console.log(activeItem , "active")
     const {request} = useHttp()
     const {setValue, register, handleSubmit} = useForm()
 
     const dispatch = useDispatch()
     useEffect(() => {
         setValue("name", activeItem?.name)
-    }, [active, activeItem])
+    }, [activeItem, setValue])
 
 
     const [activeConfirm, setActiveConfirm] = useState(false)
@@ -136,6 +138,7 @@ export const Edit = ({active, setActive, activeItem}) => {
             .then(res => {
                 dispatch(onEditHeaderItem({id: activeItem.id, data: data.name}))
                 setActive(false)
+                setValue("name", data.name)
             })
 
 
@@ -154,7 +157,7 @@ export const Edit = ({active, setActive, activeItem}) => {
             <h1>Edit</h1>
 
 
-            <Form>
+            <Form isChange={false}>
                 <Input
                     extraClass={cls.filter__input}
                     name={"name"}
