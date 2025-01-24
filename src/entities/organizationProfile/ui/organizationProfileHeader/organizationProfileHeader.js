@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo, useState} from 'react';
 import classNames from "classnames";
 
 import cls from "./organizationProfileHeader.module.sass";
@@ -38,8 +38,25 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
             image: gallery,
             bgColor: "#E7EFFF"
         },
-       
     ], [])
+
+
+    useEffect(() => {
+        const item = localStorage.getItem("organizationProfileHeader" )
+
+        if (item) {
+            setActiveLink(item)
+            setActive(item)
+        }
+    },[])
+
+    const onChangeActiveMenu = (name) => {
+        localStorage.setItem("organizationProfileHeader" , name)
+        setActive(name)
+        setActiveLink(name)
+    }
+
+
 
     const renderLinks = useCallback(() => {
         return linksList.map(item => {
@@ -48,10 +65,7 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
                     className={classNames(cls.item, {
                         [cls.active]: activeLink === item.name
                     })}
-                    onClick={() => {
-                        setActiveLink(item.name)
-                        setActive(item.name)
-                    }}
+                    onClick={() => onChangeActiveMenu(item.name)}
                 >
                     <div
                         style={{background: item.bgColor}}

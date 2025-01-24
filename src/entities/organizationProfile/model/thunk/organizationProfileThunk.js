@@ -73,6 +73,16 @@ export const fetchOrganizationProfileFields =
         }
     )
 
+
+export const fetchOrganizationProfileShifts =
+    createAsyncThunk(
+        "OrganizationProfileSlice/fetchOrganizationProfileShifts",
+        (id) => {
+            const {request} = useHttp()
+            return request(`${API_URL}students/shift/list/${id}/`)
+        }
+    )
+
 export const trueAnnouncementsDelete =
     createAsyncThunk(
         "OrganizationProfileSlice/trueAnnouncementsDelete",
