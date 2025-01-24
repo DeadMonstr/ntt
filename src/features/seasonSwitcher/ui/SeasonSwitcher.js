@@ -12,17 +12,7 @@ import {useHttp} from "shared/api/base";
 import {fetchAcademicYear} from "entities/oftenUsed/model/thunk/oftenUsedThunk";
 import {getAcademicYears} from "entities/oftenUsed/model/selector/oftenUsedSelector";
 
-const optionsSeason = [
-    {
-        title: "Qabul 2022-2023"
-    },
-    {
-        title: "Qabul 2023-2024"
-    },
-    {
-        title: "Qabul 2024-2025"
-    }
-]
+
 const telOptionsSeason = [
     {
         title: "21-22"

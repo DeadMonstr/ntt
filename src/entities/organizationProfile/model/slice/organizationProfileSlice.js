@@ -6,7 +6,7 @@ import {
     fetchOrganizationProfileData,
     fetchOrganizationProfileDegrees, fetchOrganizationProfileFields,
     fetchOrganizationProfileGallery,
-    fetchOrganizationProfileReadMore, trueAnnouncementsDelete
+    fetchOrganizationProfileReadMore, fetchOrganizationProfileShifts, trueAnnouncementsDelete
 } from "../thunk/organizationProfileThunk";
 
 const initialState = {
@@ -19,6 +19,7 @@ const initialState = {
     userDataImage: null,
     degrees: [],
     fields: [],
+    shifts: [],
     loading: false,
     error: null,
 
@@ -176,6 +177,20 @@ const OrganizationProfileSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchOrganizationProfileFields.rejected, (state) => {
+                state.loading = false
+                state.error = "error"
+            })
+
+            .addCase(fetchOrganizationProfileShifts.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileShifts.fulfilled, (state, action) => {
+                state.shifts = action.payload?.results
+                state.loading = false
+                state.error = null
+            })
+            .addCase(fetchOrganizationProfileShifts.rejected, (state) => {
                 state.loading = false
                 state.error = "error"
             })
