@@ -400,16 +400,12 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                                     />
                                     <Input
                                         type={"password"}
-                                        // value={"12345678"}
-                                        required
                                         placeholder={"Password"}
                                         name={"password"}
                                         register={register}
                                     />
                                     <Input
                                         type={"password"}
-                                        // value={"12345678"}
-                                        required
                                         placeholder={"Confirm password"}
                                         name={"confirm_password"}
                                         register={register}

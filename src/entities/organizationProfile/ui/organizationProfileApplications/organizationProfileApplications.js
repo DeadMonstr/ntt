@@ -30,10 +30,10 @@ export const OrganizationProfileApplications = memo(() => {
     const degree = useSelector(getOrganizationProfileDegrees)
     console.log(organization,"organization")
 
-    const [selectedFields, setSelectedFields] = useState(null)
-    const [selectedShifts, setSelectedShifts] = useState(null)
-    const [selectedDegree, setSelectedDegree] = useState(null)
-    const [selectedLanguages, setSelectedLanguages] = useState(null)
+    const [field_id, setSelectedFields] = useState()
+    const [shift_id, setSelectedShifts] = useState()
+    const [degree_id, setSelectedDegree] = useState()
+    const [language_id, setSelectedLanguages] = useState()
 
     useEffect(() => {
         dispatch(fetchEducationLanguage())
@@ -44,21 +44,21 @@ export const OrganizationProfileApplications = memo(() => {
 
     useEffect(() => {
         dispatch(fetchOrganizationProfileApplications({
-            id,selectedFields, selectedDegree,selectedShifts,selectedLanguages
+            organization_id: id, field_id, degree_id,shift_id,language_id
         }))
-    }, [id,selectedFields,selectedDegree,selectedShifts,selectedLanguages])
+    }, [id,field_id,degree_id,shift_id,language_id])
 
     const renderApplicationsList = useCallback(() => {
         return data?.map(item => {
             return (
                 <tr>
-                    <td>Quddusbek Azzamov Aminjonovich</td>
-                    <td>+998 91 123 45 67</td>
-                    <td>Bakalavr</td>
-                    <td>Matematika</td>
-                    <td>Sirtqi</td>
-                    <td>O'zbek tili</td>
-                    <td>13.07.2024</td>
+                    <td>{item?.name}</td>
+                    <td>{item?.phone}</td>
+                    <td>{item?.degree}</td>
+                    <td>{item?.field}</td>
+                    <td>{item?.shift}</td>
+                    <td>{item?.language}</td>
+                    <td>{item?.date}</td>
                 </tr>
             )
         })

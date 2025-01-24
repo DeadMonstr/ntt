@@ -40,6 +40,10 @@ export const loginSlice =createSlice({
             }
             state.loading = false
             state.error = null
+        },
+        exit: (state) => {
+            state.userId = null
+            sessionStorage.clear()
         }
     },
     extraReducers: builder =>
@@ -63,4 +67,4 @@ export const loginSlice =createSlice({
             })
 })
 export default loginSlice.reducer
-export const {getUserData, userRefresh} = loginSlice.actions
+export const {getUserData, userRefresh, exit} = loginSlice.actions

@@ -41,20 +41,20 @@ export const SeasonSwitcher = ({active, setActive}) => {
     const currentYear = useSelector(getSeasonSwitcherData)
     const years = useSelector(getAcademicYears)
 
-    
+
     const {request} = useHttp()
 
 
     useEffect(() => {
         dispatch(fetchAcademicYear())
-    },[])
+    }, [])
 
     useEffect(() => {
         if (years.length) {
             dispatch(fetchCurrentSeason(years.filter(item => item.current_year)[0]))
         }
 
-    },[years])
+    }, [years])
 
     const onChange = (data) => {
         dispatch(fetchCurrentSeason(data))
@@ -63,31 +63,32 @@ export const SeasonSwitcher = ({active, setActive}) => {
 
 
     return (
-        <div className={cls.switcher}>
-            <h1
-                className={cls.switcher__title}
-                onClick={onToggle}
-            >
-                Mavsumni o'zgartirish
-            </h1>
+        <Popup
+            trigger={
+                <div className={cls.switcher}>
+                    <h1
+                        className={cls.switcher__title}
+                        onClick={onToggle}
+                    >
+                        Mavsumni o'zgartirish
+                    </h1>
 
-            <i
-                onClick={onToggle}
-                className={classNames(
-                    "fas " + (active === "season" ? "fa-chevron-up" : "fa-chevron-down"),
-                    cls.switcher__icon
-                )}
-            />
-
-            <Popup
-                defaultActive={currentYear}
-                onChange={onChange}
-                extraClass={classNames(cls.switcher__popup, {
-                    [cls.active]: active === "season"
-                })}
-                options={isMobile ? telOptionsSeason : years.map(item => ({...item,title: item.date}))}
-            />
-        </div>
+                    <i
+                        onClick={onToggle}
+                        className={classNames(
+                            "fas " + (active === "season" ? "fa-chevron-up" : "fa-chevron-down"),
+                            cls.switcher__icon
+                        )}
+                    />
+                </div>
+            }
+            defaultActive={currentYear}
+            onChange={onChange}
+            // extraClass={classNames(cls.switcher__popup, {
+            //     [cls.active]: active === "season"
+            // })}
+            options={isMobile ? telOptionsSeason : years.map(item => ({...item, title: item.date}))}
+        />
     );
 };
 

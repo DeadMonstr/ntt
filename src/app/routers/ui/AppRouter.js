@@ -7,6 +7,7 @@ import {routersConfig} from "../config/routersConfig";
 
 import "app/styles/index.sass"
 import {Login} from "../../../pages/login";
+import {RequireAuth} from "./RequireAuth";
 
 
 export const AppRouter = () => {
@@ -21,27 +22,30 @@ export const AppRouter = () => {
                     element={<Login/>}
                 />
 
-                <Route
-                    path={"admin/*"}
-                    element={<Layout/>}
-                >
-                    {
-                        routersConfig.map(item => {
+                <Route element={<RequireAuth/>}>
+                    <Route
+                        path={"admin/*"}
+                        element={<Layout/>}
+                    >
+                        {
+                            routersConfig.map(item => {
 
-                                return (
-                                    <>
-                                        <Route
-                                            key={item.path}
-                                            path={item.path}
-                                            element={item.element}
-                                        />
-                                        {/*{item.back ? setBackBtn(true) : setBackBtn(false)}*/}
-                                    </>
-                                )
-                            }
-                        )
-                    }
+                                    return (
+                                        <>
+                                            <Route
+                                                key={item.path}
+                                                path={item.path}
+                                                element={item.element}
+                                            />
+                                            {/*{item.back ? setBackBtn(true) : setBackBtn(false)}*/}
+                                        </>
+                                    )
+                                }
+                            )
+                        }
+                    </Route>
                 </Route>
+
 
                 <Route
                     index

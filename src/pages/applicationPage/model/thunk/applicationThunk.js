@@ -1,12 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {API_URL, ParamUrl, useHttp} from "shared/api/base";
+import {API_URL, ParamUrl, ParamUrls, useHttp} from "shared/api/base";
 
-function ParamUrls(params) {
-    return Object.entries(params)
-        .filter(([key, value]) => value !== undefined && value !== null)
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-        .join('&');
-}
+
 
 // agar ParamUrl ishlasa uni qaytarib qo'ysela bo'ladi prosta man ishlatomadim )
 
