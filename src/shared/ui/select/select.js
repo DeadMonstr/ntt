@@ -99,7 +99,7 @@ export const  Select = React.memo(({
                     }
                 })}
             >
-                {titleOption ? <option value={""} disabled>{titleOption}</option> : <option value={""} disabled>Tanlang</option>}
+                {titleOption ? <option value={"all"} disabled>{titleOption}</option> : <option value={""} disabled>Tanlang</option>}
                 {renderedOptions}
             </select>
             {status === "error" ? <span className={cls.label__error}>Error</span> : null}
@@ -129,7 +129,7 @@ export const  Select = React.memo(({
             >
                 {/*<option value={""} disabled>Tanlang</option>*/}
 
-                {titleOption ? <option value={""}>{titleOption}</option> : <option value={""} disabled>Tanlang</option>}
+                {titleOption ? <option value={"all"}>{titleOption}</option> : <option value={""} disabled>Tanlang</option>}
                 {renderedOptions}
             </select>
             {status === "error" ? <span className={cls.label__error}>Error</span> : null}

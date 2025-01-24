@@ -8,11 +8,11 @@ import {Select} from "shared/ui/select";
 import cls from "./organizationProfileApplications.module.sass";
 import {
     fetchOrganizationProfileApplications,
-    fetchOrganizationProfileDegrees, fetchOrganizationProfileFields
+    fetchOrganizationProfileDegrees, fetchOrganizationProfileFields, fetchOrganizationProfileShifts
 } from "../../model/thunk/organizationProfileThunk";
 import {
     getOrganizationProfileApplications, getOrganizationProfileData,
-    getOrganizationProfileDegrees, getOrganizationProfileFields
+    getOrganizationProfileDegrees, getOrganizationProfileFields, getOrganizationProfileShifts
 } from "../../model/selector/organizationProfileSelector";
 import {fetchEducationLanguage, getEducationLanguages} from "../../../oftenUsed";
 import {fetchShifts} from "../../../oftenUsed/model/thunk/oftenUsedThunk";
@@ -26,9 +26,8 @@ export const OrganizationProfileApplications = memo(() => {
     const organization = useSelector(getOrganizationProfileData)
     const languages = useSelector(getEducationLanguages)
     const fields = useSelector(getOrganizationProfileFields)
-    const shifts = useSelector(getShifts)
+    const shifts = useSelector(getOrganizationProfileShifts)
     const degree = useSelector(getOrganizationProfileDegrees)
-    console.log(organization,"organization")
 
     const [field_id, setSelectedFields] = useState()
     const [shift_id, setSelectedShifts] = useState()
@@ -37,10 +36,12 @@ export const OrganizationProfileApplications = memo(() => {
 
     useEffect(() => {
         dispatch(fetchEducationLanguage())
-        dispatch(fetchShifts())
-        dispatch(fetchOrganizationProfileDegrees(organization?.organization_type?.id))
-        dispatch(fetchOrganizationProfileFields(organization?.organization_type?.id))
-    }, [id])
+        if (organization?.organization_type?.id) {
+            dispatch(fetchOrganizationProfileShifts(organization?.organization_type?.id))
+            dispatch(fetchOrganizationProfileDegrees(organization?.organization_type?.id))
+            dispatch(fetchOrganizationProfileFields(organization?.organization_type?.id))
+        }
+    }, [dispatch, organization?.organization_type?.id])
 
     useEffect(() => {
         dispatch(fetchOrganizationProfileApplications({
