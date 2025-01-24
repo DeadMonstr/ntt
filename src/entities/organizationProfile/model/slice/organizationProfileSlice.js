@@ -20,7 +20,9 @@ const initialState = {
     degrees: [],
     fields: [],
     loading: false,
-    error: null
+    error: null,
+
+    selectedDegree: null,
 }
 
 const OrganizationProfileSlice = createSlice({
@@ -64,7 +66,10 @@ const OrganizationProfileSlice = createSlice({
         },
         getOrganizationImage: (state, action) => {
             state.userDataImage = action.payload
-        }
+        },
+        updateSelectedDegree: (state, action) => {
+            state.selectedDegree = action.payload
+        },
     },
     extraReducers: builder =>
         builder
@@ -185,6 +190,7 @@ export const {
     deleteUserData,
     createUserData,
     deleteAnnouncements,
-    getOrganizationImage
+    getOrganizationImage,
+    updateSelectedDegree
 } = OrganizationProfileSlice.actions
 export default OrganizationProfileSlice.reducer

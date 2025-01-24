@@ -18,6 +18,7 @@ import {fetchOrganizationProfileFields} from "entities/organizationProfile/model
 import {getOrganizationProfileFields} from "entities/organizationProfile/model/selector/organizationProfileSelector";
 import {set} from "react-hook-form";
 import {useNavigate} from "react-router";
+import {onAddAlertOptions, onDeleteAlert} from "features/alert/model/slice/alertSlice";
 
 export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
 
@@ -139,12 +140,23 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
             request(`${API_URL}organizations/organization_landing_page/crud/update/${changedItem?.id}/`, "PUT", JSON.stringify(data), headers())
                 .then(res => {
 
+
+                    dispatch(onAddAlertOptions({
+                        status: true,
+                        type: "success",
+                        msg: res.message
+                    }))
                     // navigate(-1)
                 })
         } else{
             request(`${API_URL}organizations/organization_landing_page/crud/create/`, "POST", JSON.stringify(data), headers())
                 .then(res => {
-                    // navigate(-1)
+
+                    dispatch(onAddAlertOptions({
+                        status: true,
+                        type: "success",
+                        msg: res.message
+                    }))
                 })
         }
 
@@ -156,7 +168,14 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
     const deleteAnn  = () => {
         request(`${API_URL}organizations/organization_landing_page/crud/delete/${changedItem?.id}/`, "DELETE",null, headers())
             .then(res => {
+                dispatch(onAddAlertOptions({
+                    status: true,
+                    type: "error",
+                    msg: res.message
+                }))
                 // navigate(-1)
+                setIsChange(false)
+
             })
     }
 

@@ -22,9 +22,9 @@ export const fetchOrganizationProfileGallery =
 export const fetchOrganizationProfileAnnouncements =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileAnnouncements",
-        ({id,seasonId}) => {
+        ({id,seasonId,selectedDegree}) => {
             const {request} = useHttp()
-            return request(`${API_URL}organizations/organization_landing_page/get/?organization_id=${id}&year_id=${seasonId}`)
+            return request(`${API_URL}organizations/organization_landing_page/get/?organization_id=${id}&year_id=${seasonId}&degree_id=${selectedDegree}`)
         }
     )
 

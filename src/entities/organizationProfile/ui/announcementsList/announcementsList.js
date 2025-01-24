@@ -5,7 +5,7 @@ import {AnnouncementsItem} from "../announcementsItem/announcementsItem";
 import cls from "./announcementsList.module.sass";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    getOrganizationProfileAnnouncements
+    getOrganizationProfileAnnouncements, getOrganizationProfileSelectedDegree
 } from "entities/organizationProfile/model/selector/organizationProfileSelector";
 import {fetchOrganizationProfileAnnouncements} from "entities/organizationProfile/model/thunk/organizationProfileThunk";
 import {useParams} from "react-router";
@@ -13,6 +13,8 @@ import {useParams} from "react-router";
 export const AnnouncementsList = memo(({userRole,setIsChange,seasonId}) => {
 
     const listAnn = useSelector(getOrganizationProfileAnnouncements)
+    const selectedDegree  = useSelector(getOrganizationProfileSelectedDegree)
+
     const {id} = useParams()
 
 
@@ -21,8 +23,8 @@ export const AnnouncementsList = memo(({userRole,setIsChange,seasonId}) => {
     const dispatch= useDispatch()
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileAnnouncements({id, seasonId}))
-    },[id,seasonId])
+        dispatch(fetchOrganizationProfileAnnouncements({id, seasonId,selectedDegree}))
+    },[id,seasonId,selectedDegree])
 
 
 

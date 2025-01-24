@@ -1,8 +1,18 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import classNames from "classnames";
 
 import cls from "./announcementsHeader.module.sass";
-import {useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchOrganizationProfileDegrees} from "entities/organizationProfile/model/thunk/organizationProfileThunk";
+import {
+    getOrganizationProfileData,
+    getOrganizationProfileDegrees,
+    updateSelectedDegree
+} from "entities/organizationProfile";
+import {
+    getOrganizationProfileSelectedDegree
+} from "entities/organizationProfile/model/selector/organizationProfileSelector";
 
 
 
@@ -14,22 +24,34 @@ const typesData = [
 
 export const AnnouncementsHeader = memo(({userRole,setIsChange}) => {
 
-    const [activeType,setActiveType] = useState(typesData[0])
-    const [types,setTypes] = useState(typesData)
+
+
+    const selectedDegree  = useSelector(getOrganizationProfileSelectedDegree)
+    const degrees  = useSelector(getOrganizationProfileDegrees)
+
+
+    const org = useSelector(getOrganizationProfileData)
 
 
 
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (org?.id)
+        dispatch(fetchOrganizationProfileDegrees(org.organization_type))
+    },[org])
 
-
-
-
-
+    useEffect(() => {
+        if (degrees.length) {
+            dispatch(updateSelectedDegree(degrees[0].id))
+        }
+    },[degrees])
     
     
     
     const onChangeType = (item) => {
-        setActiveType(item)
+
+        dispatch(updateSelectedDegree(item))
     }
 
 
@@ -54,13 +76,13 @@ export const AnnouncementsHeader = memo(({userRole,setIsChange}) => {
             </div>
             <div className={cls.announcementsHeader__menu}>
                 {
-                    types.map(item => {
+                    degrees.map(item => {
                         return (
                             <h2
-                                onClick={() => onChangeType(item)}
-                                className={classNames({[cls.active]: activeType === item})}
+                                onClick={() => onChangeType(item.id)}
+                                className={classNames({[cls.active]: selectedDegree === item.id})}
                             >
-                                {item}
+                                {item.name}
                             </h2>
                         )
                     })

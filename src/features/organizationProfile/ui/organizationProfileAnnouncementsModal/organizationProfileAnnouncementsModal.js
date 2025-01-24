@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 
 import {
     AnnouncementsHeader,
@@ -18,6 +18,12 @@ export const OrganizationProfileAnnouncementsModal = memo(({seasonId,userRole}) 
     const [changedItem,setChangedItem] = useState(null)
 
 
+
+    useEffect(() => {
+        if (!isChange) {
+            setChangedItem(null)
+        }
+    },[isChange])
 
     const onChangedItem = (item) => {
         setIsChange(true)
