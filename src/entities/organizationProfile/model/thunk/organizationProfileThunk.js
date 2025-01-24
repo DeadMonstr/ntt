@@ -31,9 +31,9 @@ export const fetchOrganizationProfileAnnouncements =
 export const fetchOrganizationProfileApplications =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileApplications",
-        ({id}) => {
+        ({id, selectedFields, selectedDegree, selectedShifts,selectedLanguages}) => {
             const {request} = useHttp()
-            return request(`${API_URL}students/student_request_list/?organization_id=${id}`)
+            return request(`${API_URL}students/student_request_list/?organization_id=${id}&field=${selectedFields}&degree=${selectedDegree}&shift=${selectedShifts}&language=${selectedLanguages}`)
         }
     )
 

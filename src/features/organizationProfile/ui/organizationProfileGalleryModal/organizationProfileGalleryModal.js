@@ -53,6 +53,7 @@ export const OrganizationProfileGalleryModal = memo(({userRole}) => {
             .then(res => {
                 console.log(res)
                 dispatch(updateGallery(res))
+                setActiveModal(false)
             })
             .catch(err => console.log(err))
         formData.delete("url")
@@ -74,6 +75,7 @@ export const OrganizationProfileGalleryModal = memo(({userRole}) => {
                     .then(res => {
                         console.log(res, "res")
                         dispatch(addGallery(res))
+                        setAddActiveModal(false)
                     })
                     .catch(err => console.log(err))
             })

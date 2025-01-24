@@ -11,6 +11,8 @@ export const OrganizationProfileGallery = memo(({userRole, setActive, isAdd}) =>
 
     const data = useSelector(getOrganizationProfileGallery)
 
+    console.log(data, "data")
+
     const renderImages = useCallback(() => {
         return data?.map((item, index) => {
             return (

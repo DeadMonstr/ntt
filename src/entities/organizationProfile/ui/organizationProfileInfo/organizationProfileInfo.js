@@ -95,17 +95,21 @@ export const OrganizationProfileInfo = memo(({userRole, setActive, isAdd, isDel}
                         placeholder={"Region"}
                         disabled
                     />
-                    <Input
-                        value={data?.locations}
-                        extraClass={cls.info__input}
-                        placeholder={"Location"}
-                        disabled
-                    />
-                    <Input
-                        value={data?.desc}
-                        extraClass={cls.info__input}
-                        placeholder={"Describe"}
-                        disabled
+                    {/*<Input*/}
+                    {/*    value={data?.locations}*/}
+                    {/*    extraClass={cls.info__input}*/}
+                    {/*    placeholder={"Location"}*/}
+                    {/*    disabled*/}
+                    {/*/>*/}
+                    <iframe
+                        src={data?.locations}
+                        width="285"
+                        height="200"
+                        style={{border: "none"}}
+                        // style="border:0;"
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
                     />
                 </div>
             </div>
