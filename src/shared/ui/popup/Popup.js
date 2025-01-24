@@ -1,17 +1,36 @@
 import classNames from "classnames";
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 
 import cls from "./Popup.module.sass"
+import {createPortal} from "react-dom";
 
 
-const Popup = ({type = "auto", options, children, extraClass, defaultActive, onChange}) => {
+const Popup = ({type = "auto", options, children, extraClass, defaultActive, onChange, trigger}) => {
 
     const [activeItem, setActiveItem] = useState(defaultActive || "")
+    const [active, setActive] = useState(false)
+    const popupModal = useRef()
 
     useEffect(() => {
         setActiveItem(defaultActive)
     }, [defaultActive])
+
+    useEffect(() => {
+        const toggleActiveFalse = (e) => {
+            if (!popupModal.current.contains(e.target)) {
+                setActive(false)
+                document.body.style.pointerEvents = "auto"
+            }
+        }
+        if (active) {
+            document.addEventListener("click", toggleActiveFalse, true)
+            return () => {
+                document.removeEventListener("click", toggleActiveFalse, true)
+            }
+        }
+
+    }, [active, popupModal])
 
 
     const renderOptions = useCallback(() => {
@@ -24,6 +43,7 @@ const Popup = ({type = "auto", options, children, extraClass, defaultActive, onC
                 onClick={() => {
                     setActiveItem(item)
                     onChange && onChange(item)
+                    setActive(false)
                 }}
             >
                 {!!item.img && <img src={item.img} alt={item.title}/>}
@@ -33,14 +53,28 @@ const Popup = ({type = "auto", options, children, extraClass, defaultActive, onC
         })
     }, [options, activeItem])
 
+    const onToggle = useCallback(() => setActive(!active), [active])
 
-    if (type === "handmade") {
-        return children
-    }
+
+    // if (type === "handmade") {
+    //     return children
+    // }
 
     return (
-        <div className={classNames(cls.popup, extraClass)}>
-            {renderOptions()}
+        <div
+            ref={popupModal}
+            className={classNames(cls.popup)}
+        >
+            <div onClick={onToggle}>
+                {trigger}
+            </div>
+            <div
+                className={classNames(cls.popup__content, extraClass, {
+                    [cls.active]: active
+                })}
+            >
+                {type === "handmade" ? children : renderOptions()}
+            </div>
         </div>
     );
 };

@@ -35,7 +35,12 @@ export const branchQuery = () => {
 
 }
 
-
+export function ParamUrls(params) {
+    return Object.entries(params)
+        .filter(([key, value]) => value !== undefined && value !== null && value !== "all")
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&');
+}
 
 export const useHttp = () => {
     const request = async (url, method = 'GET', body = null, headers = {'Content-Type': 'application/json'}) => {

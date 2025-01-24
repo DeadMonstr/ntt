@@ -15,6 +15,9 @@ export const getOrganizationProfileUserImageData = (state) =>
 export const getOrganizationProfileDegrees = (state) =>
     state.OrganizationProfileSlice.degrees
 
+export const getOrganizationProfileShifts = (state) =>
+    state.OrganizationProfileSlice.shifts
+
 export const getOrganizationProfileFields = (state) =>
     state.OrganizationProfileSlice.fields
 export const getOrganizationProfileLoading = (state) =>

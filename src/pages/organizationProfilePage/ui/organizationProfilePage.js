@@ -27,7 +27,7 @@ export const OrganizationProfilePage = () => {
 
     const dispatch = useDispatch()
     const currentSeason = useSelector(getSeasonSwitcherData)
-    const userRole=useSelector(getUserJob)
+    const userRole = useSelector(getUserJob)
 
 
     const [activeLink, setActiveLink] = useState("")
@@ -45,7 +45,7 @@ export const OrganizationProfilePage = () => {
             <div className={cls.organization__container}>
                 <div className={cls.left}>
                     <OrganizationProfileInfoModal
-                        userRole={userRole==="admin"}
+                        userRole={userRole === "admin"}
                         // userRole={true}
                     />
                 </div>

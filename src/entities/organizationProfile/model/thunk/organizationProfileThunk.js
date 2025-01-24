@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {API_URL, useHttp} from "shared/api/base";
+import {API_URL, ParamUrls, useHttp} from "shared/api/base";
 
 export const fetchOrganizationProfileData =
     createAsyncThunk(
@@ -31,9 +31,9 @@ export const fetchOrganizationProfileAnnouncements =
 export const fetchOrganizationProfileApplications =
     createAsyncThunk(
         "OrganizationProfileSlice/fetchOrganizationProfileApplications",
-        ({id}) => {
+        (data) => {
             const {request} = useHttp()
-            return request(`${API_URL}students/student_request_list/?organization_id=${id}`)
+            return request(`${API_URL}students/student_request_list/?${ParamUrls(data)}`)
         }
     )
 
@@ -70,6 +70,16 @@ export const fetchOrganizationProfileFields =
         (id) => {
             const {request} = useHttp()
             return request(`${API_URL}organization_fields/get/organization-fields/${id}`)
+        }
+    )
+
+
+export const fetchOrganizationProfileShifts =
+    createAsyncThunk(
+        "OrganizationProfileSlice/fetchOrganizationProfileShifts",
+        (id) => {
+            const {request} = useHttp()
+            return request(`${API_URL}students/shift/list/${id}/`)
         }
     )
 

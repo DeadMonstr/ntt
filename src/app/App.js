@@ -28,4 +28,7 @@ export default App;
 // ball, shift, years
 // yo daraja yo fan select
 
-//
+// seasonSwitcher
+// talim turi select arizalarda
+// organization profile menu local storage tushsin
+// grant ptichkani joyini ozgartirish

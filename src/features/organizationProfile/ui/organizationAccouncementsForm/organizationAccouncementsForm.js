@@ -14,8 +14,14 @@ import {
 } from "entities/organizationProfile";
 import {getAcademicYears, getEducationLanguages, getShifts} from "entities/oftenUsed/model/selector/oftenUsedSelector";
 import {fetchAcademicYear, fetchEducationLanguage, fetchShifts} from "entities/oftenUsed/model/thunk/oftenUsedThunk";
-import {fetchOrganizationProfileFields} from "entities/organizationProfile/model/thunk/organizationProfileThunk";
-import {getOrganizationProfileFields} from "entities/organizationProfile/model/selector/organizationProfileSelector";
+import {
+    fetchOrganizationProfileFields,
+    fetchOrganizationProfileShifts
+} from "entities/organizationProfile/model/thunk/organizationProfileThunk";
+import {
+    getOrganizationProfileFields,
+    getOrganizationProfileShifts
+} from "entities/organizationProfile/model/selector/organizationProfileSelector";
 import {set} from "react-hook-form";
 import {useNavigate} from "react-router";
 import {onAddAlertOptions, onDeleteAlert} from "features/alert/model/slice/alertSlice";
@@ -28,7 +34,7 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
     const degrees = useSelector(getOrganizationProfileDegrees)
     const fields = useSelector(getOrganizationProfileFields)
     const orgData = useSelector(getOrganizationProfileData)
-    const shifts = useSelector(getShifts)
+    const shifts = useSelector(getOrganizationProfileShifts)
 
 
     const dispatch = useDispatch()
@@ -59,7 +65,6 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
                 text: changedItem.requirements,
                 editorState: changedItem.requirements_json
             })
-            console.log(changedItem)
             setYear(changedItem.year.id)
             setLang(changedItem.education_language.id)
             setDegree(changedItem.degree.id)
@@ -77,9 +82,10 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
 
     useEffect(() => {
         if (orgData.organization_type) {
-            dispatch(fetchOrganizationProfileDegrees(orgData.organization_type))
-            dispatch(fetchOrganizationProfileFields(orgData.organization_type))
-            dispatch(fetchShifts())
+
+            dispatch(fetchOrganizationProfileDegrees(orgData.organization_type.id))
+            dispatch(fetchOrganizationProfileFields(orgData.organization_type.id))
+            dispatch(fetchOrganizationProfileShifts(orgData.organization_type.id))
             dispatch(fetchAcademicYear())
             dispatch(fetchEducationLanguage())
         }

@@ -3,11 +3,26 @@
 .popup
   width: fit-content
   height: fit-content
-  background-color: #FFFFFF
   padding: 2px 1rem
-  position: absolute
-  top: 105%
-  border-radius: .8rem
+  position: relative
+  &__content
+    left: 50%
+    transform: translateX(-50%)
+    box-shadow: 0 0 15px -5px #00000094
+    background-color: #FFFFFF
+    position: absolute
+    //top: 105%
+    border-radius: .8rem
+    transition: .4s
+    z-index: -100
+    top: 10%
+    visibility: hidden
+    opacity: 0
+    &.active
+      opacity: 1
+      visibility: visible
+      top: 5.5rem
+      z-index: 100 !important
   .item
     display: flex
     align-items: center

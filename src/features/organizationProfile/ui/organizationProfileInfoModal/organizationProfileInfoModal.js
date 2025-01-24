@@ -29,6 +29,8 @@ import {
     getOrganizationProfileUserImageData
 } from "../../../../entities/organizationProfile/model/selector/organizationProfileSelector";
 import {getOrganizationImage} from "../../../../entities/organizationProfile/model/slice/organizationProfileSlice";
+import {fetchOrganizationTypesFilter} from "../../../organizationTypes/model/thunk/organizationTypesThunk";
+import {organizationTypeFilter} from "../../../organizationTypes/model/selector/organizationTypesSelector";
 
 export const OrganizationProfileInfoModal = memo(({userRole}) => {
 
@@ -37,6 +39,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     useEffect(() => {
         dispatch(fetchRegionsData())
         dispatch(fetchOrganizationProfileAdmin({id}))
+        dispatch(fetchOrganizationTypesFilter())
     }, [id])
 
     const {
@@ -50,6 +53,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     const userProfile = useSelector(getOrganizationProfileUserData)
     const userProfileImage = useSelector(getOrganizationProfileUserImageData)
     const regionsData = useSelector(getRegions)
+    const typesData = useSelector(organizationTypeFilter)
     const loading = useSelector(getOrganizationProfileLoading)
     const error = useSelector(getOrganizationProfileError)
     const [activeModal, setActiveModal] = useState(false)
@@ -84,6 +88,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
             .then(res => {
                 dispatch(updateData(res))
                 console.log(res, "update")
+                setActiveModal(false)
             })
             .catch(err => console.log(err))
         formData.delete("name")
@@ -118,6 +123,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                     )
                         .then(res => {
                             dispatch(createUserData(res))
+                            setActiveAddModal(false)
                         })
                         .catch(err => console.log(err))
                 })
@@ -142,6 +148,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
             )
                 .then(res => {
                     dispatch(createUserData(res))
+                    setActiveAddModal(false)
                 })
                 .catch(err => console.log(err))
         }
@@ -181,6 +188,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                             .then(res => {
                                 console.log(res)
                                 dispatch(createUserData(res))
+                                setActiveAddModal(false)
                             })
                             .catch(err => console.log(err))
                     }
@@ -209,6 +217,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                     .then(res => {
                         console.log(res)
                         dispatch(createUserData(res))
+                        setActiveAddModal(false)
                     })
                     .catch(err => console.log(err))
             }
@@ -280,7 +289,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                         placeholder={"Name"}
                     />
                     <Select
-
+                        options={typesData}
                         extraClass={cls.info__input}
                         titleOption={"Organazation type"}
                     />
@@ -299,14 +308,6 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                         register={register}
                         extraClass={cls.info__input}
                         placeholder={"Location"}
-                    />
-                    <Textarea
-                        required
-                        name={"desc"}
-                        value={data?.desc}
-                        register={register}
-                        extraClass={cls.info__input}
-                        placeholder={"Desc"}
                     />
                 </Form>
             </Modal>
@@ -420,16 +421,12 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                                     />
                                     <Input
                                         type={"password"}
-                                        value={"12345678"}
-                                        required
                                         placeholder={"Password"}
                                         name={"password"}
                                         register={register}
                                     />
                                     <Input
                                         type={"password"}
-                                        value={"12345678"}
-                                        required
                                         placeholder={"Confirm password"}
                                         name={"confirm_password"}
                                         register={register}
