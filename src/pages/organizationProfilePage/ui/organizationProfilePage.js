@@ -36,6 +36,8 @@ export const OrganizationProfilePage = () => {
         dispatch(fetchOrganizationProfileData(id))
     }, [])
 
+
+
     return (
         <div className={cls.organization}>
             <OrganizationProfileHeader setActive={setActiveLink}/>
@@ -47,11 +49,10 @@ export const OrganizationProfilePage = () => {
                     />
                 </div>
                 <div className={cls.right}>
-                    {activeLink === "Haqida" && <OrganizationProfileInfoAbout userRole={userRole === "organization"}/>}
-                    {activeLink === "Grantlar" && <OrganizationProfileGrants userRole={userRole === "organization"}/>}
-                    {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal userRole={true}/>}
-                    {activeLink === "Gallereya" &&
-                        <OrganizationProfileGalleryModal userRole={userRole === "organization"}/>}
+                    {activeLink === "Haqida" && <OrganizationProfileInfoAbout userRole={userRole==="organization"}/>}
+                    {activeLink === "Grantlar" && <OrganizationProfileGrants userRole={userRole==="organization"}/>}
+                    {activeLink === "E’lonlar" && <OrganizationProfileAnnouncementsModal seasonId={currentSeason?.id} userRole={userRole==="organization"}/>}
+                    {activeLink === "Gallereya" && <OrganizationProfileGalleryModal userRole={userRole==="organization"}/>}
                     {activeLink === "Arizalar" && <OrganizationProfileApplications/>}
                 </div>
             </div>

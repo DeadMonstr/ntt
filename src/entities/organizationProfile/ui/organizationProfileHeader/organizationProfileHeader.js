@@ -38,11 +38,7 @@ export const OrganizationProfileHeader = memo(({setActive}) => {
             image: gallery,
             bgColor: "#E7EFFF"
         },
-        {
-            name: "Haqida",
-            image: info,
-            bgColor: "#E7EFFF"
-        },
+       
     ], [])
 
     const renderLinks = useCallback(() => {

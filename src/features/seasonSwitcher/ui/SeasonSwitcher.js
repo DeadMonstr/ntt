@@ -38,7 +38,7 @@ const telOptionsSeason = [
 export const SeasonSwitcher = ({active, setActive}) => {
 
     const dispatch = useDispatch()
-    const currentLanguage = useSelector(getSeasonSwitcherData)
+    const currentYear = useSelector(getSeasonSwitcherData)
     const years = useSelector(getAcademicYears)
 
     
@@ -49,15 +49,17 @@ export const SeasonSwitcher = ({active, setActive}) => {
         dispatch(fetchAcademicYear())
     },[])
 
+    useEffect(() => {
+        if (years.length) {
+            dispatch(fetchCurrentSeason(years.filter(item => item.current_year)[0]))
+        }
 
+    },[years])
 
     const onChange = (data) => {
         dispatch(fetchCurrentSeason(data))
     }
-
     const onToggle = () => setActive(active === "season" ? "" : "season")
-
-
 
 
     return (
@@ -66,8 +68,9 @@ export const SeasonSwitcher = ({active, setActive}) => {
                 className={cls.switcher__title}
                 onClick={onToggle}
             >
-                Mavsumni uzgartirish
+                Mavsumni o'zgartirish
             </h1>
+
             <i
                 onClick={onToggle}
                 className={classNames(
@@ -77,7 +80,7 @@ export const SeasonSwitcher = ({active, setActive}) => {
             />
 
             <Popup
-                // defaultActive={years.filter(item => item.current_year)[0]?.id}
+                defaultActive={currentYear}
                 onChange={onChange}
                 extraClass={classNames(cls.switcher__popup, {
                     [cls.active]: active === "season"

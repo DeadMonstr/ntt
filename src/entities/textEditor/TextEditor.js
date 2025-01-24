@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {LexicalComposer} from '@lexical/react/LexicalComposer';
 import {ContentEditable} from '@lexical/react/LexicalContentEditable';
@@ -138,13 +138,21 @@ function MyOnSubmitPlugin({onSubmit,isSubmit= true}) {
 
 function OnSetEditorState({oldEditorState}) {
     const [editor] = useLexicalComposerContext();
+    const [isChanged,setIsChanged] = useState(false)
+
+
 
     useEffect(() => {
-        if (oldEditorState) {
+        console.log(oldEditorState, "oldddddddd")
+
+
+        if (oldEditorState && !isChanged) {
+            console.log(oldEditorState)
             const editorState = editor.parseEditorState(oldEditorState)
             editor.setEditorState(editorState);
+            setIsChanged(true)
         }
-    }, [oldEditorState])
+    }, [oldEditorState,isChanged])
 
 
     return null
@@ -153,6 +161,7 @@ function OnSetEditorState({oldEditorState}) {
 
 
 const TextEditor = React.memo(({onSubmit,editorState,text,title,isSubmit}) => {
+
 
     return (
         <LexicalComposer initialConfig={editorConfig}>

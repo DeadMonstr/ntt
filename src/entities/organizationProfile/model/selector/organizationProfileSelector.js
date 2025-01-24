@@ -21,3 +21,7 @@ export const getOrganizationProfileLoading = (state) =>
     state.OrganizationProfileSlice.loading
 export const getOrganizationProfileError = (state) =>
     state.OrganizationProfileSlice.error
+
+
+export const getOrganizationProfileSelectedDegree = (state) =>
+    state.OrganizationProfileSlice.selectedDegree

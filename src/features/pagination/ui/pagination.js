@@ -70,7 +70,7 @@ export const Pagination = React.memo((props) => {
                         className={classNames(cls.pagination_item, cls.arrow)}
                         onClick={onNext}
                     >
-                        <i className="fas fa.arrow-right"></i>
+                        <i className="fas fa-arrow-right"></i>
                     </li>
                 )}
             </ul>

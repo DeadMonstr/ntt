@@ -12,6 +12,8 @@ import {userProfileSlice} from "../entities/userProfile";
 import {OrganizationProfileSlice} from "entities/organizationProfile";
 import {oftenUsedSlice} from "entities/oftenUsed";
 import {organizationTypesSlice} from "../features/organizationTypes";
+import {dashboardSlice} from "../pages/dashboardPage";
+import {alertSlice} from "../features/alert";
 
 
 const stringMiddleware = () => (next) => (action) => {
@@ -26,6 +28,8 @@ const stringMiddleware = () => (next) => (action) => {
 
 export const store = configureStore({
     reducer: {
+        alertSlice,
+
         languageSwitcherSlice,
         seasonSwitcherSlice,
         applicationProfileSlice,
@@ -37,7 +41,8 @@ export const store = configureStore({
         userProfileSlice,
         OrganizationProfileSlice,
         oftenUsedSlice,
-        organizationTypesSlice
+        organizationTypesSlice,
+        dashboardSlice,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(

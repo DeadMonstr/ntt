@@ -20,7 +20,7 @@ export const Header = () => {
             <div className={cls.container}>
 
                 <img className={cls.container__img} src={Logo} alt="Logo"/>
-                <h1>{currentSeason ?? "Qabul 2024-2025"}</h1>
+                <h1>{currentSeason?.date}</h1>
 
             </div>
 

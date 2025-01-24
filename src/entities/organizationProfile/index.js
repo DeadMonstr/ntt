@@ -14,7 +14,8 @@ export {
     updateGallery,
     deleteUserData,
     createUserData,
-    deleteAnnouncements
+    deleteAnnouncements,
+    updateSelectedDegree
 } from "./model/slice/organizationProfileSlice";
 export {
     fetchOrganizationProfileData,
