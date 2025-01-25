@@ -80,7 +80,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     const onActiveModal = useCallback(() => setActiveModal(true), [])
 
     const onSubmit = (data) => {
-        formData.append("name", data?.name)
+        formData.append("name", data?.name_organization)
         formData.append("desc", data?.desc)
         // formData.append("phone", data?.phone)
         formData.append("locations", JSON.stringify(data?.locations))
@@ -285,7 +285,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                 >
                     <Input
                         required
-                        name={"name"}
+                        name={"name_organization"}
                         value={data?.name}
                         register={register}
                         extraClass={cls.info__input}
