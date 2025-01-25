@@ -23,7 +23,9 @@ export const AnnouncementsList = memo(({userRole,setIsChange,seasonId}) => {
     const dispatch= useDispatch()
 
     useEffect(() => {
-        dispatch(fetchOrganizationProfileAnnouncements({id, seasonId,selectedDegree}))
+        if (id && seasonId && selectedDegree) {
+            dispatch(fetchOrganizationProfileAnnouncements({id, seasonId,selectedDegree}))
+        }
     },[id,seasonId,selectedDegree])
 
 

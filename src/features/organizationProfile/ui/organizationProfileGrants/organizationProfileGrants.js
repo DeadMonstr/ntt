@@ -20,9 +20,9 @@ export const OrganizationProfileGrants = ({userRole}) => {
 
 
     useEffect(() => {
-        if (data.desc) {
-            setText(data.grand_text)
-            setEditorState(data.grand_json)
+        if (data?.desc) {
+            setText(data?.grand_text)
+            setEditorState(data?.grand_json)
         }
     },[data])
 

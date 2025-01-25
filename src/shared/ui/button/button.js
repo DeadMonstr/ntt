@@ -4,7 +4,7 @@ import classNames from "classnames";
 import cls from "./button.module.sass"
 
 
-export const Button = React.memo(({id,children, onClick, type, disabled, status, extraClass, editPlus}) => {
+export const Button = React.memo(({id, children, onClick, type, disabled, status, extraClass, editPlus}) => {
     return (
         <button
 
@@ -22,7 +22,8 @@ export const Button = React.memo(({id,children, onClick, type, disabled, status,
                 [cls.login]: type === "login",
                 [cls.filter]: type === "filter",
             })}
-            type={type === "submit" ? "submit" : "button"}
+            // type={type === "submit" ? "submit" : "button"}
+            type={type ?? "submit"}
             disabled={type === "disabled" ? disabled : disabled}
         >
 

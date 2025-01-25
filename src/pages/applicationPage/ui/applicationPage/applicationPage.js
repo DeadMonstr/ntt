@@ -30,6 +30,7 @@ export const ApplicationPage = () => {
     const shift = useSelector(applicationShiftSelectors)
     const language = useSelector(applicationLanguageSelectors)
 
+
     useEffect(() => {
         const data = {
             type_id: type,

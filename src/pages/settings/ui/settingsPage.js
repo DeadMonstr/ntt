@@ -28,7 +28,7 @@ export const SettingsPage = () => {
     const settingsDirection = useSelector(getSettingsDirection)
     const settingsDegree = useSelector(getSettingsDegree)
     const settingsHeader = useSelector(getSettingsHeader)
-    const [active, setActive] = useState(null)
+    const [active, setActive] = useState(settingsHeader[0]?.id)
     const [activeFilter, setActiveFilter] = useState(filter[0]?.id)
 
     const dispatch = useDispatch()
