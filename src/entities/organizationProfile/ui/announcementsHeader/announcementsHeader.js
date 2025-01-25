@@ -38,7 +38,7 @@ export const AnnouncementsHeader = memo(({userRole,setIsChange}) => {
 
     useEffect(() => {
         if (org?.id)
-        dispatch(fetchOrganizationProfileDegrees(org.organization_type))
+        dispatch(fetchOrganizationProfileDegrees(org.organization_type.id))
     },[org])
 
     useEffect(() => {

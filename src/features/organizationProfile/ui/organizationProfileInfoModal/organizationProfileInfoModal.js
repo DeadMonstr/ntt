@@ -82,7 +82,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
         formData.append("name", data?.name)
         formData.append("desc", data?.desc)
         // formData.append("phone", data?.phone)
-        formData.append("locations", data?.locations)
+        formData.append("locations", JSON.stringify(data?.locations))
         if (newImageFile) formData.append("img", newImageFile)
         request(`${API_URL}organizations/organization/crud/update/${id}/`, "PATCH", formData, {})
             .then(res => {
@@ -240,11 +240,11 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     const onChangeUserName = (e) => {
 
         if (e.length >= 0) {
-            request(`${API_URL}users/user/get/check-username/?username=${e}`  , "GET" , null , headers())
+            request(`${API_URL}users/user/get/check-username/?username=${e}`, "GET", null, headers())
                 .then(res => {
                     setCheckUserName(res.available)
                 })
-        }else {
+        } else {
             setCheckUserName(null)
         }
     }

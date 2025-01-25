@@ -17,6 +17,7 @@ export const OrganizationProfileInfo = memo(({userRole, setActive, isAdd, isDel}
     const userProfile = useSelector(getOrganizationProfileUserData)
     const userProfileImage = useSelector(getOrganizationProfileUserImageData)
 
+    console.log(data?.locations)
     return (
         <div className={cls.info}>
             {userRole && userProfile?.id && (
@@ -101,16 +102,11 @@ export const OrganizationProfileInfo = memo(({userRole, setActive, isAdd, isDel}
                     {/*    placeholder={"Location"}*/}
                     {/*    disabled*/}
                     {/*/>*/}
-                    <iframe
-                        src={data?.locations}
-                        width="285"
-                        height="200"
-                        style={{border: "none"}}
-                        // style="border:0;"
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                    />
+
+                    <div className={cls.info__locations} dangerouslySetInnerHTML={{__html: data?.locations}}>
+
+                    </div>
+
                 </div>
             </div>
         </div>

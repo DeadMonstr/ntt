@@ -42,7 +42,7 @@ export const applicationSlice = createSlice({
             state.shift = action.payload
         },
         setLanguage: (state,action) => {
-            state.language = action.language
+            state.language = action.payload
         },
     },
     extraReducers: builder => {

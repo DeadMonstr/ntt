@@ -36,7 +36,7 @@ export const ApplicationList = memo(({list = []}) => {
                     <th>Daraja</th>
                     {!isMobile ? <>
                         <th>Ta’lim yo’nalishlari</th>
-                        <th>Ta’lim shakli</th>
+                        <th>Ta’lim turi</th>
                         <th>Ta’lim tili</th>
                         <th>Topshirilgan sana</th>
                     </> : null}

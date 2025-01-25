@@ -81,8 +81,7 @@ export const OrganizationAccouncementsForm = ({setIsChange, changedItem}) => {
 
 
     useEffect(() => {
-        if (orgData.organization_type) {
-
+        if (orgData.organization_type.id) {
             dispatch(fetchOrganizationProfileDegrees(orgData.organization_type.id))
             dispatch(fetchOrganizationProfileFields(orgData.organization_type.id))
             dispatch(fetchOrganizationProfileShifts(orgData.organization_type.id))
