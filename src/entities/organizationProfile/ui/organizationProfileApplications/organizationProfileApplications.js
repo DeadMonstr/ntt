@@ -86,7 +86,7 @@ export const OrganizationProfileApplications = memo(() => {
                         <th>Telefon raqam</th>
                         <th>Daraja</th>
                         <th>Ta’lim yo’nalishlari</th>
-                        <th>Ta’lim shakli</th>
+                        <th>Ta’lim turi</th>
                         <th>Ta’lim tili</th>
                         <th>Topshirilgan sana</th>
                     </tr>
