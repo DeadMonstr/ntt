@@ -60,6 +60,7 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
     const [activeAddModal, setActiveAddModal] = useState(false)
     const [isDelete, setIsDelete] = useState(false)
     const [selectedRegion, setSelectedRegion] = useState(null)
+    const [selectedType, setSelectedType] = useState(null)
     const [newImageFile, setNewImageFile] = useState(null)
     const {getInputProps, getRootProps} = useDropzone({
         onDrop: (acceptedFiles) => {
@@ -82,6 +83,8 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
         // formData.append("phone", data?.phone)
         formData.append("locations", data?.locations)
         if (newImageFile) formData.append("img", newImageFile)
+        if (selectedRegion) formData.append("region", selectedRegion)
+        if (selectedType) formData.append("organization_type", selectedType)
         request(`${API_URL}organizations/organization/crud/update/${id}/`, "PATCH", formData, {})
             .then(res => {
                 dispatch(updateData(res))
@@ -274,14 +277,15 @@ export const OrganizationProfileInfoModal = memo(({userRole}) => {
                         placeholder={"Name"}
                     />
                     <Select
+                        defaultValue={data?.organization_type?.id}
+                        onChangeOption={setSelectedType}
                         options={typesData}
                         extraClass={cls.info__input}
                         titleOption={"Organazation type"}
                     />
                     <Select
-                        defaultValue={data?.region?.name}
+                        defaultValue={data?.region?.id}
                         onChangeOption={setSelectedRegion}
-                        keyValue={"name"}
                         options={regionsData}
                         extraClass={cls.info__input}
                         titleOption={"Region"}

@@ -22,21 +22,17 @@ import {getUserJob} from "../../../entities/userProfile";
 
 export const OrganizationProfilePage = () => {
 
-
     const {id} = useParams()
 
     const dispatch = useDispatch()
     const currentSeason = useSelector(getSeasonSwitcherData)
     const userRole = useSelector(getUserJob)
 
-
     const [activeLink, setActiveLink] = useState("")
 
     useEffect(() => {
         dispatch(fetchOrganizationProfileData(id))
     }, [])
-
-
 
     return (
         <div className={cls.organization}>
